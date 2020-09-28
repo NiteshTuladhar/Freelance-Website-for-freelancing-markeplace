@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Account
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login,logout
 # Create your views here.
 
 def register(request):
@@ -33,7 +33,8 @@ def userlogin(request):
 	if request.method == 'POST':
 		email = request.POST.get('email')
 		password = request.POST.get('password')
-		user = authenticate(request,email=email,password=password)
+		user = authenticate(request,account_name=email,password=password)
+		print(user)
 
 		if user is not None:
 			login(request, user)
