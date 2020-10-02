@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -12,7 +13,7 @@
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
-
+    <link rel="icon" href="{% static 'img/favicon_logo.jpg' %}">
     <!-- Css Styles -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" type="text/css">
@@ -30,6 +31,22 @@
     <div id="preloder">
         <div class="loader"></div>
     </div>
+    {% if user.is_verified %}
+        {% if messages %}
+            {% for m in messages %}
+                <div class="alert {% if m.tags == 'success' %} alert-primary {% else %} alert-danger {% endif %}" style="text-align: center;">
+                    {{m}}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+    {% else %}
+        {% if user.is_authenticated %}
+        <div class="alert alert-danger" style="text-align: center;">
+            <p>Your account is not activated. Please check your email.</p>
+        </div>
+        {% endif %}
+    {% endif %}
 
     <!-- Header Section Begin -->
     <header class="header-section">
@@ -46,7 +63,11 @@
                     </div>
                 </div>
                 <div class="ht-right">
-                    <a href="{% url 'signin' %}" class="login-panel"><i class="fa fa-user"></i>Login</a>
+                    {% if request.user.is_authenticated %}
+                        <a href="{% url 'logout' %}" class="login-panel"><i class="fa fa-user"></i>Logout</a>
+                    {% else %}
+                        <a href="{% url 'signin' %}" class="login-panel"><i class="fa fa-user"></i>Login</a>
+                    {% endif %}
                     <div class="lan-selector">
                         <select class="language_drop" name="countries" id="countries" style="width:300px;">
                             <option value='yt' data-image="img/flag-1.jpg" data-imagecss="flag yt"
@@ -148,7 +169,7 @@
                 <div class="nav-depart">
                     <div class="depart-btn">
                         <i class="ti-menu"></i>
-                        <span>All departments</span>
+                        <span>Our Categories</span>
                         <ul class="depart-hover">
                             <li class="active"><a href="#">Women’s Clothing</a></li>
                             <li><a href="#">Men’s Clothing</a></li>
@@ -164,22 +185,18 @@
                 <nav class="nav-menu mobile-menu">
                     <ul>
                         <li class="active"><a href="./index.html">Home</a></li>
-                        <li><a href="./shop.html">Shop</a></li>
-                        <li><a href="#">Collection</a>
+                        <li><a href="./shop.html">Explore</a></li>
+                        <li><a href="#">Freelance Pro</a>
                             <ul class="dropdown">
                                 <li><a href="#">Men's</a></li>
                                 <li><a href="#">Women's</a></li>
                                 <li><a href="#">Kid's</a></li>
                             </ul>
                         </li>
-                        <li><a href="./blog.html">Blog</a></li>
-                        <li><a href="./contact.html">Contact</a></li>
-                        <li><a href="#">Pages</a>
+                       
+                        <li><a href="./shop.html">Become a seller</a></li>
+                        <li><a href="#">Join Us</a>
                             <ul class="dropdown">
-                                <li><a href="./blog-details.html">Blog Details</a></li>
-                                <li><a href="./shopping-cart.html">Shopping Cart</a></li>
-                                <li><a href="./check-out.html">Checkout</a></li>
-                                <li><a href="./faq.html">Faq</a></li>
                                 <li><a href="./register.html">Register</a></li>
                                 <li><a href="./login.html">Login</a></li>
                             </ul>
@@ -208,45 +225,6 @@
 
 
 
-
-
-
-
-
-
-        <!-- Partner Logo Section Begin -->
-    <div class="partner-logo">
-        <div class="container">
-            <div class="logo-carousel owl-carousel">
-                <div class="logo-item">
-                    <div class="tablecell-inner">
-                        <img src="img/logo-carousel/logo-1.png" alt="">
-                    </div>
-                </div>
-                <div class="logo-item">
-                    <div class="tablecell-inner">
-                        <img src="img/logo-carousel/logo-2.png" alt="">
-                    </div>
-                </div>
-                <div class="logo-item">
-                    <div class="tablecell-inner">
-                        <img src="img/logo-carousel/logo-3.png" alt="">
-                    </div>
-                </div>
-                <div class="logo-item">
-                    <div class="tablecell-inner">
-                        <img src="img/logo-carousel/logo-4.png" alt="">
-                    </div>
-                </div>
-                <div class="logo-item">
-                    <div class="tablecell-inner">
-                        <img src="img/logo-carousel/logo-5.png" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Partner Logo Section End -->
 
     <!-- Footer Section Begin -->
     <footer class="footer-section">

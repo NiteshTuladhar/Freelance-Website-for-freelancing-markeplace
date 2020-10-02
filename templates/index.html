@@ -1,45 +1,82 @@
 {% extends 'master/base.html' %}
 {% load static %}
-    {% block title %}Freelance-Freelancing Marketplace{% endblock %}
+    {% block title %}Freelance. - Freelancing Marketplace{% endblock %}
 {% block body %}
     <!-- Hero Section Begin -->
     <section class="hero-section">
         <div class="hero-items owl-carousel">
-            <div class="single-hero-items set-bg" data-setbg="img/hero-1.jpg">
+            <div class="single-hero-items set-bg" data-setbg="{% static 'img/main-banner/main_banner1.jpg' %}">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-5">
-                            <span>Bag,kids</span>
-                            <h1>Black friday</h1>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore</p>
-                            <a href="#" class="primary-btn">Shop Now</a>
+                            <span>Designers,Marketing</span>
+                            <h2><b>Find your ideal freelance</b></h2>
+                            <h2><b>service for your growing business.</b></h2>
+                            <div class="shopnow pt-5">
+                            <a href="#" class="primary-btn">Join Us</a>
+                            </div>
                         </div>
                     </div>
                     <div class="off-card">
-                        <h2>Sale <span>50%</span></h2>
+                        <h2>Join<span>Now!!</span></h2>
                     </div>
                 </div>
             </div>
-            <div class="single-hero-items set-bg" data-setbg="img/hero-2.jpg">
+
+            <div class="single-hero-items set-bg" data-setbg="{% static 'img/main-banner/main_banner2.jpg' %}">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-5">
-                            <span>Bag,kids</span>
-                            <h1>Black friday</h1>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore</p>
-                            <a href="#" class="primary-btn">Shop Now</a>
+                            <span>Programming, Sales</span>
+                            <h2><b>Work from your home</b></h2>
+                            <h2><b>where you can feel more comfortable.</b></h2>
+                            <div class="shopnow pt-5">
+                            <a href="#" class="primary-btn">Join Us</a>
+                            </div>
                         </div>
                     </div>
                     <div class="off-card">
-                        <h2>Sale <span>50%</span></h2>
+                        <h2>Join <span>Now!!</span></h2>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <!-- Hero Section End -->
+
+     <!-- Partner Logo Section Begin -->
+    <div class="partner-logo" style="background-color: #fafafa;">
+        <div class="container">
+            <div class="logo-carousel owl-carousel">
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="{% static 'img/logo-carousel/logos-1.jpg' %}" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="{% static 'img/logo-carousel/logos-2.jpg' %}" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="{% static 'img/logo-carousel/logos-3.jpg' %}" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="{% static 'img/logo-carousel/logos-4.jpg' %}" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="{% static 'img/logo-carousel/logos-5.jpg' %}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Partner Logo Section End -->
 
     <!-- Banner Section Begin -->
     <div class="banner-section spad">

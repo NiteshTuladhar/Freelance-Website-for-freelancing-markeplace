@@ -1,5 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 
 
-def homepage(request):
+
+def nonlogin_homepage(request):
+
 	return render(request,'index.html')
+
+def login_homepage(request):
+	return render(request,'dashboard.html')

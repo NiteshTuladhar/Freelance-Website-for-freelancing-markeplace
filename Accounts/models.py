@@ -6,6 +6,13 @@ from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
 
+from django.db.models.signals import post_save
+from django.core.mail import EmailMessage
+from django.template.loader import get_template
+from django.utils import timezone
+
+
+
 class AccountManager(BaseUserManager):
     def create_user(self, email, account_name,password=None):
         if not email:
@@ -42,12 +49,14 @@ class Account(AbstractBaseUser):
     account_name = models.CharField(max_length=100,unique=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
-   
-
+    send_first_email = models.BooleanField(default=False)
+    token = models.CharField(blank=True,null=True, max_length=15)
+    is_verified = models.BooleanField(default=False)
+    joined_on = models.DateField(auto_now_add=True,null=True,blank=True)
 
     objects = AccountManager()
 
-    USERNAME_FIELD = 'account_name'
+    USERNAME_FIELD = 'account_name' #This field must be used while doing login through authenticatie() function.
     REQUIRED_FIELDS = ['email']
 
     def __str__(self):
@@ -68,4 +77,40 @@ class Account(AbstractBaseUser):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
         return self.is_admin
-   
+
+
+def sendAccountCreationMail(sender, **kwargs):
+    current_user = kwargs['instance']
+    current_user_mail = current_user.email
+    token = current_user.token
+    s = "Account Creation"
+    context = {
+        'id' : current_user.id,
+        'name' : current_user.account_name,
+        'subject' : s,
+        'message' : "Your Account Has Been Created Successfully.",
+        'token' : token
+    }
+    temp = get_template('welcomemail.html').render(context)
+    email = EmailMessage(
+
+        subject=s, 
+        body=temp, 
+        to= [current_user_mail]
+
+        )
+
+    email.content_subtype = 'html'
+
+    try:
+        if current_user.send_first_email==False:
+            email.send()
+            current_user.send_first_email=True
+            current_user.save()
+        else:
+            pass  
+
+    except:
+        pass
+
+post_save.connect(sendAccountCreationMail,sender=Account)

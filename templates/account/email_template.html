@@ -1,0 +1,34 @@
+{% load i18n %}{% autoescape off %}
+{% blocktranslate %}You're receiving this email because you requested a password reset for your user account at {{ site_name }}.{% endblocktranslate %}
+
+{% translate "Please go to the following page and choose a new password:" %}
+{% block reset_link %}
+{{ protocol }}://{{ domain }}{% url 'password_reset_confirm' uidb64=uid token=token %}
+{% endblock %}
+{% translate 'Your username, in case you’ve forgotten:' %} {{ user.get_username }}
+
+{% translate "Thanks for using our site!" %}
+
+{% blocktranslate %}The {{ site_name }} team{% endblocktranslate %}
+
+{% endautoescape %}
+
+
+
+{% load i18n %}{% autoescape off %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+	<div class="row">
+		<div class="col">
+</body>
+</html>
+{% endautoescape %}
