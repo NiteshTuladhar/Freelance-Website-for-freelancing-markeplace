@@ -1,5 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .forms import ProfileForm
+from django.contrib import messages
+from Accounts.models import Account
+from .models import MyProfile
 # Create your views here.
 
 def userprofile(request):
@@ -10,17 +13,22 @@ def userprofile(request):
         form = ProfileForm(request.POST)
         if form.is_valid():
             data = form.save(commit=False)
+
             data.user = request.user
             try:
-                print('a')
                 data.save()
+                userinfo = MyProfile.objects.get(user_id=request.user.id)
                 messages.success(request,'Your Profile is Set')
-                return redirect('dashboard')
+                return render(request,'userprofile/complete_userprofile.html',context={'userinfo':userinfo})
             except:
-                print('b')
-                return render(request,'userprofile.html',context={'form':form})
+                pass
         else:
         	return render(request,'userprofile.html',context = {'form':form})
 
     return render(request,'userprofile.html',context={'form':form})
 
+
+def completeuserprofile(request):
+
+    userinfo = MyProfile.objects.get(user_id=request.user.id)
+    return render(request,'userprofile/complete_userprofile.html',context={'userinfo':userinfo})

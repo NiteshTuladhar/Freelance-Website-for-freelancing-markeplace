@@ -15,7 +15,7 @@ class Language(models.Model):
 class MyProfile(models.Model):
 
     user = models.OneToOneField(Account,on_delete=models.CASCADE,default=1)
-    full_name = models.CharField(max_length=10, null=True)
+    full_name = models.CharField(max_length=50, null=True)
     country = CountryField(null=True,blank=True)
     profile_image = models.ImageField(upload_to='user_img/',blank=True,null=True)
     gender = models.CharField(max_length=30,choices=gender_list)
@@ -25,10 +25,12 @@ class MyProfile(models.Model):
     google = models.URLField(blank=True, null=True)
     facebook = models.URLField(blank=True,null=True)
     github = models.URLField(blank=True,null=True)
-
+    profile_set = models.BooleanField(default=False,null=True,blank=True)
 
 
 
 
     def __str__(self):
         return self.full_name
+
+

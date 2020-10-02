@@ -2,9 +2,11 @@ from django.shortcuts import render,redirect
 
 
 
-def nonlogin_homepage(request):
-
-	return render(request,'index.html')
 
 def login_homepage(request):
-	return render(request,'dashboard.html')
+
+	if request.user.is_authenticated:
+		return render(request,'dashboard.html')
+		print(user.is_authenticated)
+	else:
+		return render(request,'index.html')

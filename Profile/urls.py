@@ -7,5 +7,6 @@ from . import views
 urlpatterns = [
 
 path('profile/',views.userprofile,name='userprofile'),
+path('userprofile/',views.completeuserprofile,name='compuserprofile'),
 
 ]

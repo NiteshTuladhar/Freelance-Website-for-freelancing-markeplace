@@ -31,6 +31,7 @@
     <div id="preloder">
         <div class="loader"></div>
     </div>
+        {% if user.is_verified %}
         {% if messages %}
             {% for m in messages %}
                 <div class="alert {% if m.tags == 'success' %} alert-primary {% else %} alert-danger {% endif %}" style="text-align: center;">
@@ -38,6 +39,14 @@
                 </div>
             {% endfor %}
         {% endif %}
+
+    {% else %}
+        {% if user.is_authenticated %}
+        <div class="alert alert-danger" style="text-align: center;">
+            <p>Your account is not activated. Please check your email.</p>
+        </div>
+        {% endif %}
+    {% endif %}
 
     <!-- Header Section Begin -->
     <header class="header-section">
@@ -203,7 +212,11 @@
                         </li>
                         <li><a href="#">{{user.account_name}}</a>
                             <ul class="dropdown">
-                                <li><a href="{% url 'userprofile' %}">Profile</a></li>
+                         
+                                <li><a href="{% url 'compuserprofile' %}">Profile</a></li>
+                              
+ 
+                   
                                 <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
                                 <li><a href="./check-out.html">Checkout</a></li>
                                 <li><a href="./faq.html">Faq</a></li>

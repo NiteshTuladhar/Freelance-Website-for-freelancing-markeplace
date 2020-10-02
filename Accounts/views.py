@@ -80,9 +80,7 @@ def userlogin(request):
 				return redirect('dashboard')
 			else:
 				return redirect('dashboard')
-				
-
-
+			
 		else:
 			messages.info(request,"Email or Password does not match")
 			return redirect('signin')

@@ -11,10 +11,10 @@ class ProfileForm(forms.ModelForm):
     gender = forms.ChoiceField(widget=forms.Select(attrs={'class':'form-control'}),choices=gender_list)
     contact_no = forms.CharField(label="Contact No.",disabled = False ,widget = forms.TextInput(attrs={'class':'form-control',}))
     skills = forms.CharField(label="Skills",disabled = False ,widget = forms.TextInput(attrs={'class':'form-control'}))
-    languages = LanguageField()
+    languages = LanguageField().formfield(widget=CountrySelectWidget(attrs={"class": "form-control"}))
     facebook = forms.URLField(label="Facebook",disabled = False ,widget = forms.URLInput(attrs={'class':'form-control'}))
     github = forms.URLField(label="Github",disabled = False ,widget = forms.URLInput(attrs={'class':'form-control'}))
 
     class Meta:
     	model = MyProfile
-    	exclude = ['google','profile_image','user']
+    	exclude = ['google','profile_image','user','profile_set']
