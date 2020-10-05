@@ -46,61 +46,64 @@
             </div> 
 
 
-            <div id="card2" style=" width:100%; height:950px; border:1px solid #C1C7C9;padding-left:150px;text-align: justify; background-color: #FFF;margin: 30px 30px auto; 
+            <div id="card2" style=" width:100%; height:550px; border:1px solid #C1C7C9;padding-left:150px;text-align: justify; background-color: #FFF;margin: 30px 30px auto; 
     /* top, left, bottom*/ padding: 10px 20px 30px; float: left; "> 
-    			<div class="row pl-4 pt-3">
-                	<h5><b>Description</b></h5>
-                	<a href="{% url 'editprofile' %}" style="padding-left: 150px">Edit Description</a>
-            	</div>
-              <div class="row pl-4 pt-3 pr-5" >
-                  <p style="font-size: 12px;font-family:Helvetica;">{{userinfo.description}}</p>
-              </div>
+                <div class="row pl-4 pt-3">
+                    <h5><b>Description</b></h5>
+                    <a href="#" style="padding-left: 150px">Edit Description</a>
+                </div>
             <hr/>
-            	<div class="row pl-4 pt-3">
-                	<h5><b>Languages</b></h5>
-                	<a href="{% url 'editprofile' %}" style="padding-left: 155px">Add Language</a>
+                <div class="row pl-4 pt-3">
+                    <h5><b>Languages</b></h5>
+                    <a href="#" style="padding-left: 155px">Add Language</a>
               </div>
               <div class="row pl-4 pt-3">
                   <p>{{userinfo.languages}}</p>
-            	</div>
-            	
+                </div>
+                
             <hr/>
-            	<div class="row pl-4 pt-3">
-                	<h5><b>Skills</b></h5>
-                	<a href="{% url 'editprofile' %}" style="padding-left: 240px">Add Skills</a>
+                <div class="row pl-4 pt-3">
+                    <h5><b>Skills</b></h5>
+                    <a href="#" style="padding-left: 240px">Add Skills</a>
               </div>
-              <div class="row pl-4 pt-3 pr-5">
+              <div class="row pl-4 pt-3">
                   <p>{{userinfo.skills}}</p>
-            	</div>
-            	
+                </div>
+                
             <hr/>
-            	<div class="row pl-4 pt-3">
-                	<h5><b>Linked Accounts</b></h5>
+                <div class="row pl-4 pt-3">
+                    <h5><b>Linked Accounts</b></h5>
               </div>
            
-              <a href="{{userinfo.google}}"><i class="fa fa-google pl-2 pt-3 pr-3"></i>Google</a><br>
-              <a href=""><i class="fa fa-facebook pl-2 pt-3 pr-3"></i>Facebook</a><br>
-              <a href=""><i class="fa fa-github pl-2 pt-3 pr-3"></i>Github</a><br>
+              <a href=""><i class="fa fa-plus pl-2 pt-2">Google</i></a><br>
+              <a href=""><i class="fa fa-plus pl-2 pt-2">Facebook</i></a><br>
+              <a href=""><i class="fa fa-plus pl-2 pt-2">Github</i></a><br>
       
-            	
+                
             </div> 
         </div>
-        <div class="col-lg-8 pr-5" style="">
-            <div id="test1" style="width:100%; height:400px;text-align: justify;background-image:url('{% static 'img/2wowempty.jpg' %}');border:3px dashed #C1C7C9; background-color: #fff;  margin: 30px    200px 20px 20px; 
+       <div class="col-lg-8 pr-5">
+            <div id="test1" style="width:100%; height:130px;text-align: justify; background-color: #eeeeee;border:1px solid #C1C7C9;  margin: 30px    200px 0px 20px; 
+                    /* top, left, bottom*/ 
+                    padding: 10px 20px 30px; 
+                    float: left; ">
+                        <h4 style="margin: 17px 200px 0px 50px; "><b>Edit Profile </b>(private)</h4>
+                        <p style="font-size: 13px;margin: 5px 200px 20px 50px;line-height: 19px;">Please provide us with genuine information about yourself
+                        <br>Don’t worry, this information will remain private, and will not be displayed on the platform.</p>
+                    </div>
+            <div id="test1" style="width:100%; height:1050px;text-align: justify; background-color: #fff;  margin: 0px 200px 20px 20px; 
                     /* top, left, bottom*/ 
                     padding: 10px 20px 30px; 
                     float: left; "> 
-                    <div class="container pl-5 pr-5">
-                       <p style="text-align: center;font-family: 'Helvetica';padding-top: 28%;"><b>It seems like you don't have any current gigs.</b></p>
-                       <button class="btn btn-primary" 
-                                  style="background-color: #e7ab3c;margin: 15px auto auto 265px; ; /* Green */
-                                        border: none;
-                                        color: white;
-                                        padding: 15px 32px;
-                                        text-align: center;
-                                        text-decoration: none;
-                                        display: inline-block;
-                                        font-size: 16px;"><b>Create your gig</b></button>
+                    <div class="container pl-5 pr-5" style="margin-top: 25px;">
+                        <form enctype="multipart/form-data" method="POST">
+                            {% csrf_token %}
+                            {{form}}
+                            <br>
+                            <button type="submit" class="btn btn-primary" style="background-color: #e7ab3c;">Edit Profile
+                                
+                            </button>
+                        </form>
                     </div>
             </div> 
         </div>

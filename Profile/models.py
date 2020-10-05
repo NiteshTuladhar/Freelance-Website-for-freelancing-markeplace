@@ -16,8 +16,9 @@ class MyProfile(models.Model):
 
     user = models.OneToOneField(Account,on_delete=models.CASCADE,default=1)
     full_name = models.CharField(max_length=50, null=True)
+    description = models.CharField(max_length=300, null=True,blank=True, help_text="This is the grey text")
     country = CountryField(null=True,blank=True)
-    profile_image = models.ImageField(upload_to='user_img/',blank=True,null=True)
+    profile_image = models.ImageField(default="img/default_profile_img.jpg",upload_to='user_profile_img',blank=True,null=True)
     gender = models.CharField(max_length=30,choices=gender_list)
     contact_no = models.CharField(max_length=15)
     skills = models.CharField(max_length=100,null=True,blank=True)

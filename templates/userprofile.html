@@ -10,7 +10,11 @@
     /* top, left, bottom*/ padding: 10px 20px 30px; float: left; "> 
                 <header>
                     <div class="imgcir pl-5 pt-3" style="margin-left: 80px;">
-                        <img class="rounded-circle" src="{% static 'img/banner-1.jpg' %}" style="height: 130px;width: 130px;background-color: #bbb;margin:auto;border-radius: 50%;display: inline-block;">
+                        {% if userinfo.profile_image %}
+                        <a href="{% url 'changeprofilepic' %}"><img class="rounded-circle" src="{{ userinfo.profile_image.url }}" style="height: 130px;width: 130px;background-color: #bbb;margin:auto;border-radius: 50%;display: inline-block;"></a>
+                      {% else %}
+                        <a href="{% url 'changeprofilepic' %}"><img class="rounded-circle" src="{% static 'img/default_profile_img.jpg' %}" style="height: 130px;width: 130px;background-color: #bbb;margin:auto;border-radius: 50%;display: inline-block;"></a>
+                      {% endif %}
                     </div>
                     <h5 style="text-align: center;padding-top:25px;"><b>{{ request.user.account_name }}</b></h5> 
                      
@@ -40,11 +44,11 @@
                     /* top, left, bottom*/ 
                     padding: 10px 20px 30px; 
                     float: left; ">
-                        <h4 style="margin: 17px 200px 0px 50px; "><b>Profile Information </b>(public)</h4>
+                        <h4 style="margin: 17px 200px 0px 50px; "><b>Profile Information </b>(private)</h4>
                         <p style="font-size: 13px;margin: 5px 200px 20px 50px;line-height: 19px;">Tell us a bit about your so that your gig can be more effective.
                         <br>Don’t worry, this information will remain private, and will not be displayed on the platform.</p>
                     </div>
-            <div id="test1" style="width:100%; height:750px;text-align: justify; background-color: #fff;  margin: 0px 200px 20px 20px; 
+            <div id="test1" style="width:100%; height:1050px;text-align: justify; background-color: #fff;  margin: 0px 200px 20px 20px; 
                     /* top, left, bottom*/ 
                     padding: 10px 20px 30px; 
                     float: left; "> 

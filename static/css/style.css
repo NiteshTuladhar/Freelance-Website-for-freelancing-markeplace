@@ -698,6 +698,7 @@ ol {
 
 .nav-item .nav-depart .depart-btn .depart-hover {
 	position: absolute;
+	margin-right: 150px;
 	width: 100%;
 	background: #fff;
 	left: 0;
@@ -4340,5 +4341,14 @@ ol {
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
+}
+
+
+
+
+
+
+.row .card1 .profile-pic:hover .edit {
+	display: block;
 }
 
