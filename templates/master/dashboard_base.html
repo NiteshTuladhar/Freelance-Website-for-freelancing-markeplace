@@ -54,7 +54,7 @@
             <div class="container">
                 <div class="ht-left">
                     <div class="logo "> 
-                            <a href="./index.html">
+                            <a href="{% url 'userhome' %}">
                                 <img src="{% static 'img/logo.jpg' %}" alt="" style="width: 150px;height: auto;padding-top: 10px;">
                             </a>
                         </div>
@@ -180,8 +180,12 @@
                         <span style="padding-right: 80px;text-align: center;">{{user.account_name}}</span>
                        
                         <ul class="depart-hover pr-5">
-                            <li class="active"><a href="{% url 'compuserprofile' %}">Profile</a></li>
-                            <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                            {% if user.is_profile_set %}
+                            <li class="active"><a href="{% url 'mygig' %}">Profile</a></li>
+                            {% else %}
+                            <li class="active"><a href="{% url 'userprofile' %}">Profile</a></li>
+                            {% endif %}
+                            <li><a href="">Dashboard</a></li>
                             <li><a href="#">Analytics</a></li>
                             <li><a href="#">Earnings</a></li>
                             <li><a href="#">Followed</a></li>

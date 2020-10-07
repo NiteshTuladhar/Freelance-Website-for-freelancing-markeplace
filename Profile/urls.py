@@ -10,6 +10,7 @@ path('profile/',views.userprofile,name='userprofile'),
 path('userprofile/',views.completeuserprofile,name='compuserprofile'),
 path('changeprofilepic/',views.changeprofilepic,name='changeprofilepic'),
 path('edit-profile/',views.editProfile,name='editprofile'),
+path('mygig/',views.myGig,name='mygig'),
 
 ]
 

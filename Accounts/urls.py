@@ -24,7 +24,7 @@ urlpatterns = [
     path('account-verify/<int:id>/<str:token>/',views.verifyaccount,name='verify_token'),
 	path('login/', views.userlogin, name='signin'),
 	path('logout/',views.userlogout, name='logout'),
-	path('dashboard/',views.userDashboard, name='dashboard'),
+	path('home/',views.userHome, name='userhome'),
     path('reset-password/',auth_views.PasswordResetView.as_view(
         template_name='account/password_reset_form.html',
         #email_template_name='account/email_template.html'

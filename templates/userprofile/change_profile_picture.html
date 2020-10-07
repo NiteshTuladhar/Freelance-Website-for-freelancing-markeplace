@@ -5,22 +5,22 @@
 
 {% block body %}
 <div class="row pb-5" style="background-color: #F2F3F4;">
-        <div class="col-lg-4">
-            <div id="card1" style=" width:100%; height:400px; border:1px solid #C1C7C9;padding-left:150px;text-align: justify; background-color: #FFF;margin: 30px 30px auto; 
+          <div class="col-lg-4">
+      <div id="card1" style=" width:100%; height:400px; border:1px solid #C1C7C9;padding-left:150px;text-align: justify; background-color: #FFF;margin: 30px 30px auto; 
     /* top, left, bottom*/ padding: 10px 20px 30px; float: left; "> 
-                <header>
-                    <div class="imgcir pl-5 pt-3" style="margin-left: 80px;">
+        <header>
+            <div class="imgcir pl-5 pt-3" style="margin-left: 80px;">
 
-                      {% if userinfo.profile_image %}
-                        <img class="rounded-circle" src="{{ userinfo.profile_image.url }}" style="height: 130px;width: 130px;background-color: #bbb;margin:auto;border-radius: 50%;display: inline-block;">
-                      {% else %}
-                        <img class="rounded-circle" src="{% static 'img/default_profile_img.jpg' %}" style="height: 130px;width: 130px;background-color: #bbb;margin:auto;border-radius: 50%;display: inline-block;">
-                      {% endif %}                    
-                    </div>
-                    <div class="info">
-                        <h5 style="text-align: center;padding-top:25px;"><b>{{ request.user.account_name }}</b><a href="#" style="text-decoration: none;"><i class="fa fa-pencil-square-o fa-xs pl-3"></a></i></h5>
-                    </div>
-                </header>
+              {% if userinfo.profile_image %}
+                <a href="{% url 'changeprofilepic' %}"><img class="rounded-circle" src="{{ userinfo.profile_image.url }}" style="height: 130px;width: 130px;background-color: #bbb;margin:auto;border-radius: 50%;display: inline-block;"></a>
+              {% else %}
+                <a href="{% url 'changeprofilepic' %}"><img class="rounded-circle" src="{% static 'img/default_profile_img.jpg' %}" style="height: 130px;width: 130px;background-color: #bbb;margin:auto;border-radius: 50%;display: inline-block;"></a>
+              {% endif %}                    
+            </div>
+            <div class="info">
+                <h5 style="text-align: center;padding-top:25px;"><b>{{ request.user.account_name }}</b><a href="{% url 'editprofile' %}" style="text-decoration: none;"><i class="fa fa-pencil-square-o fa-xs pl-3"></a></i></h5>
+            </div>
+        </header>
                 <div class="button" style="margin-left: 100px;margin-top: 20px;">
                     <button style="color: #3399FF;
                           font-family: 'Helvetica';
@@ -39,47 +39,50 @@
                 </div> 
                 <hr style="width: 90%;">
       
-               <p style="font-family:serif;"><i class="fa fa-map-marker pl-3">&nbsp&nbsp&nbsp&nbsp<b style="font-family: 'Helvetica';font-size:14px; ">From:</b><b style="font-family: 'Helvetica';padding-left:200px;font-size: 14px;">{{userinfo.country.name}}</b></i></p>
+               <p style="font-family:serif;"><i class="fa fa-map-marker pl-3">&nbsp&nbsp&nbsp&nbsp<b style="font-family: 'Helvetica';font-size:14px; ">From:</b><b class="country pr-3" style="font-family: 'Helvetica';padding-left:175px;font-size: 14px;">{{userinfo.country.name}}</b></i></p>
                <!--Here we use .name as userinfo.country gave the initials of the country so .name -->
 
                <p style="font-family:serif;"><i class="fa fa-user pl-3">&nbsp&nbsp&nbsp&nbsp<b style="font-family: 'Helvetica';font-size: 14px;">Member Since:</b><b style="font-family: 'Helvetica';padding-left:140px;font-size: 14px;">{{user.joined_on}}</b></i></p>
             </div> 
 
 
-            <div id="card2" style=" width:100%; height:550px; border:1px solid #C1C7C9;padding-left:150px;text-align: justify; background-color: #FFF;margin: 30px 30px auto; 
+            <div id="card2" style=" width:100%; height:950px; border:1px solid #C1C7C9;padding-left:150px;text-align: justify; background-color: #FFF;margin: 30px 30px auto; 
     /* top, left, bottom*/ padding: 10px 20px 30px; float: left; "> 
-    			<div class="row pl-4 pt-3">
-                	<h5><b>Description</b></h5>
-                	<a href="#" style="padding-left: 150px">Edit Description</a>
-            	</div>
+          <div class="row pl-4 pt-3">
+                  <h5><b>Description</b></h5>
+                  <a href="{% url 'editprofile' %}" style="padding-left: 150px">Edit Description</a>
+              </div>
+              <div class="row pl-4 pt-3 pr-5" >
+                  <p style="font-size: 12px;font-family:Helvetica;">{{userinfo.description}}</p>
+              </div>
             <hr/>
-            	<div class="row pl-4 pt-3">
-                	<h5><b>Languages</b></h5>
-                	<a href="#" style="padding-left: 155px">Add Language</a>
+              <div class="row pl-4 pt-3">
+                  <h5><b>Languages</b></h5>
+                  <a href="{% url 'editprofile' %}" style="padding-left: 155px">Add Language</a>
               </div>
               <div class="row pl-4 pt-3">
                   <p>{{userinfo.languages}}</p>
-            	</div>
-            	
-            <hr/>
-            	<div class="row pl-4 pt-3">
-                	<h5><b>Skills</b></h5>
-                	<a href="#" style="padding-left: 240px">Add Skills</a>
               </div>
-              <div class="row pl-4 pt-3">
-                  <p>{{userinfo.skills}}</p>
-            	</div>
-            	
+              
             <hr/>
-            	<div class="row pl-4 pt-3">
-                	<h5><b>Linked Accounts</b></h5>
+              <div class="row pl-4 pt-3">
+                  <h5><b>Skills</b></h5>
+                  <a href="{% url 'editprofile' %}" style="padding-left: 240px">Add Skills</a>
+              </div>
+              <div class="row pl-4 pt-3 pr-5">
+                  <p>{{userinfo.skills}}</p>
+              </div>
+              
+            <hr/>
+              <div class="row pl-4 pt-3">
+                  <h5><b>Linked Accounts</b></h5>
               </div>
            
-              <a href=""><i class="fa fa-plus pl-2 pt-2">Google</i></a><br>
-              <a href=""><i class="fa fa-plus pl-2 pt-2">Facebook</i></a><br>
-              <a href=""><i class="fa fa-plus pl-2 pt-2">Github</i></a><br>
+              <a href="{{userinfo.google}}"><i class="fa fa-google pl-2 pt-3 pr-3"></i>Google</a><br>
+              <a href=""><i class="fa fa-facebook pl-2 pt-3 pr-3"></i>Facebook</a><br>
+              <a href=""><i class="fa fa-github pl-2 pt-3 pr-3"></i>Github</a><br>
       
-            	
+              
             </div> 
         </div>
         <div class="col-lg-8 pr-5" style="">

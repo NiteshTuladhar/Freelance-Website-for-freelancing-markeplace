@@ -26,7 +26,7 @@ class MyProfile(models.Model):
     google = models.URLField(blank=True, null=True)
     facebook = models.URLField(blank=True,null=True)
     github = models.URLField(blank=True,null=True)
-    profile_set = models.BooleanField(default=False,null=True,blank=True)
+    
 
 
 

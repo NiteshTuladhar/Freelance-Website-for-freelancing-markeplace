@@ -20,7 +20,7 @@ def register(request):
 			try:
 				account.token = generatetoken()
 				account.save()
-				messages.success(request,message="Your Account Has Been Created Successfully.")
+				messages.success(request,message="Your Account Has Been Created Successfully. Please Check Your Mail To Verify Your Account.")
 				return redirect('signin')
 			except:
 				messages.error(request,message="Sorry!!This Email Is Already In Use.")		
@@ -51,15 +51,15 @@ def verifyaccount(request,id,token):
 			messages.success(request,mark_safe("Your account is activated. Hey!! It's a great time to <a href="" >create your profile.</a>"))#mark_safe is used to allow link in a messages
 
 		else:
-			messages.error(request,message="Error occured ")
+			messages.error( request,message="Error occured ")
 
-		return render(request,'dashboard.html')
+		return render(request,'userhome.html')
 
 	else:
 		messages.success(request,mark_safe("Your account is already activated. Hey!! It's a great time to <a href="">create your profile.</a>"))
-		return render(request,'dashboard.html')
+		return render(request,'userhome.html')
 
-	return render(request,'dashboard.html')
+	return render(request,'userhome.html')
 
 
 
@@ -77,9 +77,9 @@ def userlogin(request):
 			acc = Account.objects.get(id=request.user.id)
 
 			if acc.is_verified:
-				return redirect('dashboard')
+				return redirect('userhome')
 			else:
-				return redirect('dashboard')
+				return redirect('userhome')
 			
 		else:
 			messages.info(request,"Email or Password does not match")
@@ -94,9 +94,9 @@ def userlogout(request):
 	return redirect('homepage')
 
 @login_required
-def userDashboard(request):
+def userHome(request):
 
-	return render(request,'dashboard.html')
+	return render(request,'userhome.html')
 
 
 

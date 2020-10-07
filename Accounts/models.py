@@ -53,6 +53,7 @@ class Account(AbstractBaseUser):
     token = models.CharField(blank=True,null=True, max_length=15)
     is_verified = models.BooleanField(default=False)
     joined_on = models.DateField(auto_now_add=True,null=True,blank=True)
+    is_profile_set = models.BooleanField(default=False)
 
     objects = AccountManager()
 
@@ -83,7 +84,7 @@ def sendAccountCreationMail(sender, **kwargs):
     current_user = kwargs['instance']
     current_user_mail = current_user.email
     token = current_user.token
-    s = "Account Creation"
+    s = "Account Creawtion"
     context = {
         'id' : current_user.id,
         'name' : current_user.account_name,

@@ -1034,7 +1034,7 @@ ol {
 .women-banner {
 	padding-right: 65px;
 	padding-left: 65px;
-	padding-top: 0;
+	padding-top: 10%;
 	padding-bottom: 80px;
 }
 
@@ -1171,7 +1171,7 @@ ol {
 }
 
 .product-item .pi-pic img {
-	min-width: 100%;
+	min-width: 50%;
 }
 
 .product-item .pi-pic .sale {
@@ -4348,7 +4348,37 @@ ol {
 
 
 
-.row .card1 .profile-pic:hover .edit {
-	display: block;
+
+
+.row #card3{
+	background-color: #fff;
+	width:100%; 
+	height:62px;
+	border:1px solid #C1C7C9;
+	padding-left:150px;
+	text-align: justify;
+	margin: 30px 30px auto; 
+    padding: 10px 20px 30px;
+    float: left;
 }
 
+.row #card3 a{
+	float: left;
+	font-weight: bold;
+	text-transform: uppercase;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 14px;
+  border-bottom: 3px solid transparent;
+}
+
+#card3 a:hover {
+  border-bottom: 3px solid #e7ab3c;
+}
+
+#card3 a.active {
+  border-bottom: 3px solid #e7ab3c;
+}
