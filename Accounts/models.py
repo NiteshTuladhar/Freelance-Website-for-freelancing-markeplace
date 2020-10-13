@@ -53,7 +53,10 @@ class Account(AbstractBaseUser):
     token = models.CharField(blank=True,null=True, max_length=15)
     is_verified = models.BooleanField(default=False)
     joined_on = models.DateField(auto_now_add=True,null=True,blank=True)
+    profile_create = models.BooleanField(default=False)
     is_profile_set = models.BooleanField(default=False)
+    first_gig = models.BooleanField(default=True)
+
 
     objects = AccountManager()
 

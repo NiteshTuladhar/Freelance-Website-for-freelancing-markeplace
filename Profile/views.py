@@ -4,6 +4,7 @@ from .forms import ProfileForm, ChangeProfilePicture
 from django.contrib import messages
 from Accounts.models import Account
 from .models import MyProfile
+from Gig.models import MyGig
 # Create your views here.
 
 
@@ -51,14 +52,20 @@ def completeuserprofile(request):
 def changeprofilepic(request):
     user_id = request.user.id
     userinfo = MyProfile.objects.get(user_id=user_id)
+    useracc = Account.objects.get(id=user_id)
     if request.method == 'POST':
         userinfo = MyProfile.objects.get(user_id=user_id)
         image = request.FILES.get('profile_image')
         print(userinfo.full_name)
         userinfo.profile_image = image
         userinfo.save()
-        messages.success(request,message='Your Profile Image Has Been Changed.')
-        return redirect('compuserprofile')
+        if useracc.first_gig :
+            messages.success(request,message='Your Profile Image Has Been Changed.')
+            return redirect('compuserprofile')
+        else:
+            messages.success(request,message='Your Profile Image Has Been Changed.')
+            return redirect('mygig')
+            
     return render(request,'userprofile/change_profile_picture.html',context={'userinfo':userinfo})
 
 
@@ -73,7 +80,7 @@ def editProfile(request):
     if form.is_valid():
         form.save();
         messages.success(request,"Your Profile Has Been Updated Successfully.")
-        return redirect('compuserprofile')
+        return redirect('mygig')
     context = {
         'form' : form,
         'userinfo': userinfo
@@ -82,4 +89,11 @@ def editProfile(request):
 
 
 def myGig(request):
-    return render(request,'userprofile/mygigpage.html')
+    userinfo = MyProfile.objects.get(user_id=request.user.id)
+    gigs = MyGig.objects.filter(user_id=request.user.id)
+
+    context = {
+        'userinfo' : userinfo,
+        'gigs' : gigs
+    }
+    return render(request,'userprofile/mygigpage.html',context)

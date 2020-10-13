@@ -24,6 +24,7 @@ urlpatterns = [
     path('',views.login_homepage,name='homepage'),
     path('account/',include('Accounts.urls')),
     path('profile/',include('Profile.urls')),
+    path('gig/',include('Gig.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

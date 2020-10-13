@@ -92,7 +92,8 @@
                     float: left; "> 
                     <div class="container pl-5 pr-5">
                        <p style="text-align: center;font-family: 'Helvetica';padding-top: 28%;"><b>It seems like you don't have any current gigs.</b></p>
-                       <button class="btn btn-primary" 
+                       <a href="{% url 'createusergig' %}">
+                        <button class="btn btn-primary" 
                                   style="background-color: #e7ab3c;margin: 15px auto auto 265px; ; /* Green */
                                         border: none;
                                         color: white;
@@ -101,6 +102,7 @@
                                         text-decoration: none;
                                         display: inline-block;
                                         font-size: 16px;"><b>Create your gig</b></button>
+                                      </a>
                     </div>
             </div> 
         </div>

@@ -11,6 +11,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}{% endblock %}</title>
 
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <link rel="stylesheet" href="{% static 'css/slider.css' %}" type="text/css">
+
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
     <link rel="icon" href="{% static 'img/favicon_logo.jpg' %}">
@@ -24,6 +30,8 @@
     <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/gig_details.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/aboutseller.css' %}">
 </head>
 
 <body>
@@ -181,11 +189,15 @@
                        
                         <ul class="depart-hover pr-5">
                             {% if user.is_profile_set %}
-                            <li class="active"><a href="{% url 'mygig' %}">Profile</a></li>
+                                {% if user.first_gig %}
+                            <li class="active"><a href="{% url 'compuserprofile' %}">Profile</a></li>
+                                {% else %}
+                                    <li class="active"><a href="{% url 'mygig' %}">Profile</a></li>
+                                {% endif %}
                             {% else %}
                             <li class="active"><a href="{% url 'userprofile' %}">Profile</a></li>
                             {% endif %}
-                            <li><a href="">Dashboard</a></li>
+                            <li><a href="{% url 'userhome' %}">Dashboard</a></li>
                             <li><a href="#">Analytics</a></li>
                             <li><a href="#">Earnings</a></li>
                             <li><a href="#">Followed</a></li>

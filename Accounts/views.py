@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
 from .token import generatetoken
 from django.utils.safestring import mark_safe
+from Profile.models import MyProfile
 
 
 # Create your views here.
@@ -48,6 +49,11 @@ def verifyaccount(request,id,token):
 			a.is_verified = True
 			a.save()
 			login(request, a)
+			if a.profile_create is False:
+					profile = MyProfile(user=request.user)
+					a.profile_create = True
+					profile.save()
+					a.save()
 			messages.success(request,mark_safe("Your account is activated. Hey!! It's a great time to <a href="" >create your profile.</a>"))#mark_safe is used to allow link in a messages
 
 		else:
@@ -76,8 +82,14 @@ def userlogin(request):
 			login(request, user)
 			acc = Account.objects.get(id=request.user.id)
 
-			if acc.is_verified:
-				return redirect('userhome')
+			
+			if acc.profile_create is False:
+				profile = MyProfile(user=request.user)
+				acc.profile_create = True
+				profile.save()
+				acc.save()
+				if acc.is_verified:
+					return redirect('userhome')
 			else:
 				return redirect('userhome')
 			
