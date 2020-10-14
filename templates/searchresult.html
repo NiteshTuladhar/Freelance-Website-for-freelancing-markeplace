@@ -1,0 +1,116 @@
+{% extends 'master/base.html' %}
+{% load static %}
+    {% block title %}Search | Freelance. {% endblock %}
+{% block body %}
+
+
+<div class="row pb-5" style="background-color: #F2F3F4;">
+
+        
+
+
+        <div class="col-lg-12 pr-5">
+                    <section class="women-banner spad" style="position:relative;padding-top: 100px;padding-left: 50px;">
+                        <div class="container-fluid">
+                            <div class="row">
+                            {% if noresult %}
+                                <div class="row">
+                                    <h3 class="pb-5 pt-5" style="padding-left: 400px;">{{noresult}} for "{{query_text}}"</h3>
+                                </div>
+                            {% else %}
+                            <div class="col-lg-12 section-heading" style="text-align: center;">
+                                <span style="font-size: 30px;"><strong>Your search results for "{{query_text}}"</strong></span>
+                            </div>
+                              {% for gig in result %}
+                              <div class="col-lg-3 pb-5 pt-5">
+                                <div class="col-item">
+                                    <div class="photo">
+                                      
+                                      <img src="{{gig.gig_image.url}}" class="img-responsive" alt="a"/>
+                                    
+                                      
+                                    </div>
+                                    <div class="info">
+                                        <div class="row">
+                                            <div class="price col-md-12">
+                                                <h5 style="font-size: 12px;padding-left: 5px;">
+                                                    {{gig.title}}</h5>
+                                                
+                                            </div>
+                                            <div class="rating hidden-sm col-md-12" style="padding-top: 15px;float: right;padding-left: 17px;">
+                                                <i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
+                                                </i><i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
+                                                </i><i class="fa fa-star"></i>
+
+                                                <h5 style="font-size: 20px;float: left;color:#e7ab3c;padding-top: 14px;padding-right: : 150px;">
+                                                    <b>$ {{gig.price}}</b></h5>
+
+                                            </div>
+                                        </div>
+                                        <div class="separator clear-left">
+                                            <p class="btn-add col-md-4">
+                                                <i class="fa fa-eye fa-1x" style="font-size: 13px;"></i><a href="{% url 'gigdetails' gig.slug %}" class="hidden-sm" style="font-size: 12px;">Details</a></p>
+                                                <p class="btn-add col-md-4">
+                                                <i class="fa fa-trash fa-1x" style="font-size: 13px;"></i><a href="{% url 'deletegig' gig.slug %}" class="hidden-sm" style="font-size: 12px;">Remove</a></p>
+                                            <p class="btn-details col-md-4">
+                                                <i class="fa fa-pencil" style="font-size: 13px;"></i><br><a href="{% url 'editgig' gig.slug %}" class="hidden-sm" style="font-size: 12px;">Edit</a></p>
+                                            
+                                        </div>
+
+                                        <div class="clearfix">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {% endfor %}
+                        {% endif %}
+
+
+
+
+
+
+        
+                            <!--
+                                        {% for gig in gigs %}
+                                        <div class="product-item" style="margin-right:15px;padding-top:500px;border: 1px solid #C1C7C9">
+                                            <div class="pi-pic" style="height: 200px;">
+                                                <img src="{% static 'img/products/women-1.jpg' %}" alt="">
+                                                <div class="sale">online</div>
+                                                <div class="icon">
+                                                    <i class="icon_heart_alt"></i>
+                                                </div>
+                                                <ul>
+                                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                                    <li class="quick-view"><a href="#">+ Quick Edit</a></li>
+                                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="pi-text" style="background-color:white;height: 130px;">
+                                                <!--<div class="catagory-name">Web Disigning</div>
+                                                <a href="#">
+                                                    <p style="font-size: 14px;margin-left: 0px;">{{gig.title}} </p>
+                                                </a>
+                                                <div class="product-price" style="padding-left: 120px;width: 100%;">
+
+                                                   <h6><p style="font-size: 12px;color: #e7ab3c;font-family: 'Helvetica';text-transform: uppercase;padding-top: 30px;">Starting at  <strong style="font-size: 18px;padding-left: 9px;">${{gig.price}}</strong></p></h6>
+                                                    <!--<span>$35.00</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                      -->
+        
+
+                                       
+                                        
+                                        
+                            </div>
+                        </div>
+                    </section>
+
+            </div> 
+        </div>
+    </div>
+{% endblock %}

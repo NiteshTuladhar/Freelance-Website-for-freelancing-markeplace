@@ -5,6 +5,7 @@ from autoslug import AutoSlugField
 from django.utils.text import slugify
 from PIL import Image
 import os
+
 # Create your models here.
 class Category(models.Model):
     c_name = models.CharField(max_length=100)
@@ -25,6 +26,7 @@ class SubCategory(models.Model):
 class MyGig(models.Model):
 
     user = models.ForeignKey(Account,on_delete=models.CASCADE,default=1)
+    profile = models.ForeignKey(MyProfile,on_delete=models.CASCADE,null=True,blank=True)
     title = models.CharField(max_length=100)
     slug = AutoSlugField(populate_from='title',unique=True,null=True,blank=True)
     description = models.CharField(max_length=100)
@@ -34,10 +36,11 @@ class MyGig(models.Model):
     search_tag = models.CharField(max_length=15)
     price= models.FloatField()
     time = models.IntegerField(null=True,blank=True)
-    contact_no = models.ForeignKey(MyProfile, on_delete=models.CASCADE,null=True,blank=True)
     s_name = models.ForeignKey(SubCategory, on_delete=models.CASCADE,null=True,blank=True)
     
     def __str__(self):
         return self.title
+
+    
 
     

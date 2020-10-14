@@ -25,6 +25,7 @@ urlpatterns = [
     path('account/',include('Accounts.urls')),
     path('profile/',include('Profile.urls')),
     path('gig/',include('Gig.urls')),
+    path('search/',views.search,name='search')
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

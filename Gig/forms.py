@@ -13,4 +13,4 @@ class GigForm(forms.ModelForm):
 	
     class Meta:
         model = MyGig
-        exclude = ['user','s_name','c_name','description','first_gig','contact_no']    
+        exclude = ['user','s_name','c_name','description','first_gig','contact_no','profile','gig_image_thumbnail']    

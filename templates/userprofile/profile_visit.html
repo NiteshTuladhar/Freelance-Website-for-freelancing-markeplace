@@ -1,4 +1,4 @@
-{% extends 'master/dashboard_base.html' %}
+{% extends 'master/base.html' %}
 {% load static %}
 {% block title %}User Profile | Freelance.{% endblock %}
 
@@ -34,7 +34,7 @@
                           top: 50px;
                           left: 180px;   
                           cursor: hand;">
-                          <b>In Office</b>
+                          <b>Follow</b>
                     </button>
                 </div> 
                 <hr style="width: 90%;">
@@ -48,49 +48,48 @@
 
             <div id="card2" style=" width:100%; height:950px; border:1px solid #C1C7C9;padding-left:150px;text-align: justify; background-color: #FFF;margin: 30px 30px auto; 
     /* top, left, bottom*/ padding: 10px 20px 30px; float: left; "> 
-    			<div class="row pl-4 pt-3 edit">
-                	<h5><b>Description</b></h5>
-                	<a href="{% url 'editprofile' %}" style="padding-left: 150px; font-size: 14px;" class="edit">Edit Description</a>
-            	</div>
+          <div class="row pl-4 pt-3 edit">
+                  <h5><b>Description</b></h5>
+                  <a href="{% url 'editprofile' %}" style="padding-left: 150px; font-size: 14px;" class="edit">Edit Description</a>
+              </div>
               <div class="row pl-4 pt-3 pr-5" >
                   <p style="font-size: 12px;font-family:Helvetica;">{{userinfo.description}}</p>
               </div>
             <hr/>
-            	<div class="row pl-4 pt-3">
-                	<h5><b>Languages</b></h5>
-                	<a href="{% url 'editprofile' %}" style="padding-left: 155px">Add Language</a>
+              <div class="row pl-4 pt-3">
+                  <h5><b>Languages</b></h5>
+                  <a href="{% url 'editprofile' %}" style="padding-left: 155px">Add Language</a>
               </div>
               <div class="row pl-4 pt-3">
                   <p>{{userinfo.languages}}</p>
-            	</div>
-            	
+              </div>
+              
             <hr/>
-            	<div class="row pl-4 pt-3">
-                	<h5><b>Skills</b></h5>
-                	<a href="{% url 'editprofile' %}" style="padding-left: 240px">Add Skills</a>
+              <div class="row pl-4 pt-3">
+                  <h5><b>Skills</b></h5>
+                  <a href="{% url 'editprofile' %}" style="padding-left: 240px">Add Skills</a>
               </div>
               <div class="row pl-4 pt-3 pr-5">
                   <p>{{userinfo.skills}}</p>
-            	</div>
-            	
+              </div>
+              
             <hr/>
-            	<div class="row pl-4 pt-3">
-                	<h5><b>Linked Accounts</b></h5>
+              <div class="row pl-4 pt-3">
+                  <h5><b>Linked Accounts</b></h5>
               </div>
            
               <a href="{{userinfo.google}}"><i class="fa fa-google pl-2 pt-3 pr-3"></i>Google</a><br>
               <a href=""><i class="fa fa-facebook pl-2 pt-3 pr-3"></i>Facebook</a><br>
               <a href=""><i class="fa fa-github pl-2 pt-3 pr-3"></i>Github</a><br>
       
-            	
+              
             </div> 
         </div>
         <div class="col-lg-8 pr-5">
 
-                <div id="card3" style="margin: 30px 30px auto;">
+                <div class="heading pt-5 pl-5">
 
-                  <a href="#home" class="active">my gigs</a>
-                  <a href="#news">active gigs</a>
+                  <p style="font-size: 20px;"><b> 's Gigs</b></p>
                 </div>
                     <section class="women-banner spad" style="position:relative;padding-top: 150px;padding-left: 50px;">
                         <div class="container-fluid">
@@ -144,17 +143,6 @@
 
 
 
-                            <div class="col-lg-4">
-                                <div class="col-item">
-                                    
-                                    <div class="info" style="background-color: white;padding-bottom: 110px;">
-                                        <a href="{% url 'createusergig' %}"><i class="fa fa-plus-circle fa-5x" style="color: #e7ab3c;padding-left: 75px;padding-top: 80px;"></i></a>
-                                        <p style="font-family: 'Helvetica';padding-left: 35px;padding-top: 15px;"><b>Create a new gig</b></p>
-                                       
-                                        
-                                    </div>
-                                </div>
-                            </div>
                                                
                             <!--
                                         {% for gig in gigs %}

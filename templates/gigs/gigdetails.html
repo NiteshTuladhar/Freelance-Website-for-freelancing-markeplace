@@ -1,6 +1,6 @@
 {% extends 'master/dashboard_base.html' %}
 {% load static %}
-{% block title %}User Profile | Freelance.{% endblock %}
+{% block title %}Gig Details | Freelance.{% endblock %}
 
 
 {% block body %}
@@ -95,13 +95,13 @@
             <div class="col-sm-12">
                 <div class="col-xs-12 col-sm-8">
                   <div class="imgcir" style="padding-bottom: 15px;">
-                    <a href=""><img class="rounded-circle" src="{{ profile.profile_image.url }}" style="height: 130px;width: 130px;background-color: #bbb;margin:auto;border-radius: 50%;display: inline-block;"></a>
+                    <a href=""><img class="rounded-circle" src="{{ gig.profile.profile_image.url }}" style="height: 130px;width: 130px;background-color: #bbb;margin:auto;border-radius: 50%;display: inline-block;"></a>
                   </div>
-                    <h2 style="text-transform: uppercase;padding-bottom: 7px;">{{profile.full_name}}</h2>
+                    <h2 style="text-transform: uppercase;padding-bottom: 7px;">{{gig.profile.full_name}}</h2>
 
-                    <p><strong>About: </strong> {{profile.skills}} </p>
+                    <p><strong>About: </strong> {{gig.profile.skills}} </p>
 
-                    <p><strong>Description </strong> </p><p>{{profile.description}}</p>
+                    <p><strong>Description </strong> </p><p>{{gig.profile.description}}</p>
                     <p><strong>Skills: </strong>
                         <span class="tags">html5</span> 
                         <span class="tags">css3</span>
@@ -132,6 +132,27 @@
                             </p>
                         </figcaption>
                     </figure>
+
+                    <div class="button" style=";margin-top: 20px;">
+                      <a href="{% url 'userdetails' gig.slug %}">
+                    <button style="color: #3399FF;
+                          font-family: 'Helvetica';
+                          font-size: 10pt;
+                          background-color: #ffffff;
+                          border: 1px solid;
+                          border-color: #3399FF;
+                          border-radius: 3px;
+                          width: 185px;
+                          height: 30px;  
+                          top: 50px;
+                          
+
+                          cursor: hand;">
+                          <b>Profile</b>
+                    </button>
+                  </a>
+                </div> 
+
                 </div>
             </div>            
             <div class="col-xs-12 divider text-center">

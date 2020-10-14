@@ -17,6 +17,8 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
+    <link rel="stylesheet" href="{% static 'css/slider.css' %}" type="text/css">
+
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
     <link rel="icon" href="{% static 'img/favicon_logo.jpg' %}">
@@ -30,6 +32,8 @@
     <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/gig_details.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/aboutseller.css' %}" type="text/css">
 
 
 </head>
@@ -76,9 +80,9 @@
                     {% else %}
                         <a href="{% url 'signin' %}" class="login-panel"><i class="fa fa-user"></i>Login</a>
                     {% endif %}
-                    <div class="lan-selector">
+                    <div class="lan-selector" >
                         <select class="language_drop" name="countries" id="countries" style="width:300px;">
-                            <option value='yt' data-image="(% static 'img/flag-1.jpg' %}" data-imagecss="flag yt"
+                            <option value='yt' data-image="{% static 'img/flag-1.jpg' %}" data-imagecss="flag yt"
                                 data-title="English">English</option>
                             <option value='yu' data-image="{% static 'img/flag-2.jpg' %}" data-imagecss="flag yu"
                                 data-title="Bangladesh">German </option>
@@ -105,11 +109,13 @@
                     </div>
                     <div class="col-lg-7 col-md-7">
                         <div class="advanced-search">
-                            <button type="button" class="category-btn">All Categories</button>
-                            <div class="input-group">
-                                <input type="text" placeholder="What do you need?">
-                                <button type="button"><i class="ti-search"></i></button>
-                            </div>
+                            <form action="{% url 'search' %}" method="GET">
+                                <button type="button" class="category-btn">All Categories</button>
+                                <div class="input-group">
+                                    <input type="text" placeholder="Find Services.." name="q" value="{{query_text}}" style="font-size: 18px;color:grey;">
+                                    <button type="submit"><i class="ti-search"></i></button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <div class="col-lg-3 text-right col-md-3">

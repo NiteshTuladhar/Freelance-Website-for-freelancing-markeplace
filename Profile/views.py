@@ -10,14 +10,15 @@ from Gig.models import MyGig
 
 @login_required
 def userprofile(request):
+    profile = MyProfile.objects.get(user_id=request.user.id)
     if request.method == 'GET':
-        form = ProfileForm()
+        form = ProfileForm(instance=profile)
         return render(request,'userprofile.html',context = {'form':form})
     else:
-        form = ProfileForm(request.POST)
+
+        form = ProfileForm(request.POST, instance=profile)
         if form.is_valid():
-            data = form.save(commit=False)
-            data.user = request.user
+            data = form.save()
             userinfo = Account.objects.get(id=request.user.id)
             userinfo.is_profile_set = True
             try:

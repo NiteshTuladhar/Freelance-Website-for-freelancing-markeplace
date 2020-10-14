@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'django_countries',
     'languages',
+    'easy_thumbnails',
     
 ]
 
@@ -222,3 +223,11 @@ EMAIL_HOST_PASSWORD=env.str('EMAIL_HOST_PASSWORD')
 EMAIL_HOST_USER=env.str('EMAIL_HOST_USER')
 EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+
+THUMBNAIL_ALIASES = {
+    '': {
+        'avatar': {'size': (350, 260), 'crop': True},
+    },
+}

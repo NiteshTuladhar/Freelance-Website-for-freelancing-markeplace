@@ -8,38 +8,45 @@
 {% include 'master/slider_bootsrap_jquery.html' %}
     <!-- Hero Section Begin -->
     <section class="hero-section">
-        <div class="hero-items owl-carousel pt-3">
-            <div class="single-hero-items set-bg" data-setbg="{% static 'img/main-banner/main_banner1.jpg' %}">
+        <div class="hero-items owl-carousel">
+            <div class="single-hero-items set-bg" data-setbg="{% static 'img/main-banner/b3.png' %}">
                 <div class="container">
                     <div class="row " style="padding-top: 1px;font-size: 14px;">
-                        <div class="col-lg-5">
+                        <div class="col-lg-6">
                             <span>Designers,Marketing</span>
-                            <h2><b>Find your ideal freelance
+                            <h2 style="color: white;padding-bottom: 15px;font-size: 40px;"><b>Find your ideal freelance
                             <br>service for your growing business.</b></h2>
+                            <input type="text" name="search" placeholder="Search..">
                             <div class="shopnow pt-5">
                             <a href="#" class="primary-btn">Join Us</a>
                             </div>
                         </div>
                     </div>
-                    <div class="off-card">
+                    <div class="off-card" style="padding-bottom: 50px;">
                         <h2>Join<span>Now!!</span></h2>
                     </div>
                 </div>
             </div>
 
-            <div class="single-hero-items set-bg" data-setbg="{% static 'img/main-banner/main_banner2.jpg' %}">
+            <div class="single-hero-items set-bg" data-setbg="{% static 'img/main-banner/b1.jpg' %}">
                 <div class="container">
                     <div class="row" style="padding-top: 1px;font-size: 14px;">
-                        <div class="col-lg-5">
+
+                        <div class="col-lg-6">
                             <span>Programming, Sales</span>
-                            <h2><b>Work from your home<br>where you can feel more comfortable.</b></h2>
+                            <h2 style="color: white;font-size: 40px;"><b>Work from your home
+                            <br>where you can feel more comfortable.</b></h2>
+                            <input type="text" name="search" placeholder="Search.." style="padding-top: 15px;">
                             <div class="shopnow pt-5">
                             <a href="#" class="primary-btn">Join Us</a>
                             </div>
                         </div>
+
+
+                    
                     </div>
                     <div class="off-card">
-                        <h2 style="margin-bottom: 150px;">Join <span>Now!!</span></h2>
+                        <h2>Join <span>Now!!</span></h2>
                     </div>
                 </div>
             </div>
@@ -48,9 +55,9 @@
     <!-- Hero Section End -->
 
      <!-- Partner Logo Section Begin -->
-    <div class="partner-logo" style="background-color: #fafafa;">
+    <div class="partner-logo" style="background-color: #fafafa;margin-bottom: 35px;">
         <div class="container">
-            <div class="logo-carousel owl-carousel">
+            <div class="logo-carousel owl-carousel" style="margin-bottom: 35px;">
                 <div class="logo-item">
                     <div class="tablecell-inner">
                         <img src="{% static 'img/logo-carousel/logos-1.jpg' %}" alt="">
@@ -82,7 +89,7 @@
     <!-- Partner Logo Section End -->
 
     <!-- Banner Section Begin -->
-    <div class="banner-section spad">
+    <!--<div class="banner-section spad">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-4">
@@ -116,13 +123,13 @@
     <!-- Banner Section End -->
 
     <!--Slider Starts-->
-    <div class="container">
+    <div class="container" style="padding-bottom: 45px;" >
         <div class="row">
             <div class="row">
 
                 <div class="col-md-9">
-                    <h3>
-                        Carousel Product Cart Slider</h3>
+                    <h2 style="padding-right: 450px; padding-bottom: 15px;">
+                        Our Top Sellers & More in Web Development </h2>
                 </div>
                 <div class="col-md-3">
                     <!-- Controls -->
@@ -138,125 +145,114 @@
                 <div class="carousel-inner">
                     <div class="item active">
                         <div class="row">
+
                         {% for gig in gigs %}
                             <div class="col-sm-3">
                                 <div class="col-item">
+                                    <a href="{% url 'gigdetails' gig.slug %}">
                                     <div class="photo">
-                                        <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
+                                        <img src="{{gig.gig_image.url}}" alt="a" />
                                     </div>
+                                </a>
                                     <div class="info">
                                         <div class="row">
-                                            <div class="price col-md-6">
-                                                <h5>
+                                            <div class="row" style="padding-bottom: 10px;">
+                                                <a href="">
+                                                <div class="col-md-5" style="float: left;">
+                                                    <div class="imgcir pt-3" style="padding-left: 20px;">
+                                                        
+                                                        <a href="#"><img class="rounded-circle" src="{{gig.profile.profile_image.url}}" style="height: 40px;width: 40px;background-color: #bbb;margin:auto;border-radius: 50%;display: inline-block;"></a>             
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-7" style="float: right;">
+                                                    <h5 style="font-size: 14px;padding-left: 5px;padding-right: 40px;padding-top: 1px;"><b>{{gig.user}}</b></h5>
+                                                    <h5 style="font-size: 14px;padding-left: 5px; font-size: 10px;">{{gig.profile.country.name}}</h5>
+                                                </div>
+                                            </div>
+                                        </a>
+                                            <div class="price col-md-12">
+                                                <h5 style="font-size: 12px;padding-left: 5px;">
                                                     {{gig.title}}</h5>
-                                                <h5 class="price-text-color">
-                                                    ${{gig.price}}</h5>
+                                                
                                             </div>
-                                            <div class="rating hidden-sm col-md-6">
+                                            <div class="rating hidden-sm col-md-12" style="padding-top: 10px;float: right;padding-left: 17px;">
                                                 <i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
                                                 </i><i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
                                                 </i><i class="fa fa-star"></i>
+
+                                                <h5 style="font-size: 20px;float: left;color:#e7ab3c;padding-top: 7px;padding-right: : 150px;padding-bottom: 15px;">
+                                                    <b>$ {{gig.price}}</b></h5>
+
                                             </div>
+
                                         </div>
                                         <div class="separator clear-left">
                                             <p class="btn-add">
                                                 <i class="fa fa-shopping-cart"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">Add to cart</a></p>
                                             <p class="btn-details">
-                                                <i class="fa fa-list"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">More details</a></p>
+                                                <i class="fa fa-list"></i><a href="{% url 'gigdetails' gig.slug %}" class="hidden-sm">More details</a></p>
                                         </div>
                                         <div class="clearfix">
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                             {% endfor %}
-                            <div class="col-sm-3">
-                                <div class="col-item">
-                                    <div class="photo">
-                                        <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="row">
-                                            <div class="price col-md-6">
-                                                <h5>
-                                                    2Product Example</h5>
-                                                <h5 class="price-text-color">
-                                                    $249.99</h5>
-                                            </div>
-                                            <div class="rating hidden-sm col-md-6">
-                                            </div>
-                                        </div>
-                                        <div class="separator clear-left">
-                                            <p class="btn-add">
-                                                <i class="fa fa-shopping-cart"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">Add to cart</a></p>
-                                            <p class="btn-details">
-                                                <i class="fa fa-list"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">More details</a></p>
-                                        </div>
-                                        <div class="clearfix">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="col-item">
-                                    <div class="photo">
-                                        <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="row">
-                                            <div class="price col-md-6">
-                                                <h5>
-                                                    4Sample Product</h5>
-                                                <h5 class="price-text-color">
-                                                    $199.99</h5>
-                                            </div>
-                                            <div class="rating hidden-sm col-md-6">
-                                                <i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
-                                                </i><i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
-                                                </i><i class="fa fa-star"></i>
-                                            </div>
-                                        </div>
-                                        <div class="separator clear-left">
-                                            <p class="btn-add">
-                                                <i class="fa fa-shopping-cart"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">Add to cart</a></p>
-                                            <p class="btn-details">
-                                                <i class="fa fa-list"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">More details</a></p>
-                                        </div>
-                                        <div class="clearfix">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            
+
                         </div>
                     </div>
 
                     <div class="item">
                         <div class="row">
                             {% for gig in gigs %}
-                            <div class="col-sm-3">
+                             <div class="col-sm-3">
                                 <div class="col-item">
+                                    <a href="{% url 'gigdetails' gig.slug %}">
                                     <div class="photo">
-                                        <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
+                                        <img src="{{gig.gig_image.url}}" alt="a" />
                                     </div>
+                                </a>
                                     <div class="info">
                                         <div class="row">
-                                            <div class="price col-md-6">
-                                                <h5>
-                                                    5Product with Variants</h5>
-                                                <h5 class="price-text-color">
-                                                    ${{gig.price}}</h5>
+                                            <div class="row" style="padding-bottom: 10px;">
+                                                <a href="">
+                                                <div class="col-md-5" style="float: left;">
+                                                    <div class="imgcir pt-3" style="padding-left: 20px;">
+
+                                                        <a href="#"><img class="rounded-circle" src="{{gig.profile.profile_image.url}}" style="height: 40px;width: 40px;background-color: #bbb;margin:auto;border-radius: 50%;display: inline-block;"></a>             
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-7" style="float: right;">
+                                                    <h5 style="font-size: 14px;padding-left: 5px;padding-right: 40px;padding-top: 1px;"><b>{{gig.user}}</b></h5>
+                                                    <h5 style="font-size: 14px;padding-left: 5px; font-size: 10px;">{{gig.profile.country.name}}</h5>
+                                                </div>
                                             </div>
-                                            <div class="rating hidden-sm col-md-6">
+                                        </a>
+                                            <div class="price col-md-12">
+                                                <h5 style="font-size: 12px;padding-left: 5px;">
+                                                    {{gig.title}}</h5>
+                                                
+                                            </div>
+                                            <div class="rating hidden-sm col-md-12" style="padding-top: 10px;float: right;padding-left: 17px;">
                                                 <i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
                                                 </i><i class="price-text-color fa fa-star"></i><i class="price-text-color fa fa-star">
                                                 </i><i class="fa fa-star"></i>
+
+                                                <h5 style="font-size: 20px;float: left;color:#e7ab3c;padding-top: 7px;padding-right: : 150px;padding-bottom: 15px;">
+                                                    <b>$ {{gig.price}}</b></h5>
+
                                             </div>
+
                                         </div>
                                         <div class="separator clear-left">
                                             <p class="btn-add">
                                                 <i class="fa fa-shopping-cart"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">Add to cart</a></p>
                                             <p class="btn-details">
-                                                <i class="fa fa-list"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">More details</a></p>
+                                                <i class="fa fa-list"></i><a href="{% url 'gigdetails' gig.slug %}" class="hidden-sm">More details</a></p>
                                         </div>
                                         <div class="clearfix">
                                         </div>
@@ -264,34 +260,8 @@
                                 </div>
                             </div>
                             {% endfor %}
-                            <div class="col-sm-3">
-                                <div class="col-item">
-                                    <div class="photo">
-                                        <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="row">
-                                            <div class="price col-md-6">
-                                                <h5>
-                                                    6Grouped Product</h5>
-                                                <h5 class="price-text-color">
-                                                    $249.99</h5>
-                                            </div>
-                                            <div class="rating hidden-sm col-md-6">
-                                            </div>
-                                        </div>
-                                        <div class="separator clear-left">
-                                            <p class="btn-add">
-                                                <i class="fa fa-shopping-cart"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">Add to cart</a></p>
-                                            <p class="btn-details">
-                                                <i class="fa fa-list"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">More details</a></p>
-                                        </div>
-                                        <div class="clearfix">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
+                            
+                            <!--<div class="col-sm-3">
                                 <div class="col-item">
                                     <div class="photo">
                                         <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
@@ -320,7 +290,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
 
                         </div>
                     </div>
@@ -332,7 +302,7 @@
 
 
     <!-- Women Banner Section Begin -->
-    <section class="women-banner spad">
+    <!--<section class="women-banner spad">
         <div class="container-fluid">
             <div class="row">
 
@@ -371,14 +341,14 @@
                                                 </ul>
                                             </div>
                                             <div class="pi-text" style="background-color:white;height: 130px;">
-                                                <!--<div class="catagory-name">Web Disigning</div>-->
+                                                <!--<div class="catagory-name">Web Disigning</div>
                                                 <a href="#">
                                                     <p style="font-size: 14px;margin-left: 0px;">{{gig.title}} </p>
                                                 </a>
                                                 <div class="product-price" style="padding-left: 90px;width: 100%;">
 
                                                    <h6><p style="font-size: 12px;color: #e7ab3c;font-family: 'Helvetica';text-transform: uppercase;padding-top: 30px;">Starting at  <strong style="font-size: 18px;padding-left: 9px;">${{gig.price}}</strong></p></h6>
-                                                    <!--<span>$35.00</span>-->
+                                                    <!--<span>$35.00</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -388,11 +358,11 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section>-->
     <!-- Women Banner Section End -->
 
     <!-- Deal Of The Week Section Begin-->
-    <section class="deal-of-week set-bg spad" data-setbg="img/time-bg.jpg">
+    <section class="deal-of-week set-bg spad" data-setbg="{% static 'img/time-bg.jpg' %}">
         <div class="container">
             <div class="col-lg-6 text-center">
                 <div class="section-title">
@@ -444,7 +414,7 @@
                     <div class="product-slider owl-carousel">
                         <div class="product-item">
                             <div class="pi-pic">
-                                <img src="img/products/man-1.jpg" alt="">
+                                <img src="{static 'img/products/man-1.jpg' %}" alt="">
                                 <div class="sale">Sale</div>
                                 <div class="icon">
                                     <i class="icon_heart_alt"></i>
