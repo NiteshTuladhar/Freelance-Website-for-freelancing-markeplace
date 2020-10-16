@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from .token import generatetoken
 from django.utils.safestring import mark_safe
 from Profile.models import MyProfile
+from Gig.models import MyGig
 
 
 # Create your views here.
@@ -101,14 +102,27 @@ def userlogin(request):
 
 	return render(request,'login.html')
 
+
+
 def userlogout(request):
 	logout(request)
 	return redirect('homepage')
 
+
+
 @login_required
 def userHome(request):
+	gigs = MyGig.objects.all()
+	account = Account.objects.all()
+	profile = MyProfile.objects.all()
+	context = {
 
-	return render(request,'userhome.html')
+		'gigs' : gigs,
+		'account'  : account,
+		'profile' : profile
+	}
+
+	return render(request,'userhome.html',context)
 
 
 

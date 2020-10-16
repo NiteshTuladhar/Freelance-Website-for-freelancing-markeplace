@@ -39,12 +39,12 @@ def userprofile(request):
 
 
 @login_required
-def completeuserprofile(request):
+def completeuserprofile(request,id):
 
     userinfo = MyProfile.objects.get(user_id=request.user.id)
     user_info = Account.objects.get(id=request.user.id)
     print(user_info.is_profile_set)
-    return render(request,'userprofile/complete_userprofile.html',context={'userinfo':userinfo})
+    return render(request,'userprofile/complete_userprofile.html',context={'userinfo':userinfo,'id':id})
 
 
 
@@ -89,12 +89,28 @@ def editProfile(request):
     return render(request,'userprofile/editprofile.html',context)
 
 
-def myGig(request):
+def myProfile(request,id):
     userinfo = MyProfile.objects.get(user_id=request.user.id)
     gigs = MyGig.objects.filter(user_id=request.user.id)
 
     context = {
         'userinfo' : userinfo,
-        'gigs' : gigs
+        'gigs' : gigs,
+        'id' : id
     }
     return render(request,'userprofile/mygigpage.html',context)
+
+
+
+def userProfile(request,id):
+
+    userinfo = MyProfile.objects.get(user_id=id)
+    gig  = MyGig.objects.filter(user_id=id)
+
+
+    context ={
+        'userinfo' : userinfo,
+        'gig' : gig ,
+
+    }
+    return render(request,'userprofile/profile_visit.html',context=context)

@@ -1,10 +1,10 @@
-{% extends 'master/dashboard_base.html' %}
+{% extends 'master/base.html' %}
 {% load static %}
 {% block title %} Gig Details | Freelance.{% endblock %}
 
 
 {% block body %}
-<main class="containers">
+<main class="containers">s
  
   <!-- Left Column / Headphones Image -->
   <div class="left-columns" style="margin: 55px 70px auto auto">
@@ -65,7 +65,7 @@
     <!-- Product Pricing -->
     <div class="product-prices">
       <span>{{gig.price}}$</span>
-      <a href="{% url 'order' %}" class="cart-btn">Order Now</a>
+      <a href="{% url 'order' %"} class="cart-btn">Order Now</a>
     </div>
   </div>
 </main>
@@ -134,7 +134,9 @@
                     </figure>
 
                     <div class="button" style=";margin-top: 20px;">
+
                       <a href="{% url 'visitprofile' id %}">
+                    
                     <button style="color: #3399FF;
                           font-family: 'Helvetica';
                           font-size: 10pt;

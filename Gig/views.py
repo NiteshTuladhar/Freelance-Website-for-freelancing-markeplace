@@ -84,20 +84,40 @@ def deleteGig(request,slug):
 def gigDetails(request,slug):
 
     gig  = MyGig.objects.get(slug=slug) #Here no data of profile and acc is retrieve because we used the foreign key in MyGig.
+    id  = gig.user_id
+    print('-----------------------------------------------------')
+
+    context ={
+        'gig' : gig ,
+        'id' : id,
+    }
+    if request.user.is_authenticated:
+        return render(request,'gigs/gigdetails.html',context=context)
+    else:
+        return render(request,'gigs/othergigdetails.html',context=context)
+       
+
+
+def othersgigDetails(request,slug):
+
+    gig  = MyGig.objects.get(slug=slug) 
 
     context ={
         'gig' : gig , 
     }
+    
 
-    return render(request,'gigs/gigdetails.html',context=context)
+    return render(request,'gigs/othergigdetails.html',context=context)
 
 
-def userDetails(request,slug):
 
-    gig  = MyGig.objects.get(slug=slug)
+def userProfile(request,id):
+
+    userinfo = MyProfile.objects.get(user_id=id)
+    gig  = MyGig.objects.filter(user_id=id)
 
     context ={
-        'gig' : gig , 
+        'userinfo' : userinfo,
+        'gig' : gig ,
     }
-
     return render(request,'userprofile/profile_visit.html',context=context)

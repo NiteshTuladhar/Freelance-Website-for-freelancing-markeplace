@@ -8,6 +8,7 @@ def login_homepage(request):
 	gigs = MyGig.objects.all()
 	account = Account.objects.all()
 	profile = MyProfile.objects.all()
+
 	context = {
 		'gigs' : gigs,
 		'account' : account,
@@ -19,6 +20,9 @@ def login_homepage(request):
 		print(user.is_authenticated)
 	else:
 		return render(request,'index.html',context)
+
+
+
 
 
 def search(request):

@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
     <link rel="stylesheet" type="text/css" href="{% static 'css/gig_details.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/aboutseller.css' %}">
+    <link rel="stylesheet" href="{% static 'css/checkout.css' %}" type="text/css">
 </head>
 
 <body>
@@ -191,12 +192,12 @@
                         <ul class="depart-hover pr-5">
                             {% if user.is_profile_set %}
                                 {% if user.first_gig %}
-                            <li class="active"><a href="{% url 'compuserprofile' %}">Profile</a></li>
+                            <li class="active"><a href="{% url 'compuserprofile' request.user.id %}">Profile</a></li>
                                 {% else %}
-                                    <li class="active"><a href="{% url 'mygig' %}">Profile</a></li>
+                                    <li class="active"><a href="{% url 'mygig' request.user.id %}">Profile</a></li>
                                 {% endif %}
                             {% else %}
-                            <li class="active"><a href="{% url 'userprofile' %}">Profile</a></li>
+                            <li class="active"><a href="{% url 'userprofile' request.user.id %}">Profile</a></li>
                             {% endif %}
                             <li><a href="{% url 'userhome' %}">Dashboard</a></li>
                             <li><a href="#">Analytics</a></li>
