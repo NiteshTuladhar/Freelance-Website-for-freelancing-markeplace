@@ -1,13 +1,13 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from .forms import GigForm
 from django.contrib import messages
 from Accounts.models import Account
-from .models import MyGig
+from .models import MyGig, Review
 from Profile.models import MyProfile
 
 '''For generating thumnail'''
-from easy_thumbnails.files import get_thumbnailer
+
 
 
 @login_required
@@ -21,7 +21,7 @@ def creategig(request):
         if form.is_valid():
             data = form.save(commit=False)
             data.user = request.user
-            thumb_url = get_thumbnailer(data.gig_image)['avatar'].url
+
             data.profile = profile #This saves the data of the form along with the current user profile.
             userinfo = Account.objects.get(id=request.user.id)
             userinfo.first_gig = False
@@ -82,20 +82,38 @@ def deleteGig(request,slug):
 
 
 def gigDetails(request,slug):
+    if request.method =='GET':
+        gig  = MyGig.objects.get(slug=slug) #Here no data of profile and acc is retrieve because we used the foreign key in MyGig.
+        id  = gig.user_id
+        review = Review.objects.filter(gigs=gig, reply=None).order_by('-user_id')
+        context ={
+            'gig' : gig,
+            'review' : review,
+            'id' : id,
+        }
+        if request.user.is_authenticated:
+            return render(request,'gigs/gigdetails.html',context=context)
+        else:
+            return render(request,'gigs/othergigdetails.html',context=context)
 
-    gig  = MyGig.objects.get(slug=slug) #Here no data of profile and acc is retrieve because we used the foreign key in MyGig.
-    id  = gig.user_id
-    print('-----------------------------------------------------')
-
-    context ={
-        'gig' : gig ,
-        'id' : id,
-    }
-    if request.user.is_authenticated:
-        return render(request,'gigs/gigdetails.html',context=context)
     else:
-        return render(request,'gigs/othergigdetails.html',context=context)
-       
+        gig = MyGig.objects.get(slug=slug)
+        message = request.POST.get('message')
+        reply_id = request.POST.get('review_id')
+        review_qs = None
+        if reply_id:
+            review_qs = Review.objects.get(id=reply_id)
+        review = Review.objects.create(message=message, gigs=gig,user=request.user,reply=review_qs)
+        print(review_qs)
+        print('---------------------------------------------------------------')
+        try:
+            review.save()
+            messages.add_message(request, messages.SUCCESS, "Comment Added")
+            return HttpResponseRedirect(request.path_info)
+        except:
+            messages.add_message(request, messages.SUCCESS, "Error")
+            return HttpResponseRedirect(request.path_info)
+
 
 
 def othersgigDetails(request,slug):

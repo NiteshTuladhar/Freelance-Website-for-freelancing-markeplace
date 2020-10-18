@@ -43,4 +43,16 @@ class MyGig(models.Model):
 
     
 
-    
+class Review(models.Model):
+
+    user = models.ForeignKey(Account,on_delete=models.CASCADE,null=True,blank=True)
+    profile = models.ForeignKey(MyProfile,on_delete=models.CASCADE,null=True,blank=True)
+    gigs = models.ForeignKey(MyGig,on_delete=models.CASCADE,null=True,blank=True)
+    message = models.TextField()
+    reply = models.ForeignKey('Review', null=True, related_name='replies',on_delete=models.CASCADE,blank=True)# Here Instead of 'Review' you can also do 'self'.
+    is_approved = models.BooleanField(default=False)
+    comment_time = models.DateTimeField(auto_now_add=True)
+
+
+    def __srt__(self):
+        return format(self.gigs.title)

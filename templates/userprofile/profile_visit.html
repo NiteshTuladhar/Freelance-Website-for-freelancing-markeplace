@@ -42,7 +42,7 @@
                <p style="font-family:serif;"><i class="fa fa-map-marker pl-3">&nbsp&nbsp&nbsp&nbsp<b style="font-family: 'Helvetica';font-size:14px; ">From:</b><b class="country pr-3" style="font-family: 'Helvetica';padding-left:175px;font-size: 14px;">{{userinfo.country.name}}</b></i></p>
                <!--Here we use .name as userinfo.country gave the initials of the country so .name -->
 
-               <p style="font-family:serif;"><i class="fa fa-user pl-3">&nbsp&nbsp&nbsp&nbsp<b style="font-family: 'Helvetica';font-size: 14px;">Member Since:</b><b style="font-family: 'Helvetica';padding-left:140px;font-size: 14px;">{{user.joined_on}}</b></i></p>
+               <p style="font-family:serif;"><i class="fa fa-user pl-3">&nbsp&nbsp&nbsp&nbsp<b style="font-family: 'Helvetica';font-size: 14px;">Member Since:</b><b style="font-family: 'Helvetica';padding-left:140px;font-size: 14px;">{{userinfo.user.joined_on}}</b></i></p>
             </div> 
 
 
@@ -105,7 +105,7 @@
                                     </div>
                                     <div class="info">
                                         <div class="row">
-                                            <div class="price col-md-12">
+                                            <div class="prices col-md-12">
                                                 <h5 style="font-size: 12px;padding-left: 5px;">
                                                     {{g.title}}</h5>
                                                 
@@ -121,13 +121,10 @@
                                             </div>
                                         </div>
                                         <div class="separator clear-left">
-                                            <p class="btn-add col-md-4">
-                                                <i class="fa fa-eye fa-1x" style="font-size: 13px;"></i><a href="" class="hidden-sm" style="font-size: 12px;">Details</a></p>
-                                                <p class="btn-add col-md-4">
-                                                <i class="fa fa-trash fa-1x" style="font-size: 13px;"></i><a href="" class="hidden-sm" style="font-size: 12px;">Remove</a></p>
-                                            <p class="btn-details col-md-4">
-                                                <i class="fa fa-pencil" style="font-size: 13px;"></i><br><a href="" class="hidden-sm" style="font-size: 12px;">Edit</a></p>
-                                            
+                                            <p class="btn-add">
+                                                <i class="fa fa-shopping-cart"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">Add to cart</a></p>
+                                            <p class="btn-details">
+                                                <i class="fa fa-list"></i><a href="" class="hidden-sm">More details</a></p>
                                         </div>
 
                                         <div class="clearfix">
