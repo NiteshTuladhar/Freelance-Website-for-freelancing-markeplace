@@ -1,10 +1,13 @@
-from django.shortcuts import render,redirect,HttpResponseRedirect
+from django.shortcuts import render,redirect,HttpResponseRedirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse_lazy,reverse
 from .forms import GigForm
 from django.contrib import messages
 from Accounts.models import Account
 from .models import MyGig, Review
 from Profile.models import MyProfile
+from django.views.generic import RedirectView
+
 
 '''For generating thumnail'''
 
@@ -85,11 +88,14 @@ def gigDetails(request,slug):
     if request.method =='GET':
         gig  = MyGig.objects.get(slug=slug) #Here no data of profile and acc is retrieve because we used the foreign key in MyGig.
         id  = gig.user_id
-        review = Review.objects.filter(gigs=gig, reply=None).order_by('-user_id')
+        review = Review.objects.filter(gigs=gig, reply=None).order_by('-comment_time')
+        reply = Review.objects.filter()
         context ={
             'gig' : gig,
             'review' : review,
             'id' : id,
+            'reply' : reply
+
         }
         if request.user.is_authenticated:
             return render(request,'gigs/gigdetails.html',context=context)
@@ -103,7 +109,8 @@ def gigDetails(request,slug):
         review_qs = None
         if reply_id:
             review_qs = Review.objects.get(id=reply_id)
-        review = Review.objects.create(message=message, gigs=gig,user=request.user,reply=review_qs)
+        profile = MyProfile.objects.get(user_id=request.user.id)
+        review = Review.objects.create(message=message, gigs=gig,user=request.user,reply=review_qs,profile=profile)
         print(review_qs)
         print('---------------------------------------------------------------')
         try:
@@ -113,6 +120,13 @@ def gigDetails(request,slug):
         except:
             messages.add_message(request, messages.SUCCESS, "Error")
             return HttpResponseRedirect(request.path_info)
+
+
+
+def likeGig(request,id):
+    gig = get_object_or_404(MyGig, id=request.POST.get('gig_id'))
+    gig.likes.add(request.user)
+    return HttpResponseRedirect(reverse('gigdetails',args=[srt(id)]))
 
 
 
@@ -139,3 +153,6 @@ def userProfile(request,id):
         'gig' : gig ,
     }
     return render(request,'userprofile/profile_visit.html',context=context)
+
+
+

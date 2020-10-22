@@ -196,13 +196,107 @@
 
   </div>
 </div>
+</div>
 
 
 
+<div class="col-lg-5 col-2 fixed-top one" style="position: -webkit-sticky;position: sticky; margin-top: -50px;">
+  <!--HERE col-2 fixed-top one IS USED TO MAKE THE PRICE CARD COLUME FIX AND OTHER LEFT COLUMN SCROLL-->
+  
+  <div class="wrapper-card" style="display: flex;
+            flex-wrap: nowrap;
+            margin: 40px auto;
+            width: 77%;">
+        <div class="card popular" style="background: #fff;
+            border-radius: 3px;
+            box-shadow: 0 1px 1px transparent;
+            flex: 1;
+            margin: 8px;
+            padding: 30px;
+            position: relative;
+            text-align: center;
+            transition: all 0.5s ease-in-out;margin-top: -10px;
+            margin-bottom: -10px;">
+            <div class="card-ribbon" style="position: absolute;
+            overflow: hidden;
+            top: -10px;
+            left: -10px;
+            width: 114px;
+            height: 112px;">
+                <span style="position: absolute;
+            display: block;
+            width: 160px;
+            padding: 10px 0;
+            background-color: #e8aa3e;
+            box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+            color: #fff;
+            font-size: 13px;
+            text-transform: uppercase;
+            text-align: center;
+            left: -35px;
+            top: 25px;
+            transform: rotate(-45deg);">most popular</span>
+            </div>
+            <div class="card-title">
+                <h3 style="color: #e8aa3e;
+            font-size: 22px;color: 
+            text-transform: uppercase;">Pro</h3>
+                <h4 style=" color: rgba(0, 0, 0, 0.6);">Maecenas ut justo molestie, pharetra arcu ac, mollis est.</h4>
+            </div>
+            <div class="card-price" style=" margin: 50px;margin: 20px 0;">
+                <h1 style="color: #e8aa3e;
+            font-size: 60px;">
+                <sup style=" font-size: 15px;
+            display: inline-block;
+            margin-left: -20px;
+            width: 10px;">$</sup>
+                15
+                <small style=" color: rgba(0, 0, 0, 0.3);
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;">month</small>
+            </h1>
+            </div>
+            <div class="card-description" style="display: block;
+            list-style: none;
+            margin: 10px 0;
+            margin-top: -10px;
+            padding: 0;">
+                <ul>
+                    <li style="color: rgba(0, 0, 0, 0.6);
+            font-size: 15px;
+            margin: 0 0 15px;">Lorem ipsum dolor sit amet</li>
+                    <li style="color: rgba(0, 0, 0, 0.6);
+            font-size: 15px;
+            margin: 0 0 15px;">Pellentesque hendrerit</li>
+                    <li style="color: rgba(0, 0, 0, 0.6);
+            font-size: 15px;
+            margin: 0 0 15px;">Aliquam at orci aliquam</li>
+                    <li style="color: rgba(0, 0, 0, 0.6);
+            font-size: 15px;
+            margin: 0 0 15px;">Praesent non sapien laoreet</li>
+                </ul>
+            </div>
+            <div class="card-action">
+                <button type="button" style="background: #e8aa3e;
+            border: 2px solid #e8aa3e;
+            border-radius: 30px;
+            color: white;
+            cursor: pointer;
+            display: block;
+            font-size: 25px;
+            font-weight: bold;
+            padding: 10px;
+            width: 100%;
+            height: 60px;
+            text-transform: uppercase;
+            transition: all 0.3s ease-in-out;">Get Pro</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-  </div>
-
-  <div class="col-lg-12">
+  <div class="col-lg-10 pl-2">
       <section class="blog-single-sec section-padding">
             <div class="container">
                 <div class="blog-single-details">
@@ -221,18 +315,96 @@
                                     <li>
 
                                         <div class="cm-info-sec">
-                                          <div class="col-md-2" style="margin-right: -5px;">
-                                            <img src="{{r.user.profile_image.url}}" style="height: 50px; width: 50px;">
+                                          <div class="col-lg-2" style="margin-right: -5px;">
+                                            <img src="{{r.profile.profile_image.url}}" style="height: 50px; width: 50px;">
                                           </div>
-                                          <div class="col-md-10">
+                                          <div class="col-lg-10">
                                             <div class="cm-info" style="padding-right: 250px;">
                                                 <h3 style="font-size: bold;"> {{r.user}}</h3>
                                                 <h4>{{r.comment_time}}</h4>
+                                                <figure>
+                       
+                                                  <figcaption class="ratings">
+                                                     <a href="#">
+                                                         <span class="fa fa-star fa-1x"></span>
+                                                      </a>
+                                                      <a href="#">
+                                                          <span class="fa fa-star fa-1x"></span>
+                                                      </a>
+                                                      <a href="#">
+                                                          <span class="fa fa-star fa-1x"></span>
+                                                      </a>
+                                                      <a href="#">
+                                                          <span class="fa fa-star fa-1x"></span>
+                                                      </a>
+                                                      <a href="#">
+                                                           <span class="fa fa-star-o fa-1x"></span>
+                                                      </a> 
+                                                      </p>
+                                                  </figcaption>
+                                              </figure>
                                             </div>
                                           </div>
                                         </div><!--cm-info-sec end-->
                                         <p style="padding-left: 15px;">{{r.message}} </p>
-                                        <a href="#" title="" class="cm-reply">Reply</a>
+                                        <a href="#" title="" class="cm-reply" class="reply-btn">Reply</a>
+                                       </li>
+
+                                       
+
+                                       <li> 
+                                        
+                                        <!--reply section-->
+                                        <div class="post-comment-sec" id="comment-sec" style="margin-left: 50px;">
+                                          <h3 class="p-title" style="font-size: 12px;font-weight: bold;">Reply{{reply|pluralize }}(  {{ reply.count }}  )</h3>
+                                            {% for rep in r.replies.all %}
+
+                                            <ul style="list-style: none;">
+                                            <li>
+
+                                                  <div class="cm-info-sec">
+                                                    <div class="col-lg-2" style="margin-right: -5px;">
+                                                      <img src="{{rep.profile.profile_image.url}}" style="height: 50px; width: 50px;">
+                                                    </div>
+                                                    <div class="col-lg-10">
+                                                      <div class="cm-info" style="padding-right: 250px;">
+                                                          <h3 style="font-size: bold;"> {{rep.user}}</h3>
+                                                          <h4>{{rep.comment_time}}</h4>
+                                                          
+                                                      </div>
+                                                    </div>
+                                                  </div><!--cm-info-sec end-->
+                                                  <p style="padding-left: 15px;">{{rep.message}} </p>
+                                                  
+                                                  
+                                              </li>
+                                            </ul>
+
+                                            {% endfor %}
+                                            {% if request.user.id == id %}
+                                            <form class="js-ajax-form"  method="POST">
+                                                <div class="form-group no-pt">
+                                                  {% csrf_token %}
+                                                    <input type="hidden" name="review_id" value="{{r.id}}">
+                                                <div class="form-fieldss">
+                                                    <div class="row">
+
+
+
+                                                        <div class="col-lg-9 col-md-9 pl-0 pr-0">
+                                                            <div class="form-field">
+
+                                                                <textarea name="message" placeholder="Your Reply" required style="margin-left: 50px;"></textarea>
+                                                            </div><!-- form-field end-->
+                                                        </div>
+                                                        <div class="col-lg-3 col-md-9 pl-0">
+                                                            <button type="submit" class="btn-default submit">Reply</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            {% endif %}
+                                        </div><!--reply ends-->
                                     </li>
                                     {% endfor %}
                                   

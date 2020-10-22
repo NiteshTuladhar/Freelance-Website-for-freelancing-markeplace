@@ -34,8 +34,16 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/gig_details.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/aboutseller.css' %}">
     <link rel="stylesheet" href="{% static 'css/checkout.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/review.css' %}" type="text/css"
-></head>
+    <link rel="stylesheet" href="{% static 'css/review.css' %}" type="text/css">
+
+    <script type="text/javascript">
+        $('.reply-btn').click(function(){
+            $(this).next('.post-comment-sec').fadeToggle()
+        });
+    </script>
+    
+
+</head>
 
 <body>
     <!-- Page Preloder -->

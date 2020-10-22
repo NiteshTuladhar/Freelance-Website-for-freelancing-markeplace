@@ -13,10 +13,12 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views #view as auth_view is done as we have another imported view above so in order to above conflict.
+from django.conf.urls import url, include
 
 urlpatterns = [
     #path('',views.homepage,name='homepage'),
@@ -38,5 +40,7 @@ urlpatterns = [
     path('reset-complete/',auth_views.PasswordResetCompleteView.as_view(
         template_name='account/password_reset_complete.html'
         ),name='password_reset_complete'),
-]
+
+    url(r'^oauth/', include('social_django.urls', namespace='social')),
+ ]
     

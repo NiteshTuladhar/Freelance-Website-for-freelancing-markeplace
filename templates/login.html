@@ -52,6 +52,20 @@
                                 </div>
                             </div>
                             <button type="submit" class="site-btn login-btn">Sign In</button>
+                            <hr/>  
+
+                             <a class="btn btn-block btn-social btn-github" href="{% url 'social:begin' 'github' %}" style="color: white;height: 45px;font-size: 16px;text-align: center;">
+                                <span class="fa fa-github pt-2"></span><p style="color: white;font-size: 16px;padding-top: 2px;"> Sign in with Github</p>
+                            </a>
+
+                            <a class="btn btn-block btn-social btn-google" href="{% url 'social:begin' 'google-oauth2' %}" style="color: white;height: 45px;font-size: 16px;text-align: center;">
+                                <span class="fa fa-google pt-2"></span> <p style="color: white;font-size: 16px;padding-top: 2px;">Sign in with Google</p>
+                         </a>
+
+
+                            
+                            
+
                         </form>
                         <div class="switch-login">
                             <a href="{% url 'register' %}" class="or-login">Or Create An Account</a>

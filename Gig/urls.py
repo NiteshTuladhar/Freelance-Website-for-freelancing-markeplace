@@ -10,6 +10,8 @@ path('mygig/',views.creategig,name='createusergig'),
 path('edit-gig/<slug:slug>',views.editGig, name='editgig'),
 path('<slug:slug>/delete',views.deleteGig,name='deletegig'),
 path('<slug:slug>/',views.gigDetails,name='gigdetails'),
+path('like/<int:id>',views.likeGig,name='gig_like'),
 path('<slug:slug>/',views.othersgigDetails,name='othersgigdetails'),
+
 ]
 

@@ -58,7 +58,14 @@ INSTALLED_APPS = [
     'django_countries',
     'languages',
     'easy_thumbnails',
+    'social_django',
     
+]
+
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +76,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'Freelance.urls'
@@ -84,6 +92,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect', 
             ],
         },
     },
@@ -224,7 +235,9 @@ EMAIL_HOST_USER=env.str('EMAIL_HOST_USER')
 EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-
+LOGIN_REDIRECT_URL = 'post_list'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '896253275854-1dvfqjaeudc28b1uhthtoqev52k9heu0.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_0AUTH3_SECRET = 'IJOlLHbDbnCv8e4GKTGZAOGJ'
 
 THUMBNAIL_ALIASES = {
     '': {
