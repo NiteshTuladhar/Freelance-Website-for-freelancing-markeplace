@@ -40,6 +40,11 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+LOGIN_REDIRECT_URL = 'homepage'
+
+
+LOGIN_URL = '/auth/login/google-oauth2/'
+SOCILAL_AUTH_URL_NAMESPACE = 'social'
 # Application definition
 
 INSTALLED_APPS = [
@@ -49,6 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'Accounts',
     'FAQ',
     'Gig',
@@ -58,15 +64,20 @@ INSTALLED_APPS = [
     'django_countries',
     'languages',
     'easy_thumbnails',
+
     'social_django',
     
 ]
 
-AUTHENTICATION_BACKENDS = [
+AUTHENTICATION_BACKENDS = (
+
     'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.facebook.FacebookOAuth2',
     'social_core.backends.google.GoogleOAuth2',
+
     'django.contrib.auth.backends.ModelBackend',
-]
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -76,6 +87,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
     'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
@@ -92,8 +104,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                
-                'social_django.context_processors.backends',
+
+                'social_django.context_processors.backends',  
                 'social_django.context_processors.login_redirect', 
             ],
         },
@@ -235,9 +247,16 @@ EMAIL_HOST_USER=env.str('EMAIL_HOST_USER')
 EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-LOGIN_REDIRECT_URL = 'post_list'
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '896253275854-1dvfqjaeudc28b1uhthtoqev52k9heu0.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_0AUTH3_SECRET = 'IJOlLHbDbnCv8e4GKTGZAOGJ'
+
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '896253275854-6eiudo91stj7kbdl2tajk3d34fj02v59.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'cL3inZsrsAJtxEEoejiBNoLk'
+
+SOCIAL_AUTH_GITHUB_KEY = '3d027fc2575aab500831'
+SOCIAL_AUTH_GITHUB_SECRET = '4b0fd20943dea373c07ae0424aa9f356d19d8ce7'
+
+SOCIAL_AUTH_GITHUB_SCOPE = ['user : email']
+
 
 THUMBNAIL_ALIASES = {
     '': {

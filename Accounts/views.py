@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect
-from .models import Account
+from .models import Account, Follow
 from django.contrib import messages
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
@@ -112,18 +112,29 @@ def userlogout(request):
 
 @login_required
 def userHome(request):
-	gigs = MyGig.objects.all()
+	gigs = MyGig.objects.exclude(id=request.user.id)
 	account = Account.objects.all()
 	profile = MyProfile.objects.all()
+
+	x= Follow.objects.filter(followed_by=request.user.id).values('followed_to')
+	followers_list = []
+	for y in x:
+		followers_list.append(y['followed_to'])
+
+	non_followers = MyGig.objects.exclude(user_id__in=followers_list)
+	followers = MyGig.objects.filter(user_id__in=followers_list)
+	print(non_followers)
+	print(followers)
 	context = {
 
 		'gigs' : gigs,
 		'account'  : account,
-		'profile' : profile
+		'profile' : profile,
+		'non_followers' : non_followers,
+		'followers' : followers,
 	}
 
 	return render(request,'userhome.html',context)
-
 
 
 """

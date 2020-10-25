@@ -13,6 +13,8 @@ from django.utils import timezone
 
 
 
+
+
 class AccountManager(BaseUserManager):
     def create_user(self, email, account_name,password=None):
         if not email:
@@ -56,7 +58,7 @@ class Account(AbstractBaseUser):
     profile_create = models.BooleanField(default=False)
     is_profile_set = models.BooleanField(default=False)
     first_gig = models.BooleanField(default=True)
-
+    user_verified = models.BooleanField(default=False)
 
     objects = AccountManager()
 
@@ -81,6 +83,34 @@ class Account(AbstractBaseUser):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
         return self.is_admin
+
+
+
+class Follow(models.Model):
+    
+    followed_to = models.IntegerField()
+    followed_by = models.IntegerField()
+
+    def save(self,*args,**kwargs):
+        try:
+            ft = Account.objects.get(id=self.followed_to)
+            fb = Account.objects.get(id=self.followed_by)
+
+            if self.followed_by == self.followed_to:
+                return False
+            else:
+                super(Follow,self).save(*args,**kwargs)
+                return True
+        except:
+            raise ValueError("No user found with this id")
+
+
+    class Meta:
+        unique_together = ('followed_to','followed_by')
+
+    def __str__(self):
+       return "followed_to "+ str(self.followed_to)+" | followed_by "+ str(self.followed_by)
+
 
 
 def sendAccountCreationMail(sender, **kwargs):
@@ -118,3 +148,6 @@ def sendAccountCreationMail(sender, **kwargs):
         pass
 
 post_save.connect(sendAccountCreationMail,sender=Account)
+
+
+

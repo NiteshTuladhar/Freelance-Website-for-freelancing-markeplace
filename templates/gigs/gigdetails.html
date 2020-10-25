@@ -1,6 +1,8 @@
+
 {% extends 'master/dashboard_base.html' %}
+
 {% load static %}
-{% block title %} Gig Details | Freelance.{% endblock %}
+{% block title %} {{ gig.title }} by {{ gig.profile.full_name }} | Freelance.{% endblock %}
 
 
 {% block body %}
@@ -74,14 +76,52 @@
       {% endif %}
     </div>
   </div>
+
+
 </main>
-<div class="row" style="padding-left: 750px;margin-top: -60px;margin-bottom: 80px">
-      <form action="{% url 'gig_like' gig.id %}" method="POST">
-        {% csrf_token %}
-        <button type="submit" name="gig_id" value="{{gig.id}}" class="btn btn-primary">Like</button>
-      </form>
-      <p> {{ gig.likes.count }} </p>
+
+
+ 
+
+<div class="row" style="padding-left: 12px;margin-top: -100px;margin-bottom: 100px;">
+   <div class="row" style="padding-left: 100px;float: right;">
+      <form action="{% url 'like-gig' %}" method="POST" class="like-form" id="{{gig.id}}">
+      {% csrf_token %}
+      <input type="hidden" name="gig_id" value="{{gig.id}}">
+                                                        
+                                                        
+                                                          
+        <button class="btn btn-link btn-xs  like-btn{{gig.id}}" type="submit" name="action">
+          {% if request.user not in gig.liked.all %}
+              <i class="fa fa-thumbs-o-up fa-2x"></i>
+          {% else %}
+              <i class="fa fa-thumbs-up fa-2x"></i>
+          
+      {% endif %}
+      </button>
+      <strong class="like-count{{gig.id}}" style="font-size: 14px;"> {{ gig.liked.all.count }} Like{{ like|pluralize }}</strong>
+    </form>
+    <div class="reviews" style="padding-left: 30px;">
+      <i class="fa fa-commenting-o fa-2x"></i><strong class="" style="font-size: 14px;"> {{ review.count }} Review{{ review|pluralize }} </strong>
     </div>
+    <div class="reviews" style="padding-left: 30px;padding-right: 400px;">
+      <i class="fa fa-share fa-2x"></i><strong class="" style="font-size: 14px;"> Share </strong>
+    </div>
+
+    <form action="{% url 'save-gig' %}" method="POST" class="like-form" id="{{gig.id}}">
+      {% csrf_token %}
+      <input type="hidden" name="gig_id" value="{{gig.id}}">
+    <button class="btn btn-link btn-xs  like-btn{{gig.id}}" type="submit" name="action">
+          {% if request.user not in gig.favourite.all %}
+              <i class="fa fa-bookmark-o fa-3x"></i>
+          {% else %}
+              <i class="fa fa-bookmark fa-3x"></i>
+          
+      {% endif %}
+      </button>
+    </form>
+</div>
+</div>
 
 
 <div class="row pl-5" style="padding-bottom: 25px;">
@@ -171,18 +211,18 @@
             </div>            
             <div class="col-xs-12 divider text-center">
                 <div class="col-xs-12 col-sm-4 emphasis">
-                    <h2><strong> 20,7K </strong></h2>                    
+                    <h2><strong> {{followers.count}} </strong></h2>                    
                     <p><small>Followers</small></p>
                     <button class="btn btn-success btn-block"><span class="fa fa-plus-circle"></span> Follow </button>
                 </div>
                 <div class="col-xs-12 col-sm-4 emphasis">
-                    <h2><strong>245</strong></h2>                    
+                    <h2><strong>{{following.count}}</strong></h2>                    
                     <p><small>Following</small></p>
                     <button class="btn btn-info btn-block"><span class="fa fa-user"></span> View Profile </button>
                 </div>
                 <div class="col-xs-12 col-sm-4 emphasis">
-                    <h2><strong>43</strong></h2>                    
-                    <p><small>Snippets</small></p>
+                    <h2><strong>{{ total_likes.count }}</strong></h2>                    
+                    <p><small>Likes</small></p>
                     <div class="btn-group dropup btn-block">
                       <button type="button" class="btn btn-primary"><span class="fa fa-gear"></span> Options </button>
                       <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">

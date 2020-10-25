@@ -3,11 +3,11 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy,reverse
 from .forms import GigForm
 from django.contrib import messages
-from Accounts.models import Account
-from .models import MyGig, Review
+from Accounts.models import Account, Follow
+from .models import MyGig, Review, Likes, Saves
 from Profile.models import MyProfile
 from django.views.generic import RedirectView
-
+from django.http import JsonResponse
 
 '''For generating thumnail'''
 
@@ -82,20 +82,27 @@ def deleteGig(request,slug):
 
 
 
-
-
 def gigDetails(request,slug):
     if request.method =='GET':
         gig  = MyGig.objects.get(slug=slug) #Here no data of profile and acc is retrieve because we used the foreign key in MyGig.
         id  = gig.user_id
         review = Review.objects.filter(gigs=gig, reply=None).order_by('-comment_time')
         reply = Review.objects.filter()
+        total_likes = Likes.objects.filter(user=id)
+        followers = Follow.objects.filter(followed_to=id)
+        following = Follow.objects.filter(followed_by=id)
+
+        
+
         context ={
             'gig' : gig,
             'review' : review,
             'id' : id,
-            'reply' : reply
-
+            'reply' : reply,
+            'total_likes' : total_likes,
+            'followers' : followers,
+            'following' : following,
+           
         }
         if request.user.is_authenticated:
             return render(request,'gigs/gigdetails.html',context=context)
@@ -111,8 +118,6 @@ def gigDetails(request,slug):
             review_qs = Review.objects.get(id=reply_id)
         profile = MyProfile.objects.get(user_id=request.user.id)
         review = Review.objects.create(message=message, gigs=gig,user=request.user,reply=review_qs,profile=profile)
-        print(review_qs)
-        print('---------------------------------------------------------------')
         try:
             review.save()
             messages.add_message(request, messages.SUCCESS, "Comment Added")
@@ -123,10 +128,7 @@ def gigDetails(request,slug):
 
 
 
-def likeGig(request,id):
-    gig = get_object_or_404(MyGig, id=request.POST.get('gig_id'))
-    gig.likes.add(request.user)
-    return HttpResponseRedirect(reverse('gigdetails',args=[srt(id)]))
+
 
 
 
@@ -156,3 +158,55 @@ def userProfile(request,id):
 
 
 
+def like_gig(request):
+    likes = Likes.objects.all()
+    user = request.user
+    if request.method == 'POST':
+        gig_id = request.POST.get('gig_id')
+        gig_obj = MyGig.objects.get(id=gig_id)
+
+        if user in gig_obj.liked.all():
+            gig_obj.liked.remove(user)
+
+        else:
+            gig_obj.liked.add(user)
+
+        like, created = Likes.objects.get_or_create(user=user,gigs_id=gig_id)
+
+        if not created:
+            if like.value == 'Like':
+                like.value = 'Unlike'
+            else:
+                like.value = 'Like'
+
+        like.save() 
+
+        
+    return redirect('homepage')
+
+
+
+
+def save_gig(request):
+    saves = Saves.objects.all()
+    user = request.user
+    if request.method == 'POST':
+        gig_id = request.POST.get('gig_id')
+        gig_obj = MyGig.objects.get(id=gig_id)
+        
+
+        if user in gig_obj.favourite.all():
+            gig_obj.favourite.remove(user)
+            f = Saves.objects.get(user=request.user.id,gigs_id=gig_id)
+            print(f)
+            print('-------------------------------------------------------------')
+            f.delete()
+        else:
+            gig_obj.favourite.add(user)
+
+        saved, created = Saves.objects.get_or_create(user=user,gigs_id=gig_id)
+
+        saved.save() 
+
+        
+    return redirect('homepage')

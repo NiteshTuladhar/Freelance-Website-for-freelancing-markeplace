@@ -1,6 +1,6 @@
 {% extends 'master/base.html' %}
 {% load static %}
-{% block title %} Gig Details | Freelance.{% endblock %}
+{% block title %} {{ gig.title }} by {{ gig.profile.full_name }} | Freelance.{% endblock %}
 
 
 {% block body %}
@@ -74,6 +74,46 @@
   </div>
 </main>
 
+<div class="row" style="padding-left: 12px;margin-top: -100px;margin-bottom: 100px;">
+   <div class="row" style="padding-left: 100px;float: right;">
+      <form action="{% url 'like-gig' %}" method="POST" class="like-form" id="{{gig.id}}">
+      {% csrf_token %}
+      <input type="hidden" name="gig_id" value="{{gig.id}}">
+                                                        
+                                                        
+                                                          
+        <button class="btn btn-link btn-xs  like-btn{{gig.id}}" type="submit" name="action">
+          {% if request.user not in gig.liked.all %}
+              <i class="fa fa-thumbs-o-up fa-2x"></i>
+          {% else %}
+              <i class="fa fa-thumbs-up fa-2x"></i>
+          
+      {% endif %}
+      </button>
+      <strong class="like-count{{gig.id}}" style="font-size: 14px;"> {{ gig.liked.all.count }} Like{{ like|pluralize }}</strong>
+    </form>
+    <div class="reviews" style="padding-left: 30px;">
+      <i class="fa fa-commenting-o fa-2x"></i><strong class="" style="font-size: 14px;"> {{ review.count }} Review{{ review|pluralize }} </strong>
+    </div>
+    <div class="reviews" style="padding-left: 30px;padding-right: 400px;">
+      <i class="fa fa-share fa-2x"></i><strong class="" style="font-size: 14px;"> Share </strong>
+    </div>
+
+    <form action="{% url 'save-gig' %}" method="POST" class="like-form" id="{{gig.id}}">
+      {% csrf_token %}
+      <input type="hidden" name="gig_id" value="{{gig.id}}">
+    <button class="btn btn-link btn-xs  like-btn{{gig.id}}" type="submit" name="action">
+          {% if request.user not in gig.favourite.all %}
+              <i class="fa fa-bookmark-o fa-3x"></i>
+          {% else %}
+              <i class="fa fa-bookmark fa-3x"></i>
+          
+      {% endif %}
+      </button>
+    </form>
+</div>
+</div>
+
 <div class="row pl-5" style="padding-bottom: 25px;">
   <div class="col-lg-7">
     <h4 style="padding-bottom: 20px;margin-left: 50px;"><strong>About The Seller</strong></h4>
@@ -96,8 +136,8 @@
   <div class="row" >
 
        <div class="well profile" style="background-color: white;border:1px solid white;">
-            <div class="col-sm-12">
-                <div class="col-xs-12 col-sm-8">
+            <div class="col-sm-8">
+                <div class="col-xs-8 col-sm-8">
                   <div class="imgcir" style="padding-bottom: 15px;">
                     <a href=""><img class="rounded-circle" src="{{ gig.profile.profile_image.url }}" style="height: 130px;width: 130px;background-color: #bbb;margin:auto;border-radius: 50%;display: inline-block;"></a>
                   </div>
@@ -113,7 +153,7 @@
                         <span class="tags">bootstrap3</span>
                     </p>
                 </div>             
-                <div class="col-xs-12 col-sm-4 text-center">
+                <div class="col-xs-9 col-sm-4 text-center">
                     <figure>
                         <img src="http://www.localcrimenews.com/wp-content/uploads/2013/07/default-user-icon-profile.png" alt="" class="img-circle img-responsive">
                         <figcaption class="ratings">
@@ -161,20 +201,20 @@
 
                 </div>
             </div>            
-            <div class="col-xs-12 divider text-center">
-                <div class="col-xs-12 col-sm-4 emphasis">
-                    <h2><strong> 20,7K </strong></h2>                    
+            <div class="col-xs-8 divider text-center">
+                <div class="col-xs-10 col-sm-4 emphasis">
+                    <h2><strong> {{followers.count}} </strong></h2>                    
                     <p><small>Followers</small></p>
                     <button class="btn btn-success btn-block"><span class="fa fa-plus-circle"></span> Follow </button>
                 </div>
                 <div class="col-xs-12 col-sm-4 emphasis">
-                    <h2><strong>245</strong></h2>                    
+                    <h2><strong>{{following.count}}</strong></h2>                    
                     <p><small>Following</small></p>
                     <button class="btn btn-info btn-block"><span class="fa fa-user"></span> View Profile </button>
                 </div>
-                <div class="col-xs-12 col-sm-4 emphasis">
-                    <h2><strong>43</strong></h2>                    
-                    <p><small>Snippets</small></p>
+                <div class="col-xs-8 col-sm-4 emphasis">
+                    <h2><strong>{{ total_likes.count }}</strong></h2>                    
+                    <p><small>Likes</small></p>
                     <div class="btn-group dropup btn-block">
                       <button type="button" class="btn btn-primary"><span class="fa fa-gear"></span> Options </button>
                       <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">

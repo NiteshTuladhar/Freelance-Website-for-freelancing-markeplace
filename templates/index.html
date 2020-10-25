@@ -123,13 +123,13 @@
     <!-- Banner Section End -->
 
     <!--Slider Starts-->
-    <div class="container" style="padding-bottom: 45px;" >
+    <div class="container" style="padding-bottom: 110px;" >
         <div class="row">
             <div class="row">
 
                 <div class="col-md-9">
                     <h2 style="padding-right: 450px; padding-bottom: 15px;">
-                        Our Top Sellers & More in Web Development </h2>
+                        Our Top Sellers & More in Web Development  </h2>
                 </div>
                 <div class="col-md-3">
                     <!-- Controls -->
@@ -149,9 +149,12 @@
                         {% for gig in gigs %}
                             <div class="col-sm-3">
                                 <div class="col-item">
-                                    <a href="{% url 'gigdetails' gig.slug %}">
+                                    <a href="{% url 'othersgigdetails' gig.slug %}">
                                     <div class="photo">
                                         <img src="{{gig.gig_image.url}}" alt="a" />
+                                        <div class="onlinecir" style="padding-left: 45px;padding-top: 45px;position: absolute;">
+                                            <span class="dot" style="height: 12px;width: 12px;background-color: green;border-radius: 50%;display: inline-block;border:solid 1px #fff;"></span>
+                                        </div>
                                     </div>
                                 </a>
                                     <div class="info">
@@ -165,9 +168,17 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-7" style="float: right;">
-                                                    <h5 style="font-size: 14px;padding-left: 5px;padding-right: 40px;padding-top: 1px;"><b>{{gig.user}}</b></h5>
+                                                <div class="col-md-7" style="float: right;display: inline-block;">
+
+                                                    <h5 style="font-size: 14px;padding-left: 5px;padding-right: 30px;padding-top: 1px;"><b style="display: flex;">{{gig.user}}
+                                                        {% if gig.user.user_verified %}
+                                                            <i class="fa fa-check-circle" style="color: #2a9df4;margin-left: 5px;"></i>
+                                                            {% endif %}
+                                                        </b>
+                                                    </h5>
+                                                        
                                                     <h5 style="font-size: 14px;padding-left: 5px; font-size: 10px;">{{gig.profile.country.name}}</h5>
+
                                                 </div>
                                             </div>
                                         </a>
@@ -183,15 +194,23 @@
 
                                                 <h5 style="font-size: 20px;float: left;color:#e7ab3c;padding-top: 7px;padding-right: : 150px;padding-bottom: 15px;">
                                                     <b>$ {{gig.price}}</b></h5>
-
+                                                    
                                             </div>
+
+                                           
 
                                         </div>
                                         <div class="separator clear-left">
                                             <p class="btn-add">
-                                                <i class="fa fa-shopping-cart"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">Add to cart</a></p>
-                                            <p class="btn-details">
-                                                <i class="fa fa-list"></i><a href="{% url 'gigdetails' gig.slug %}" class="hidden-sm">More details</a></p>
+                                                <a href="http://www.jquery2dotnet.com" class="hidden-sm"><i class="fa fa-shopping-cart"></i></a>
+                                            
+                                                <a href="{% url 'othersgigdetails' gig.slug %}" class="hidden-sm"><i class="fa fa-list"></i></a>
+                                                {% if is_favourite %}
+                                                    <a href="" class="hidden-sm"><i class="fa fa-heart"></i></a>
+                                                {% else %}
+                                                    <a href="" class="hidden-sm"><i class="fa fa-heart-o"></i></a>
+                                                {% endif %}
+                                            </p>
                                         </div>
                                         <div class="clearfix">
                                         </div>
@@ -210,7 +229,7 @@
                             {% for gig in gigs %}
                              <div class="col-sm-3">
                                 <div class="col-item">
-                                    <a href="{% url 'gigdetails' gig.slug %}">
+                                    <a href="{% url 'othersgigdetails' gig.slug %}">
                                     <div class="photo">
                                         <img src="{{gig.gig_image.url}}" alt="a" />
                                     </div>
@@ -226,13 +245,19 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-7" style="float: right;">
-                                                    <h5 style="font-size: 14px;padding-left: 5px;padding-right: 40px;padding-top: 1px;"><b>{{gig.user}}</b></h5>
+                                                <div class="col-md-7" style="float: right;display: inline-block;">
+
+                                                    <h5 style="font-size: 14px;padding-left: 5px;padding-right: 30px;padding-top: 1px;"><b style="display: flex;">{{gig.user}}
+                                                        {% if gig.user.user_verified %}
+                                                            <i class="fa fa-check-circle" style="color: #2a9df4;margin-left: 5px;"></i>
+                                                            {% endif %}
+                                                    </b></h5>
                                                     <h5 style="font-size: 14px;padding-left: 5px; font-size: 10px;">{{gig.profile.country.name}}</h5>
+
                                                 </div>
                                             </div>
                                         </a>
-                                            <div class="price col-md-12">
+                                            <div class="prices col-md-12">
                                                 <h5 style="font-size: 12px;padding-left: 5px;">
                                                     {{gig.title}}</h5>
                                                 
@@ -247,12 +272,16 @@
 
                                             </div>
 
+                                            
+
                                         </div>
                                         <div class="separator clear-left">
                                             <p class="btn-add">
-                                                <i class="fa fa-shopping-cart"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">Add to cart</a></p>
-                                            <p class="btn-details">
-                                                <i class="fa fa-list"></i><a href="{% url 'gigdetails' gig.slug %}" class="hidden-sm">More details</a></p>
+                                                <a href="http://www.jquery2dotnet.com" class="hidden-sm"><i class="fa fa-shopping-cart"></i></a>
+                                            
+                                                <a href="{% url 'othersgigdetails' gig.slug %}" class="hidden-sm"><i class="fa fa-list"></i></a>
+                                                <a href="" class="hidden-sm"><i class="fa fa-heart-o"></i></a>
+                                            </p>
                                         </div>
                                         <div class="clearfix">
                                         </div>
@@ -516,47 +545,59 @@
     <!-- Man Banner Section End -->
 
     <!-- Instagram Section Begin -->
-    <div class="instagram-photo">
-        <div class="insta-item set-bg" data-setbg="img/insta-1.jpg">
-            <div class="inside-text">
-                <i class="ti-instagram"></i>
-                <h5><a href="#">colorlib_Collection</a></h5>
+    
+        <div class="row pb-5">
+                <div class="col-lg-12 pb-5">
+                    <div class="section-title">
+                        <h2>Popular Profession Services. </h2>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="insta-item set-bg" data-setbg="img/insta-2.jpg">
-            <div class="inside-text">
-                <i class="ti-instagram"></i>
-                <h5><a href="#">colorlib_Collection</a></h5>
+        <div class="instagram-photo">
+            <div class="insta-item set-bg pr-3" data-setbg="{% static 'img/cat-1.jpg' %}">
+                <div class="inside-text">
+                    <i class="ti-instagram"></i>
+                    <h5><a href="#"><stront>LOGO DESIGN</stront></a></h5>
+                </div>
             </div>
-        </div>
-        <div class="insta-item set-bg" data-setbg="img/insta-3.jpg">
-            <div class="inside-text">
-                <i class="ti-instagram"></i>
-                <h5><a href="#">colorlib_Collection</a></h5>
+            <div class="insta-item set-bg pr-3" data-setbg="{% static 'img/cat-2.jpg' %}">
+                <div class="inside-text">
+                    <i class="ti-instagram"></i>
+                    <h5><a href="#"><stront>WEB DEVELOPER</stront></a></h5>
+                </div>
             </div>
-        </div>
-        <div class="insta-item set-bg" data-setbg="img/insta-4.jpg">
-            <div class="inside-text">
-                <i class="ti-instagram"></i>
-                <h5><a href="#">colorlib_Collection</a></h5>
+            <div class="insta-item set-bg pr-3" data-setbg="{% static 'img/cat-3.jpg' %}">
+                <div class="inside-text">
+                    <i class="ti-instagram"></i>
+                    <h5><a href="#"><stront>GRAPHIC DESIGN</stront></a></h5>
+                </div>
             </div>
-        </div>
-        <div class="insta-item set-bg" data-setbg="img/insta-5.jpg">
-            <div class="inside-text">
-                <i class="ti-instagram"></i>
-                <h5><a href="#">colorlib_Collection</a></h5>
+            <div class="insta-item set-bg pr-3" data-setbg="{% static 'img/cat-4.jpg' %}">
+                <div class="inside-text">
+                    <i class="ti-instagram"></i>
+                    <h5><a href="#"><stront>MUSIC CREATOR</stront></a></h5>
+                </div>
             </div>
-        </div>
-        <div class="insta-item set-bg" data-setbg="img/insta-6.jpg">
-            <div class="inside-text">
-                <i class="ti-instagram"></i>
-                <h5><a href="#">colorlib_Collection</a></h5>
+            <div class="insta-item set-bg pr-3" data-setbg="{% static 'img/cat-5.jpg' %}">
+                <div class="inside-text">
+                    <i class="ti-instagram"></i>
+                    <h5><a href="#"><stront>BUSINESS ANALYST</stront></a></h5>
+                </div>
             </div>
+             <div class="insta-item set-bg pr-3" data-setbg="{% static 'img/cat-6.jpg' %}">
+                <div class="inside-text">
+                    <i class="ti-instagram"></i>
+                    <h5><a href="#"><stront>SOCIAL MEDIA</stront></a></h5>
+                </div>
+            </div>
+           
+
         </div>
-    </div>
+ 
     <!-- Instagram Section End -->
 
     <!-- Latest Blog Section Begin -->
+
     <section class="latest-blog spad">
         <div class="container">
             <div class="row">

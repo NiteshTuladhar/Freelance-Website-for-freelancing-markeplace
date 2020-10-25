@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from Gig.models import MyGig
 from Accounts.models import Account
 from Profile.models import MyProfile
@@ -10,6 +10,8 @@ def login_homepage(request):
 	account = Account.objects.exclude(id=request.user.id)
 	profile = MyProfile.objects.exclude(user_id=request.user.id)
 
+	
+
 	context = {
 		'gigs' : gigs,
 		'account' : account,
@@ -17,7 +19,7 @@ def login_homepage(request):
 
 	}
 	if request.user.is_authenticated:
-		return render(request,'userhome.html',context)
+		return redirect('userhome')
 		print(user.is_authenticated)
 	else:
 		return render(request,'index.html',context)

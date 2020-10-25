@@ -35,6 +35,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/aboutseller.css' %}">
     <link rel="stylesheet" href="{% static 'css/checkout.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/review.css' %}" type="text/css">
+    
 
     <script type="text/javascript">
         $('.reply-btn').click(function(){
@@ -199,6 +200,7 @@
                         <span style="padding-right: 80px;text-align: center;">{{user.account_name}}</span>
                        
                         <ul class="depart-hover pr-5">
+                        
                             {% if user.is_profile_set %}
                                 {% if user.first_gig %}
                             <li class="active"><a href="{% url 'compuserprofile' request.user.id %}">Profile</a></li>
@@ -227,7 +229,13 @@
                                 <li><a href="#">Kid's</a></li>
                             </ul>
                         </li>
-                        <li><a href="./contact.html">Gigs</a></li>
+                        <li><a href="#">Gigs</a>
+                            <ul class="dropdown">
+                                <li><a href="{% url 'liked_gigs' %}">Liked</a></li>
+                                <li><a href="{% url 'saved_gigs' %}">Saved</a></li>
+                                <li><a href="#">View Later</a></li>
+                            </ul>
+                        </li>
                         <li><a href="./contact.html">Saved</a></li>
                         <li><a href="#">Orders</a>
                             <ul class="dropdown">

@@ -1,6 +1,6 @@
-{% extends 'master/base.html' %}
+{% extends 'master/dashboard_base.html' %}
 {% load static %}
-{% block title %}User Profile | Freelance.{% endblock %}
+{% block title %}{{userinfo.user.account_name}}| Freelance.{% endblock %}
 
 
 {% block body %}
@@ -18,10 +18,20 @@
               {% endif %}                    
             </div>
             <div class="info">
-                <h5 style="text-align: center;padding-top:25px;"><b>{{ userinfo.user.account_name }}</b><a href="{% url 'editprofile' %}" style="text-decoration: none;"><i class="fa fa-pencil-square-o fa-xs pl-3"></a></i></h5>
+                <h5 style="text-align: center;padding-top:25px;"><b>{{ userinfo.user.account_name }}</b>
+                  {% if request.user.id %}
+                    {% if id == request.user.id %}
+                    <a href="{% url 'editprofile' %}" style="text-decoration: none;"><i class="fa fa-pencil-square-o fa-xs pl-3"></a></i>
+                    {% endif %}
+                  {% endif %}
+                </h5>
+                  
             </div>
         </header>
+        {% if request.user.id %}
+          {% if is_alreadyfollowed %}
                 <div class="button" style="margin-left: 100px;margin-top: 20px;">
+                  <a href="{% url 'unfollowuser' userinfo.user.id %}">
                     <button style="color: #3399FF;
                           font-family: 'Helvetica';
                           font-size: 10pt;
@@ -34,9 +44,49 @@
                           top: 50px;
                           left: 180px;   
                           cursor: hand;">
+                          <b>Unfollow</b>
+                    </button>
+                  </a>
+                </div> 
+            {% else %}
+                <div class="button" style="margin-left: 100px;margin-top: 20px;">
+                  <a href="{% url 'followuser' userinfo.user.id %}">
+                    <button style="color: white;
+                          font-family: 'Helvetica';
+                          font-size: 10pt;
+                          background-color: #3399FF;
+                          border: 1px solid;
+                          border-color: #3399FF;
+                          border-radius: 3px;
+                          width: 185px;
+                          height: 30px;  
+                          top: 50px;
+                          left: 180px;   
+                          cursor: hand;">
                           <b>Follow</b>
                     </button>
-                </div> 
+                  </a>
+                </div>
+                {% endif %}
+
+              {% else %}
+                <div class="button" style="margin-left: 100px;margin-top: 20px;">
+                    <button style="color: white;
+                          font-family: 'Helvetica';
+                          font-size: 10pt;
+                          background-color: #3399FF;
+                          border: 1px solid;
+                          border-color: #3399FF;
+                          border-radius: 3px;
+                          width: 185px;
+                          height: 30px;  
+                          top: 50px;
+                          left: 180px;   
+                          cursor: hand;" disabled>
+                          <b>Follow</b>
+                  </a>
+                </div>
+              {% endif %}
                 <hr style="width: 90%;">
       
                <p style="font-family:serif;"><i class="fa fa-map-marker pl-3">&nbsp&nbsp&nbsp&nbsp<b style="font-family: 'Helvetica';font-size:14px; ">From:</b><b class="country pr-3" style="font-family: 'Helvetica';padding-left:175px;font-size: 14px;">{{userinfo.country.name}}</b></i></p>
@@ -46,7 +96,7 @@
             </div> 
 
 
-            <div id="card2" style=" width:100%; height:950px; border:1px solid #C1C7C9;padding-left:150px;text-align: justify; background-color: #FFF;margin: 30px 30px auto; 
+            <div id="card2" style=" width:100%; height:950px; border:1px solid #C1C7C9;padding-left:150px;text-align: justify; background-color: #FFF;margin: 30px 30px auto;
     /* top, left, bottom*/ padding: 10px 20px 30px; float: left; "> 
           <div class="row pl-4 pt-3 edit">
                   <h5><b>Description</b></h5>

@@ -37,13 +37,30 @@ class MyGig(models.Model):
     price           = models.FloatField()
     time            = models.IntegerField(null=True,blank=True)
     s_name          = models.ForeignKey(SubCategory, on_delete=models.CASCADE,null=True,blank=True)
-    likes           = models.ManyToManyField(Account, related_name='post_likes', blank=True)
+    liked           = models.ManyToManyField(Account,default=None,related_name='post_like',blank=True)
+    favourite       = models.ManyToManyField(Account,related_name='favourite',blank=True)
     
     def __str__(self):
         return self.title
 
-    def get_absolute_url(self):
-        return reverse("gigdetails", kwargs={"slug": self.slug})
+    @property
+    def num_likes(self):
+        return self.likes.all().count()
+
+
+LIKE_CHOICES = {
+    ('Like','Like'),
+    ('Unlike','Unlike'),
+} 
+
+
+class Likes(models.Model):
+    user            = models.ForeignKey(Account,on_delete=models.CASCADE)
+    gigs            = models.ForeignKey(MyGig,on_delete=models.CASCADE,null=True,blank=True)
+    value           = models.CharField(choices=LIKE_CHOICES, default='Like',max_length=10)
+
+    def __str__(self):
+        return str(self.gigs)
 
 
 class Review(models.Model):
@@ -59,3 +76,11 @@ class Review(models.Model):
 
     def __srt__(self):
         return format(self.gigs.title)
+
+
+class Saves(models.Model):
+    user            = models.ForeignKey(Account,on_delete=models.CASCADE)
+    gigs            = models.ForeignKey(MyGig,on_delete=models.CASCADE,null=True,blank=True)
+
+    def __str__(self):
+        return str(self.gigs)

@@ -2,9 +2,9 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from .forms import ProfileForm, ChangeProfilePicture
 from django.contrib import messages
-from Accounts.models import Account
+from Accounts.models import Account, Follow
 from .models import MyProfile
-from Gig.models import MyGig
+from Gig.models import MyGig, Likes, Saves
 # Create your views here.
 
 
@@ -92,7 +92,6 @@ def editProfile(request):
 def myProfile(request,id):
     userinfo = MyProfile.objects.get(user_id=request.user.id)
     gigs = MyGig.objects.filter(user_id=request.user.id)
-
     context = {
         'userinfo' : userinfo,
         'gigs' : gigs,
@@ -106,11 +105,59 @@ def userProfile(request,id):
 
     userinfo = MyProfile.objects.get(user_id=id)
     gig  = MyGig.objects.filter(user_id=id)
-
+    is_alreadyfollowed = False
+    try:
+        is_follwed = Follow.objects.get(followed_to=id,followed_by=request.user.id)
+        is_alreadyfollowed = True
+        print('follow---------------------------------------------------------------')
+    except:
+        is_alreadyfollowed = False
 
     context ={
         'userinfo' : userinfo,
         'gig' : gig ,
-
+        'is_alreadyfollowed' : is_alreadyfollowed,
     }
     return render(request,'userprofile/profile_visit.html',context=context)
+
+
+def followUser(request,id):
+    f = Follow(followed_to=id, followed_by=request.user.id)
+    try:
+        f.save()
+    except:
+        pass
+
+    return redirect('visitprofile',id)
+
+
+def unfollowUser(request,id):
+    f = Follow.objects.get(followed_to=id, followed_by=request.user.id)
+    try:
+        f.delete()
+    except:
+        pass
+    return redirect('visitprofile',id)
+
+
+
+def liked_gigs(request):
+
+    liked = Likes.objects.filter(user=request.user.id, value='Like')
+    context = {
+        'liked'  : liked,
+    }
+
+    return render(request,'gigs/liked_gigs.html',context)
+
+
+def saved_gigs(request):
+
+    favourite = Saves.objects.filter(user=request.user.id)
+    context = {
+        'favourite'  : favourite,
+    }
+
+    return render(request,'gigs/saved_gigs.html',context)
+
+
