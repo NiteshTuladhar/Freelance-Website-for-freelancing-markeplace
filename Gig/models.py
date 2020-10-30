@@ -4,8 +4,9 @@ from Profile.models import MyProfile
 from autoslug import AutoSlugField
 from django.utils.text import slugify
 from django.utils.timezone import now
-from datetime import datetime
+from datetime import datetime, date, timezone
 from django.urls import reverse
+
 # Create your models here.
 class Category(models.Model):
     c_name          = models.CharField(max_length=100)
@@ -29,19 +30,42 @@ class MyGig(models.Model):
     profile         = models.ForeignKey(MyProfile,on_delete=models.CASCADE,null=True,blank=True)
     title           = models.CharField(max_length=100)
     slug            = AutoSlugField(populate_from='title',unique=True,null=True,blank=True)
-    description     = models.CharField(max_length=100)
+    description     = models.CharField(max_length=1000)
     gig_image       = models.ImageField(upload_to='gig_profile_img',blank=True,null=True)
     c_name          = models.ForeignKey(Category, on_delete=models.CASCADE,null=True,blank=True)
-    created_on      = models.DateField(default=datetime.now,null=True,blank=True)
+    created_on      = models.DateTimeField(auto_now=True,blank=True,null=True)
     search_tag      = models.CharField(max_length=15)
     price           = models.FloatField()
     time            = models.IntegerField(null=True,blank=True)
     s_name          = models.ForeignKey(SubCategory, on_delete=models.CASCADE,null=True,blank=True)
     liked           = models.ManyToManyField(Account,default=None,related_name='post_like',blank=True)
-    favourite       = models.ManyToManyField(Account,related_name='favourite',blank=True)
+    favourite       = models.ManyToManyField(Account,related_name='favourites',blank=True)
     
     def __str__(self):
         return self.title
+
+    def gig_duration(self):
+        diff = datetime.now(timezone.utc)-self.created_on
+        total_seconds = diff.total_seconds();
+        if total_seconds<60:
+            return str(int(total_seconds)) + " seconds ago."
+        elif total_seconds<=3600:
+            minute = total_seconds/60
+            return str(int(minute))+ " minutes ago."
+        elif total_seconds<86400:
+            hrs = (total_seconds/60)/60
+            return str(int(hrs))+ " hrs ago."
+        elif total_seconds<2592000:
+            days = ((total_seconds/60)/60)/24
+            return str(int(days))+ " days ago."
+        elif total_seconds<31104000:
+            months = (((total_seconds/60)/60)/24)/30
+            return str(int(months))+ " months ago."
+        else :
+            year = ((((total_seconds/60)/60)/24)/30)/12
+            return str(int(year))+ " year ago."
+
+        return diff.total_seconds()
 
     @property
     def num_likes(self):
@@ -61,7 +85,7 @@ class Likes(models.Model):
 
     def __str__(self):
         return str(self.gigs)
-
+ 
 
 class Review(models.Model):
 

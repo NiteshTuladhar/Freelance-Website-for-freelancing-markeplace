@@ -4,7 +4,7 @@
 
 
 {% block body %}
-<main class="containers">s
+<main class="containers">
  
   <!-- Left Column / Headphones Image -->
   <div class="left-columns" style="margin: 55px 70px auto auto">
@@ -18,10 +18,12 @@
   <div class="right-columns">
  
     <!-- Product Description -->
-    <div class="product-descriptions">
+     <div class="product-descriptions">
       <span style="font-size: 12px;">Graphic Designing</span>
       <h1 style="text-transform: uppercase; font-size: 25px;padding-top: 7px;"><strong>{{gig.title}}</strong></h1>
-      <p>The preferred choice of a vast range of acclaimed DJs. Punchy, bass-focused sound and high isolation. Sturdy headband and on-ear cushions suitable for live performance</p>
+
+      <p>{{gig.description}}</p>
+      <p style="font-size: 13px;font-weight: bold;">Created {{gig.gig_duration}}</p>
     </div>
  
     <!-- Product Configuration -->

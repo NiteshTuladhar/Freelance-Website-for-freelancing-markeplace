@@ -15,8 +15,19 @@
                 <a href="{% url 'changeprofilepic' %}"><img class="rounded-circle" src="{{ userinfo.profile_image.url }}" style="height: 130px;width: 130px;background-color: #bbb;margin:auto;border-radius: 50%;display: inline-block;"></a>
               {% else %}
                 <a href="{% url 'changeprofilepic' %}"><img class="rounded-circle" src="{% static 'img/default_profile_img.jpg' %}" style="height: 130px;width: 130px;background-color: #bbb;margin:auto;border-radius: 50%;display: inline-block;"></a>
-              {% endif %}                    
+              {% endif %}  
+
+              {% if userinfo.user.user_online %}
+                <button class="btn success" style="margin-left:30px;margin-top:-100px;border: 2px solid  #4CAF50;background-color: white;padding: 1px 28px;font-size: 12px;color: green;border-radius: 50px;">Online</button>
+
+              {% else %}
+                <button class="btn success" style="margin-left:147px;margin-top:-245px;border: 2px solid  grey;background-color: white;padding: 1px 20px;font-size: 12px;color: grey;border-radius: 50px;">{{userinfo.user.logout_last}}</button>
+
+
+              {% endif %}
+
             </div>
+
             <div class="info">
                 <h5 style="text-align: center;padding-top:25px;"><b>{{ userinfo.user.account_name }}</b>
                   {% if request.user.id %}
@@ -139,9 +150,11 @@
 
                 <div class="heading pt-5 pl-5">
 
-                  <p style="font-size: 20px;"><b> {{userinfo.user.account_name}}'s Gigs</b></p>
+                  <p style="font-size: 20px;padding-left: 40px;"><b> {{userinfo.user.account_name}}'s Gigs</b></p>
+                  <hr style="width: 90%;">
                 </div>
-                    <section class="women-banner spad" style="position:relative;padding-top: 150px;padding-left: 50px;">
+
+                    <section class="women-banner spad" style="position:relative;padding-top: 15px;padding-left: 50px;">
                         <div class="container-fluid">
                             <div class="row">
                               {% for g in gig %}

@@ -188,7 +188,7 @@ def like_gig(request):
 
 
 def save_gig(request):
-    saves = Saves.objects.all()
+
     user = request.user
     if request.method == 'POST':
         gig_id = request.POST.get('gig_id')
@@ -197,10 +197,13 @@ def save_gig(request):
 
         if user in gig_obj.favourite.all():
             gig_obj.favourite.remove(user)
-            f = Saves.objects.get(user=request.user.id,gigs_id=gig_id)
-            print(f)
-            print('-------------------------------------------------------------')
-            f.delete()
+            
+            print(Saves.objects.get(user=user,gigs_id=gig_id))
+            print('---------------------------')
+            
+            Saves.objects.get(user=user,gigs_id=gig_id).delete()
+            Saves.save()
+            
         else:
             gig_obj.favourite.add(user)
 

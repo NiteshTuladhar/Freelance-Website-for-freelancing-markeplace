@@ -7,6 +7,7 @@ from .token import generatetoken
 from django.utils.safestring import mark_safe
 from Profile.models import MyProfile
 from Gig.models import MyGig
+from datetime import datetime, date, timezone
 
 
 # Create your views here.
@@ -80,9 +81,13 @@ def userlogin(request):
 		
 
 		if user is not None:
-			login(request, user)
-			acc = Account.objects.get(id=request.user.id)
 
+
+			login(request, user)
+
+			acc = Account.objects.get(id=request.user.id)
+			acc.user_online = True
+			acc.save()
 			
 			if acc.profile_create is False:
 				profile = MyProfile(user=request.user)
@@ -105,6 +110,11 @@ def userlogin(request):
 
 
 def userlogout(request):
+	account = Account.objects.get(id=request.user.id)
+	account.user_online = False
+	account.last_logout = datetime.now(timezone.utc)
+	account.save()
+	
 	logout(request)
 	return redirect('homepage')
 
@@ -112,7 +122,8 @@ def userlogout(request):
 
 @login_required
 def userHome(request):
-	gigs = MyGig.objects.exclude(id=request.user.id)
+	gigs = MyGig.objects.exclude(id=request.user.id)[:4]
+	nextgigs = MyGig.objects.exclude(id=request.user.id)[4:8]
 	account = Account.objects.all()
 	profile = MyProfile.objects.all()
 
@@ -128,6 +139,7 @@ def userHome(request):
 	context = {
 
 		'gigs' : gigs,
+		'nextgigs' : nextgigs,
 		'account'  : account,
 		'profile' : profile,
 		'non_followers' : non_followers,

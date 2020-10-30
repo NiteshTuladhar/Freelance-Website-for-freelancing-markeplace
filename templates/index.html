@@ -152,9 +152,7 @@
                                     <a href="{% url 'othersgigdetails' gig.slug %}">
                                     <div class="photo">
                                         <img src="{{gig.gig_image.url}}" alt="a" />
-                                        <div class="onlinecir" style="padding-left: 45px;padding-top: 45px;position: absolute;">
-                                            <span class="dot" style="height: 12px;width: 12px;background-color: green;border-radius: 50%;display: inline-block;border:solid 1px #fff;"></span>
-                                        </div>
+                                        
                                     </div>
                                 </a>
                                     <div class="info">
@@ -166,6 +164,11 @@
                                                         
                                                         <a href="#"><img class="rounded-circle" src="{{gig.profile.profile_image.url}}" style="height: 40px;width: 40px;background-color: #bbb;margin:auto;border-radius: 50%;display: inline-block;"></a>             
                                                     </div>
+                                                    {% if gig.user.user_online %}
+                                                        <div class="onlinecir" style="padding-left: 50px;margin-top: -15px;position: absolute;">
+                                                            <span class="dot" style="height: 12px;width: 12px;background-color: green;border-radius: 50%;display: inline-block;border:solid 2px #fff;"></span>
+                                                        </div>
+                                                    {% endif %}
                                                 </div>
 
                                                 <div class="col-md-7" style="float: right;display: inline-block;">
@@ -243,6 +246,11 @@
 
                                                         <a href="#"><img class="rounded-circle" src="{{gig.profile.profile_image.url}}" style="height: 40px;width: 40px;background-color: #bbb;margin:auto;border-radius: 50%;display: inline-block;"></a>             
                                                     </div>
+                                                    {% if gig.user.user_online %}
+                                                        <div class="onlinecir" style="padding-left: 50px;margin-top: -15px;position: absolute;">
+                                                            <span class="dot" style="height: 12px;width: 12px;background-color: green;border-radius: 50%;display: inline-block;border:solid 2px #fff;"></span>
+                                                        </div>
+                                                    {% endif %}
                                                 </div>
 
                                                 <div class="col-md-7" style="float: right;display: inline-block;">

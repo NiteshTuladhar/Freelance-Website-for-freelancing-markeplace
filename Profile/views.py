@@ -103,6 +103,7 @@ def myProfile(request,id):
 
 def userProfile(request,id):
 
+    acc = Account.objects.get(id=id)
     userinfo = MyProfile.objects.get(user_id=id)
     gig  = MyGig.objects.filter(user_id=id)
     is_alreadyfollowed = False
@@ -117,6 +118,7 @@ def userProfile(request,id):
         'userinfo' : userinfo,
         'gig' : gig ,
         'is_alreadyfollowed' : is_alreadyfollowed,
+        'acc' : acc,
     }
     return render(request,'userprofile/profile_visit.html',context=context)
 

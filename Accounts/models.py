@@ -10,7 +10,7 @@ from django.db.models.signals import post_save
 from django.core.mail import EmailMessage
 from django.template.loader import get_template
 from django.utils import timezone
-
+from datetime import datetime, date, timezone,timedelta
 
 
 
@@ -41,6 +41,7 @@ class AccountManager(BaseUserManager):
         return user
 
 
+    
 
 class Account(AbstractBaseUser):
     email = models.EmailField(
@@ -59,6 +60,8 @@ class Account(AbstractBaseUser):
     is_profile_set = models.BooleanField(default=False)
     first_gig = models.BooleanField(default=True)
     user_verified = models.BooleanField(default=False)
+    user_online = models.BooleanField(default=False)
+    last_logout = models.DateTimeField(null=True,blank=True,auto_now_add=True)
 
     objects = AccountManager()
 
@@ -84,6 +87,30 @@ class Account(AbstractBaseUser):
         # Simplest possible answer: All admins are staff
         return self.is_admin
 
+
+
+    def logout_last(self):
+        diff = datetime.now(timezone.utc)-self.last_logout
+        total_seconds = diff.total_seconds();
+        if total_seconds<60:
+            return  " a moment ago."
+        elif total_seconds<=3600:
+            minute = total_seconds/60
+            return str(int(minute))+ " minutes ago."
+        elif total_seconds<86400:
+            hrs = (total_seconds/60)/60
+            return str(int(hrs))+ " hrs ago."
+        elif total_seconds<2592000:
+            days = ((total_seconds/60)/60)/24
+            return str(int(days))+ " days ago."
+        elif total_seconds<31104000:
+            months = (((total_seconds/60)/60)/24)/30
+            return str(int(months))+ " months ago."
+        else :
+            year = ((((total_seconds/60)/60)/24)/30)/12
+            return str(int(year))+ " year ago."
+
+        return diff.total_seconds()
 
 
 class Follow(models.Model):
