@@ -62,6 +62,7 @@ class Account(AbstractBaseUser):
     user_verified = models.BooleanField(default=False)
     user_online = models.BooleanField(default=False)
     last_logout = models.DateTimeField(null=True,blank=True,auto_now_add=True)
+    is_available = models.BooleanField(default=True)
 
     objects = AccountManager()
 

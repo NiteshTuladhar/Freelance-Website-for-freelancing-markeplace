@@ -90,12 +90,14 @@ def editProfile(request):
 
 
 def myProfile(request,id):
+    acc = Account.objects.get(id=request.user.id)
     userinfo = MyProfile.objects.get(user_id=request.user.id)
     gigs = MyGig.objects.filter(user_id=request.user.id)
     context = {
         'userinfo' : userinfo,
         'gigs' : gigs,
-        'id' : id
+        'id' : id,
+        'acc' : acc,
     }
     return render(request,'userprofile/mygigpage.html',context)
 
@@ -163,3 +165,25 @@ def saved_gigs(request):
     return render(request,'gigs/saved_gigs.html',context)
 
 
+def availability(request):
+
+    acc = Account.objects.get(id=request.user.id)
+    userinfo = MyProfile.objects.get(user_id=request.user.id)
+    gigs = MyGig.objects.filter(user_id=request.user.id)
+
+    print(acc.is_available)
+    print('+++++++++++++++++++++++++++++++++++++++')
+    if acc.is_available == True:
+        acc.is_available = False
+        
+    else:
+        acc.is_available = True
+
+    acc.save()
+    context = {
+        'userinfo' : userinfo,
+        'gigs' : gigs,
+        'id' : id,
+        'acc' : acc
+    }
+    return render(request,'userprofile/mygigpage.html',context)

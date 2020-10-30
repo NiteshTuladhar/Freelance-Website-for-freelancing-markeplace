@@ -118,6 +118,21 @@
 
 <div class="row pl-5" style="padding-bottom: 25px;">
   <div class="col-lg-7">
+    
+   {% if gig.user.is_available == False %}
+      <div class="alert" style="text-align:center;padding: 20px;background-color: #f44336; /* Red */color: white;margin-bottom: 15px;">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';" style="margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;">&times;</span>
+        <p style="font-size: 14px;color: white;font-weight: bold;">This user is currently unavailable right now.</p> 
+      </div>
+    {% endif %}
+
     <h4 style="padding-bottom: 20px;margin-left: 50px;"><strong>About The Seller</strong></h4>
 
     <!--<div class="imgcir pt-5">

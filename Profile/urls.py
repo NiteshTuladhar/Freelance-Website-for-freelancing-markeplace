@@ -17,5 +17,6 @@ path('unfollow/<int:id>/',views.unfollowUser,name='unfollowuser'),
 
 path('liked_gigs/',views.liked_gigs,name='liked_gigs'),
 path('saved/',views.saved_gigs,name='saved_gigs'),
+path('',views.availability,name='availability'),
 ]
 
