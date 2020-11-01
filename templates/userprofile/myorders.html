@@ -1,0 +1,173 @@
+{% extends 'master/dashboard_base.html' %}
+{% load static %}
+{% block title %}User Profile | Freelance.{% endblock %}
+
+
+{% block body %}
+<div class="row pb-5" style="background-color: #F2F3F4;">
+  <div class="col-lg-4">
+      <div id="card1" style=" width:100%; height:400px; border:1px solid #C1C7C9;padding-left:150px;text-align: justify; background-color: #FFF;margin: 30px 30px auto; 
+    /* top, left, bottom*/ padding: 10px 20px 30px; float: left; "> 
+        <header>
+            <div class="imgcir pl-5 pt-3" style="margin-left: 95px;">
+
+              {% if userinfo.profile_image %}
+                <a href="{% url 'changeprofilepic' %}"><img class="rounded-circle" src="{{ userinfo.profile_image.url }}" style="height: 130px;width: 130px;background-color: #bbb;margin:auto;border-radius: 50%;display: inline-block;"></a>
+              {% else %}
+                <a href="{% url 'changeprofilepic' %}"><img class="rounded-circle" src="{% static 'img/default_profile_img.jpg' %}" style="height: 130px;width: 130px;background-color: #bbb;margin:auto;border-radius: 50%;display: inline-block;"></a>
+              {% endif %}                    
+            </div>
+            <div class="info">
+                <h5 style="text-align: center;padding-top:25px;"><b>{{ request.user.account_name }}</b><a href="{% url 'editprofile' %}" style="text-decoration: none;"><i class="fa fa-pencil-square-o fa-xs pl-3"></a></i></h5>
+            </div>
+        </header>
+              {% if acc.is_available == True %}
+                <div class="button" style="margin-left: 100px;margin-top: 20px;">
+                  <a href="{% url 'availability' %}">
+                    <button style="color: #3399FF;
+                          font-family: 'Helvetica';
+                          font-size: 10pt;
+                          background-color: #ffffff;
+                          border: 1px solid;
+                          border-color: #3399FF;
+                          border-radius: 3px;
+                          width: 185px;
+                          height: 30px;  
+                          top: 50px;
+                          left: 180px;   
+                          cursor: hand;">
+                          <b>In Office</b>
+                    </button>
+                  </a>
+                </div> 
+                {% else %}
+                  <div class="button" style="margin-left: 100px;margin-top: 20px;">
+                     <a href="{% url 'availability' %}">
+                      <button style="color: #3399FF;
+                            font-family: 'Helvetica';
+                            font-size: 10pt;
+                            background-color: #ffffff;
+                            border: 1px solid;
+                            border-color: #3399FF;
+                            border-radius: 3px;
+                            width: 185px;
+                            height: 30px;  
+                            top: 50px;
+                            left: 180px;   
+                            cursor: hand;">
+                            <b>Out of Office</b>
+                      </button>
+                    </a>
+
+                </div> 
+                {% endif %}
+                <hr style="width: 90%;">
+      
+               <p style="font-family:serif;"><i class="fa fa-map-marker pl-3">&nbsp&nbsp&nbsp&nbsp<b style="font-family: 'Helvetica';font-size:14px; ">From:</b><b class="country pr-3" style="font-family: 'Helvetica';padding-left:175px;font-size: 14px;">{{userinfo.country.name}}</b></i></p>
+               <!--Here we use .name as userinfo.country gave the initials of the country so .name -->
+
+               <p style="font-family:serif;"><i class="fa fa-user pl-3">&nbsp&nbsp&nbsp&nbsp<b style="font-family: 'Helvetica';font-size: 14px;">Member Since:</b><b style="font-family: 'Helvetica';padding-left:140px;font-size: 14px;">{{user.joined_on}}</b></i></p>
+            </div> 
+
+        </div>
+        <div class="col-lg-8 pr-5">
+          <div class="row" style="padding-top: 22px;padding-left: 20px;">
+            <div class="column" style="">
+              <div class="card"><p style="font-family: sans-serif;font-size: 16px;">In Progress</p><p style="font-weight: bold;font-size: 29px;font-family: sans-serif;">3</p></div>
+
+            </div>
+            <div class="column">
+              <div class="card"><p style="font-family: sans-serif;font-size: 16px;">Pending</p><p style="font-weight: bold;font-size: 29px;font-family: sans-serif;">1</p></div>
+
+            </div>
+            <div class="column">
+              <div class="card"><p style="font-family: sans-serif;font-size: 16px;">Completed</p><p style="font-weight: bold;font-size: 29px;font-family: sans-serif;">15</p></div>
+
+            </div>
+            <div class="column">
+              <div class="card"><p style="font-family: sans-serif;font-size: 16px;">Total Gigs</p><p style="font-weight: bold;font-size: 29px;font-family: sans-serif;">19</p></div>
+
+            </div>
+          </div>
+
+                <div id="card3" style="margin: 30px 40px auto;">
+
+                  <a href="#home" class="active">my orders</a>
+                  <a href="#news">active orders</a>
+                  <a href="#news">pending orders</a>
+                  <a href="#news">completed orders</a>
+                </div>
+                
+                <div class="card4" style="padding-top: 100px;padding-left: 30px;">
+                  <section class="shop checkout section" style="">
+                      <div class="container">
+                        <div class="row"> 
+                          <div class="col-lg-12 col-12">
+
+                                  <table id="cart" class="table table-hover table-condensed">
+                                    <thead>
+                                      <tr>
+                                        <th style="width:50%">Product</th>
+                                        
+                                        <th style="width:10%">Price</th>
+                                        <th style="width:20%">Details</th>
+  
+                                      </tr>
+                                    </thead>
+                                {% if liked %}
+
+                                  {% for like in liked %}
+                                    <tbody>
+                                      <tr>
+                                        <td data-th="Product">
+                                          <div class="row">
+                                            <div class="col-sm-4 hidden-xs"><img src="{{like.gigs.gig_image.url}}"/></div>
+                                            <div class="col-sm-8">
+                                              <h4 class="nomargin" style="font-size: 16px;">{{like.gigs.title}}</h4>
+                                              <h4 style="font-size: 14px;">Ordered By:</h4>
+                                             
+                                            </div>
+                                          </div>
+                                        </td>
+                                        <td data-th="Price">${{like.gigs.price}}</td>
+                                        
+                                        <td class="actions" data-th="">
+                                          <a href="{% url 'myordersdetails' %}">
+                                            <button class="btn btn-info">View Details</button>
+                                          </a>
+                                                          
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  {% endfor %}
+                                {% else %}
+                                  <tbody>
+                                      <div class="container" style="width:85%; height:400px;text-align: justify;background-image:url('{% static 'img/2wowempty.jpg' %}');border:3px dashed #C1C7C9; background-color: #fff;  margin: 30px    200px 20px 20px; 
+                                      /* top, left, bottom*/ 
+                                      padding: 10px 20px 30px; 
+                                      float: left; ">
+                                      <p style="text-align: center;font-family: 'Helvetica';padding-top: 21%;padding-right: 13%;"><b>It seems like you have not liked any gigs yet.</b></p>
+                                    </div>
+                                       
+
+
+                                  </tbody>
+                               {% endif %}
+                              </table>
+
+                          </div>
+
+
+                    
+
+                          </div>
+                        </div>
+                
+                    </section>
+                </div> 
+
+            </div> 
+        </div>
+    </div>
+
+{% endblock %}

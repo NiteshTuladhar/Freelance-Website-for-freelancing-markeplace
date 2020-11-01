@@ -7,6 +7,7 @@ from Profile.models import MyProfile
 def login_homepage(request):
 	
 	gigs = MyGig.objects.exclude(user_id=request.user.id)#Here excluded the user data/info who is logged in from the home page.
+
 	account = Account.objects.exclude(id=request.user.id)
 	profile = MyProfile.objects.exclude(user_id=request.user.id)
 

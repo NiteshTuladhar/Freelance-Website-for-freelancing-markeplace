@@ -15,7 +15,7 @@
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/slider.css' %}" type="text/css">
 
     <!-- Google Font -->
@@ -35,6 +35,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/aboutseller.css' %}">
     <link rel="stylesheet" href="{% static 'css/checkout.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/review.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/clock.css' %}" type="text/css">
     
 
     <script type="text/javascript">
@@ -69,7 +70,7 @@
     {% endif %}
 
     <!-- Header Section Begin -->
-    <header class="header-section">
+    <header class="header-section" style="background-color: white;">
         <div class="header-top">
             <div class="container">
                 <div class="ht-left">
@@ -239,7 +240,7 @@
                         <li><a href="./contact.html">Saved</a></li>
                         <li><a href="#">Orders</a>
                             <ul class="dropdown">
-                                <li><a href="./blog-details.html">Blog Details</a></li>
+                                <li><a href="{% url 'myorders' %}">My Orders</a></li>
                                 <li><a href="./shopping-cart.html">Shopping Cart</a></li>
                                 <li><a href="./check-out.html">Checkout</a></li>
                                 <li><a href="./faq.html">Faq</a></li>
@@ -359,6 +360,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="{% static 'js/jquery.slicknav.js' %}"></script>
     <script src="{% static 'js/owl.carousel.min.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/clock.js' %}"></script>
 </body>
 
 </html>

@@ -5,6 +5,7 @@ from django.contrib import messages
 from Accounts.models import Account, Follow
 from .models import MyProfile
 from Gig.models import MyGig, Likes, Saves
+from Order.models import MyOrder
 # Create your views here.
 
 
@@ -185,6 +186,31 @@ def availability(request):
         'acc' : acc
     }
     return render(request,'userprofile/mygigpage.html',context)
+
+
+
+@login_required
+def myOrders(request):
+
+    liked = Likes.objects.filter(user=request.user.id, value='Like')
+    context = {
+        'liked'  : liked,
+    }
+    #myorders = MyOrder.objects.filter(gig=gig.user.id)
+    #print(myorder)
+    #print('---------------------------------------------')
+    return render(request,'userprofile/myorders.html',context)
+
+
+@login_required
+def myOrdersDetails(request):
+    liked = Likes.objects.filter(user=request.user.id, value='Like')
+    context = {
+        'liked'  : liked,
+    }
+
+    return render(request,'userprofile/myordersdetails.html',context)
+
 
 
 # @login_required
