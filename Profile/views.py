@@ -128,10 +128,24 @@ def userProfile(request,id):
 
 def followUser(request,id):
     f = Follow(followed_to=id, followed_by=request.user.id)
+    userinfo = Account.objects.get(id=id)
     try:
         f.save()
+
     except:
         pass
+
+    ff = Follow.objects.filter(followed_to=id)
+
+    print(userinfo.user_verified)
+
+    if ff.count()>=2:
+        userinfo.user_verified = True
+
+    userinfo.save()
+
+    print(userinfo.user_verified)
+
 
     return redirect('visitprofile',id)
 

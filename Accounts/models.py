@@ -146,7 +146,7 @@ def sendAccountCreationMail(sender, **kwargs):
     current_user        = kwargs['instance']
     current_user_mail   = current_user.email
     token               = current_user.token
-    s                   = "Account Creawtion"
+    s                   = "Account Creation"
     context = {
         'id' : current_user.id,
         'name' : current_user.account_name,
@@ -181,10 +181,3 @@ post_save.connect(sendAccountCreationMail,sender=Account)
 
 
 
-def verification(sender, **kwargs):
-
-    followers = Follow.objects.filter(followed_to=id)
-    print('ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo')
-
-
-post_save.connect(verification,sender=Follow)

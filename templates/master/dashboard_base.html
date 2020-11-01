@@ -209,7 +209,7 @@
                                     <li class="active"><a href="{% url 'mygig' request.user.id %}">Profile</a></li>
                                 {% endif %}
                             {% else %}
-                            <li class="active"><a href="{% url 'userprofile' request.user.id %}">Profile</a></li>
+                            <li class="active"><a href="{% url 'userprofile' %}">Profile</a></li>
                             {% endif %}
                             <li><a href="{% url 'userhome' %}">Dashboard</a></li>
                             <li><a href="#">Analytics</a></li>
