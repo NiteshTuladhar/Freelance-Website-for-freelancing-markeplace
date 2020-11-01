@@ -44,25 +44,25 @@ class AccountManager(BaseUserManager):
     
 
 class Account(AbstractBaseUser):
-    email = models.EmailField(
+    email       = models.EmailField(
         verbose_name='email address',
         max_length=255,
         unique=True,
     )
-    account_name = models.CharField(max_length=100,unique=True)
-    is_active = models.BooleanField(default=True)
-    is_admin = models.BooleanField(default=False)
-    send_first_email = models.BooleanField(default=False)
-    token = models.CharField(blank=True,null=True, max_length=15)
-    is_verified = models.BooleanField(default=False)
-    joined_on = models.DateField(auto_now_add=True,null=True,blank=True)
-    profile_create = models.BooleanField(default=False)
-    is_profile_set = models.BooleanField(default=False)
-    first_gig = models.BooleanField(default=True)
-    user_verified = models.BooleanField(default=False)
-    user_online = models.BooleanField(default=False)
-    last_logout = models.DateTimeField(null=True,blank=True,auto_now_add=True)
-    is_available = models.BooleanField(default=True)
+    account_name        = models.CharField(max_length=100,unique=True)
+    is_active           = models.BooleanField(default=True)
+    is_admin            = models.BooleanField(default=False)
+    send_first_email    = models.BooleanField(default=False)
+    token               = models.CharField(blank=True,null=True, max_length=15)
+    is_verified         = models.BooleanField(default=False)
+    joined_on           = models.DateField(auto_now_add=True,null=True,blank=True)
+    profile_create      = models.BooleanField(default=False)
+    is_profile_set      = models.BooleanField(default=False)
+    first_gig           = models.BooleanField(default=True)
+    user_verified       = models.BooleanField(default=False)
+    user_online         = models.BooleanField(default=False)
+    last_logout         = models.DateTimeField(null=True,blank=True,auto_now_add=True)
+    is_available        = models.BooleanField(default=True)
 
     objects = AccountManager()
 
@@ -116,8 +116,9 @@ class Account(AbstractBaseUser):
 
 class Follow(models.Model):
     
-    followed_to = models.IntegerField()
-    followed_by = models.IntegerField()
+    user            = models.ForeignKey(Account, on_delete=models.CASCADE,null=True,blank=True)
+    followed_to     = models.IntegerField()
+    followed_by     = models.IntegerField()
 
     def save(self,*args,**kwargs):
         try:
@@ -142,10 +143,10 @@ class Follow(models.Model):
 
 
 def sendAccountCreationMail(sender, **kwargs):
-    current_user = kwargs['instance']
-    current_user_mail = current_user.email
-    token = current_user.token
-    s = "Account Creawtion"
+    current_user        = kwargs['instance']
+    current_user_mail   = current_user.email
+    token               = current_user.token
+    s                   = "Account Creawtion"
     context = {
         'id' : current_user.id,
         'name' : current_user.account_name,
@@ -179,3 +180,11 @@ post_save.connect(sendAccountCreationMail,sender=Account)
 
 
 
+
+def verification(sender, **kwargs):
+
+    followers = Follow.objects.filter(followed_to=id)
+    print('ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo')
+
+
+post_save.connect(verification,sender=Follow)

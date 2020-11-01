@@ -4610,3 +4610,46 @@ ol {
             color: #fff;
             font-size: 17px;
         }
+
+
+
+/* following and followers page tabs */
+/* Set height of body and the document to 100% to enable "full page tabs" */
+
+/* Style tab links */
+.tablink {
+  background-color: #C1C7C9;
+  color: black;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 25%;
+}
+
+.tablink:hover::after {
+	padding-bottom: 10px: 
+    width: 100%;
+    transition: width .3s;
+}
+.tablink::after{
+	content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #000;
+    transition: width .3s;
+}
+
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+  color: white;
+  background-color: white;
+  display: none;
+  padding: 100px 20px;
+  height: 100%;
+}
+

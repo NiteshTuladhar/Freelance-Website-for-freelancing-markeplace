@@ -88,7 +88,7 @@ def editProfile(request):
     }
     return render(request,'userprofile/editprofile.html',context)
 
-
+@login_required
 def myProfile(request,id):
     acc = Account.objects.get(id=request.user.id)
     userinfo = MyProfile.objects.get(user_id=request.user.id)
@@ -144,7 +144,7 @@ def unfollowUser(request,id):
     return redirect('visitprofile',id)
 
 
-
+@login_required
 def liked_gigs(request):
 
     liked = Likes.objects.filter(user=request.user.id, value='Like')
@@ -154,7 +154,7 @@ def liked_gigs(request):
 
     return render(request,'gigs/liked_gigs.html',context)
 
-
+@login_required
 def saved_gigs(request):
 
     favourite = Saves.objects.filter(user=request.user.id)
@@ -164,15 +164,13 @@ def saved_gigs(request):
 
     return render(request,'gigs/saved_gigs.html',context)
 
-
+@login_required
 def availability(request):
 
     acc = Account.objects.get(id=request.user.id)
     userinfo = MyProfile.objects.get(user_id=request.user.id)
     gigs = MyGig.objects.filter(user_id=request.user.id)
 
-    print(acc.is_available)
-    print('+++++++++++++++++++++++++++++++++++++++')
     if acc.is_available == True:
         acc.is_available = False
         
@@ -187,3 +185,19 @@ def availability(request):
         'acc' : acc
     }
     return render(request,'userprofile/mygigpage.html',context)
+
+
+# @login_required
+# def myFollowFollowing(request):
+
+#    following = Follow.objects.filter(followed_by=request.user.id)
+#    followers = Follow.objects.filter(followed_to=request.user.id)
+
+#    userinfo = MyProfile.objects.get(user_id=request.user.id)
+#    context ={
+#        'following' : following,
+#        'followers' : followers,
+#        'userinfo' : userinfo,
+#    }
+
+#    return render(request,'userprofile/follow_following.html',context)

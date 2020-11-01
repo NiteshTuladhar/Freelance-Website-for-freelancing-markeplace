@@ -6,6 +6,9 @@ from . import views
 
 urlpatterns = [
 
-path('ordercheckout/',views.orderCheckout,name='order'),
+path('<slug:slug>/ordercheckout/',views.orderCheckout,name='order'),
+path('<slug:slug>/ordermessage/',views.orderCheckoutMessage,name='ordercheckoutmessage'),
+path('<slug:slug>/ordercomplete/',views.orderCheckoutComplete,name='ordercheckoutcomplete'),
+
 ]
 

@@ -62,7 +62,7 @@
           <button>Premium</button>
         </div>
  
-        <a href="#">How to configurate your headphones</a>
+        <a href="#">Contact the seller to talk about your project to evaluate timing and cost.</a>
       </div>
     </div>
  
@@ -70,7 +70,7 @@
     <div class="product-prices">
       <span>{{gig.price}}$</span>
       {% if request.user.id %}
-      <a href="{% url 'order' %}" class="cart-btn">Order Now</a>
+      <a href="{% url 'order' gig.slug %}" class="cart-btn">Order Now</a>
       {% else %}
       <a href="{% url 'signin' %}" class="cart-btn">Login To Order</a>
       {% endif %}
@@ -127,7 +127,7 @@
 <div class="row pl-5" style="padding-bottom: 25px;">
   <div class="col-lg-7">
     {% if gig.user.is_available == False %}
-      <div class="alert" style="text-align:center;padding: 20px;background-color: #f44336; /* Red */color: white;margin-bottom: 15px;">
+      <div class="alert" style="text-align:center;padding: 18px;background-color: #f44336; /* Red */color: white;margin-bottom: 15px;">
         <span class="closebtn" onclick="this.parentElement.style.display='none';" style="margin-left: 15px;
         color: white;
         font-weight: bold;
@@ -139,6 +139,7 @@
         <p style="font-size: 14px;color: white;font-weight: bold;">This user is currently unavailable right now.</p> 
       </div>
     {% endif %}
+
     <h4 style="padding-bottom: 20px;margin-left: 50px;"><strong>About The Seller </strong></h4>
 
     <!--<div class="imgcir pt-5">

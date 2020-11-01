@@ -34,7 +34,7 @@ def creategig(request):
                 messages.success(request,'Your Gig Is Created.')
                 return redirect('mygig')
             except:
-                return render(request,'gigs/gigform.html',context = {'form':form}) 
+                return redirect('mygig')
         else:
 
             return render(request,'gigs/gigform.html',context = {'form':form})

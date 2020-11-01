@@ -44,6 +44,11 @@ class MyGig(models.Model):
     def __str__(self):
         return self.title
 
+    @property
+    def get_total(self):
+        total = self.price + 2
+        return total
+
     def gig_duration(self):
         diff = datetime.now(timezone.utc)-self.created_on
         total_seconds = diff.total_seconds();
