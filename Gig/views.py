@@ -201,15 +201,16 @@ def save_gig(request):
             print(Saves.objects.get(user=user,gigs_id=gig_id))
             print('---------------------------')
             
-            Saves.objects.get(user=user,gigs_id=gig_id).delete()
-            Saves.save()
+            a = Saves.objects.get(user=user,gigs_id=gig_id)
+            a.delete()
+            
             
         else:
             gig_obj.favourite.add(user)
 
-        saved, created = Saves.objects.get_or_create(user=user,gigs_id=gig_id)
+            saved, created = Saves.objects.get_or_create(user=user,gigs_id=gig_id)
 
-        saved.save() 
+            saved.save() 
 
         
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
