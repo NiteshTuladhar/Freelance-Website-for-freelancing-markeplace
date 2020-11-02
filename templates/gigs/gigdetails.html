@@ -70,11 +70,26 @@
     <div class="product-prices">
       <span>{{gig.price}}$</span>
       {% if request.user.id %}
-      <a href="{% url 'order' gig.slug %}" class="cart-btn">Order Now</a>
+        {% if gig.user.is_available %}
+          <a href="{% url 'order' gig.slug %}" class="cart-btn">Order Now</a>
+        {% else %}
+          <a class="cart-btn" disabled style="color: white;">Unavailble</a>
+
+        {% endif %}
       {% else %}
       <a href="{% url 'signin' %}" class="cart-btn">Login To Order</a>
       {% endif %}
     </div>
+
+    {% if request.user.id %}
+        {% if gig.user.is_available == False %}
+         
+          <p style="font-size: 10px;color: red;">This seller is currently unavailable right now.</p>
+
+        {% endif %}
+      
+      {% endif %}
+  
   </div>
 
 
