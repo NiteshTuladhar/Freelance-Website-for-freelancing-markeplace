@@ -2,13 +2,15 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from Gig.models import MyGig,Review
 from Order.models import MyOrder
+from Accounts.models import Account
 
 
 def orderCheckout(request,slug):
-
+	
 	gig = MyGig.objects.get(slug=slug)
 	review = Review.objects.filter(gigs=gig, reply=None).order_by('-comment_time')
 	id  = gig.user_id
+
 	
 
 	context = {
@@ -44,13 +46,13 @@ def orderCheckoutMessage(request,slug):
 def orderCheckoutComplete(request,slug):
 
 	gig = MyGig.objects.get(slug=slug)
+	id  = gig.user_id
+	seller = Account.objects.get(id=id)
 	message = request.POST.get('message')
 	print(message)
 	print('+++++++++++++++++++++++')
-	
-	id  = gig.user_id
 
-	order = MyOrder.objects.create(customer=request.user,gig=gig,message=message)
+	order = MyOrder.objects.create(customer=request.user,gig=gig,message=message,seller=seller)
 	order.save()
 
 

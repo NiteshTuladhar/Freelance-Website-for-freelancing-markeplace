@@ -1,5 +1,8 @@
 
 {% load static %}
+{% load inlinecss %}
+{% inlinecss "css/email.css" %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -283,7 +286,7 @@
 .footer-nav p {
 	text-align: center;
 }
-}
+
 /*======================================
    End Checkout Form CSS
 ========================================*/
@@ -358,3 +361,5 @@
 </footer>
 </body>
 </html>
+
+{% endinlinecss %}

@@ -19,7 +19,7 @@ path('liked_gigs/',views.liked_gigs,name='liked_gigs'),
 path('saved/',views.saved_gigs,name='saved_gigs'),
 path('',views.availability,name='availability'),
 path('myorders/',views.myOrders,name='myorders'),
-path('myordersdetails/',views.myOrdersDetails,name='myordersdetails'),
+path('myordersdetails/<slug:slug>',views.myOrdersDetails,name='myordersdetails'),
 #path('follow/',views.myFollowFollowing,name='followfollowing'),
 ]
 

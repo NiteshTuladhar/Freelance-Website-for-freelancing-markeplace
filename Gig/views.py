@@ -182,7 +182,7 @@ def like_gig(request):
         like.save() 
 
         
-    return redirect('homepage')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 
@@ -212,4 +212,4 @@ def save_gig(request):
         saved.save() 
 
         
-    return redirect('homepage')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

@@ -24,11 +24,13 @@ a {
 .countdown {
   width: 1020px;
   margin: 0 auto;
+  
 }
 .countdown .bloc-time {
   float: left;
   margin-right: 45px;
   text-align: center;
+
 }
 .countdown .bloc-time:last-child {
   margin-right: 0;

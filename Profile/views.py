@@ -205,10 +205,19 @@ def availability(request):
 
 @login_required
 def myOrders(request):
+    acc = Account.objects.get(id=request.user.id)
+    userinfo = MyProfile.objects.get(user_id=request.user.id)
 
-    liked = Likes.objects.filter(user=request.user.id, value='Like')
+
+    orders = MyOrder.objects.filter(seller=request.user)
+    total = orders.count
+    
     context = {
-        'liked'  : liked,
+        'orders'  : orders,
+        'acc' : acc,
+        'userinfo' : userinfo,
+        'total' : total,
+
     }
     #myorders = MyOrder.objects.filter(gig=gig.user.id)
     #print(myorder)
@@ -217,10 +226,15 @@ def myOrders(request):
 
 
 @login_required
-def myOrdersDetails(request):
-    liked = Likes.objects.filter(user=request.user.id, value='Like')
+def myOrdersDetails(request,slug):
+
+
+    orders = MyOrder.objects.get(slug=slug)
+
     context = {
-        'liked'  : liked,
+        'orders'  : orders,
+
+
     }
 
     return render(request,'userprofile/myordersdetails.html',context)

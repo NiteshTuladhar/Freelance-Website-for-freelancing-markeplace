@@ -6,13 +6,15 @@ from Profile.models import MyProfile
 from django.db.models.signals import post_save
 from django.core.mail import EmailMessage
 from django.template.loader import get_template
+from autoslug import AutoSlugField
 # Create your models here.
 
 class MyOrder(models.Model):
 	
-	#customer = 
+    slug                = AutoSlugField(populate_from='gig',unique=True,null=True,blank=True) 
     gig                 = models.ForeignKey(MyGig,on_delete=models.SET_NULL, blank=True,null=True)
     customer            = models.ForeignKey(Account,on_delete=models.SET_NULL, blank=True,null=True)
+    seller              = models.ForeignKey(Account,on_delete=models.SET_NULL, blank=True,null=True,related_name='seller')
     date_ordered        = models.DateTimeField(auto_now_add=True,null=True,blank=True)
     transaction_id      = models.CharField(max_length=200,null=True)
     message             = models.CharField(max_length=2000,null=True)
