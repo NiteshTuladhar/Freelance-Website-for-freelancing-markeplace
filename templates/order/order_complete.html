@@ -1,9 +1,364 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
-	Your order for {{gig.title}} is complete.
-</body>
-</html>
+{% extends 'master/dashboard_base.html' %}
+{% load static %}
+{% block title %} Orders | Freelance.{% endblock %}
+
+
+{% block body %}
+<style>
+	/*======================================
+   Start Checkout Form CSS
+========================================*/
+.shop.checkout {
+	padding: 0;
+	background: #fff;
+	padding-top: 20px;
+	padding-bottom: 50px;
+}
+.shop.checkout .checkout-form {
+	margin-top: 30px;
+}
+.shop.checkout .checkout-form h2 {
+	font-size: 25px;
+	color: #333;
+	font-weight: 700;
+	line-height: 27px;
+}
+.shop.checkout .checkout-form p {
+	font-size: 16px;
+	color: #333;
+	font-weight: 400;
+	margin-top: 12px;
+	margin-bottom: 30px;
+}
+.shop.checkout .form{}
+.shop.checkout .form .form-group {
+	margin-bottom: 25px;
+}
+.shop.checkout .form .form-group label{
+	color:#333;
+	position:relative;
+}
+.shop.checkout .form .form-group label span {
+	color: #ff2c18;
+	display: inline-block;
+	position: absolute;
+	right: -12px;
+	top: 4px;
+	font-size: 16px;
+}
+.shop.checkout .form .form-group input {
+	width: 100%;
+	height: 45px;
+	line-height: 50px;
+	padding: 0 20px;
+	border-radius: 3px;
+	border-radius: 0px;
+	color: #333 !important;
+	border: none;
+	background: #F6F7FB;
+}
+.shop.checkout .form .form-group input:hover{
+	
+}
+.shop.checkout .nice-select {
+	width: 100%;
+	height: 45px;
+	line-height: 50px;
+	margin-bottom: 25px;
+	background: #F6F7FB;
+	border-radius: 0px;
+	border:none;
+}
+.shop.checkout .nice-select .list {
+	width: 100%;
+	height: 300px;
+	overflow: scroll;
+}
+.shop.checkout .nice-select .list li{}
+.shop.checkout .nice-select .list li.option{
+	color:#333;
+}
+.shop.checkout .nice-select .list li.option:hover{
+	background:#F6F7FB;
+	color:#333;
+}
+.shop.checkout .form .address input {
+	margin-bottom: 15px;
+}
+.shop.checkout .form .address input:last-child{
+	margin:0;
+}
+.shop.checkout .form .create-account {
+	margin: 0;
+}
+.shop.checkout .form .create-account input {
+	width: auto;
+	display: inline-block;
+	height: auto;
+	border-radius: 100%;
+	margin-right: 3px;
+}
+.shop.checkout .form .create-account label {
+	display: inline-block;
+	margin: 0;
+}
+.shop.checkout .order-details {
+	margin-top: 30px;
+	background: #fff;
+	padding: 15px 0 30px 0;
+	border: 1px solid #eee;
+}
+.shop.checkout .single-widget {
+	margin-bottom: 30px;
+}
+.shop.checkout .single-widget:last-child{
+	margin:0;
+}
+.shop.checkout .single-widget h2 {
+	position:relative;
+	font-size: 15px;
+	font-weight: 600;
+	padding: 10px 30px;
+	line-height: 24px;
+	text-transform: uppercase;
+	color: #333;
+	padding-bottom: 5px;
+}
+.shop.checkout .single-widget h2:before{
+	position:absolute;
+	content:"";
+	left:30px;
+	bottom:0;
+	height:2px;
+	width:50px;
+	background:#F7941D;
+}
+.shop.checkout .single-widget .content ul{
+	margin-top:30px;
+}
+.shop.checkout .single-widget .content ul li {
+	display: block;
+	padding: 0px 30px;
+	font-size: 15px;
+	font-weight: 400;
+	color: #333;
+	margin-bottom: 12px;
+}
+.shop.checkout .single-widget .content ul li span{
+	display:inline-block;
+	float:right;
+}
+.shop.checkout .single-widget .content ul li.last {
+	padding-top: 12px;
+	border-top: 1px solid #ebebeb;
+	display: block;
+	font-size: 15px;
+	font-weight: 400;
+	color: #333;
+}
+.shop.checkout .single-widget .checkbox {
+	text-align: left;
+	margin: 0;
+	padding: 0px 30px;
+	margin-top:30px;
+}
+.shop.checkout .single-widget .checkbox label {
+	color: #555555;
+	position: relative;
+	font-size: 14px;
+	padding-left: 20px;
+	margin-top: -5px;
+	font-weight: 400;
+	display: block;
+	margin-bottom: 15px;
+}
+.shop.checkout .single-widget .checkbox label:last-child{
+	margin-bottom:0;
+}
+.shop.checkout .single-widget .checkbox label:hover{
+	cursor:pointer;
+}
+.shop.checkout .single-widget .checkbox label input{
+	display:none;
+}
+.shop.checkout .single-widget .checkbox label::before {
+	position: absolute;
+	content: "";
+	left: 0;
+	top: 7px;
+	width: 12px;
+	height: 12px;
+	line-height: 16px;
+	border: 1px solid #666;
+	border-radius: 100%;
+}
+.shop.checkout .single-widget .checkbox label::after {
+	position: absolute;
+	content: "";
+	left: 0;
+	top: 7px;
+	width: 12px;
+	height: 12px;
+	line-height: 16px;
+	border-radius: 100%;
+	display:block;
+	background:#666;
+	transform:scale(0);
+	-webkit-transition:all 0.4s ease;
+	-moz-transition:all 0.4s ease;
+	transition:all 0.4s ease;
+}
+.shop.checkout .single-widget .checkbox label.checked::after{
+	opacity:1;
+	visibility:visible;
+	transform:scale(1);
+}
+.shop.checkout .single-widget.payement {
+	padding: 0px 38px;
+	text-align: center;
+	margin-top: 30px;
+}
+.shop.checkout .single-widget.get-button {
+	text-align: center;
+	padding:0px 35px;
+}
+.shop.checkout .single-widget.get-button .btn {
+	height: 46px;
+	width: 100%;
+	line-height: 19px;
+	text-align: center;
+	border-radius: 0;
+	text-transform: uppercase;
+	color: #fff;
+
+}
+.site-footer {
+  background-color: white;
+	text-align: center;
+	margin: 10px 0;
+	padding: 10px 0;
+}
+
+#social-wrapper {
+	text-align: center;
+}
+
+/*Social Media Icons*/
+.social-wrapper {
+	text-align: center;
+}
+
+.social-wrapper ul li {
+	display: inline;
+	margin: 0 5px;
+}
+
+.twitter-icon,
+.facebook-icon,
+.instagram-icon,
+.linkedin-icon,
+.googleplus-icon,
+.youtube-icon,
+.foursquare-icon{
+	margin-top: .625em;
+	width: 40px;
+	height: 40px;
+	opacity: .6;
+	filter: alpha(opacity=60); /* For IE8 and earlier */
+  border-radius: 25px;
+}
+
+.twitter-icon:hover,
+.facebook-icon:hover,
+.instagram-icon:hover,
+.linkedin-icon:hover,
+.googleplus-icon:hover,
+.youtube-icon:hover,
+.foursquare-icon:hover {
+	opacity: 1.0;
+	filter: alpha(opacity=100); /* For IE8 and earlier */
+}
+
+.footer-nav p {
+	text-align: center;
+}
+
+/*======================================
+   End Checkout Form CSS
+========================================*/
+</style>
+<!-- Breadcrumb Section Begin -->
+<div class="w3-panel w3-green" style="background-color: #01B22E;box-shadow: 2px 2px 2px #888888;height: 80px;">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-5 pt-5">
+				<p style="color: white;font-weight: bold; font-size: 12px;float: left;"><i class="fa fa-check-circle fa-1x pr-3" style="color: white;"></i>REQUIREMENTS <span >SUBMITTED</span></p>
+
+				<p style="color: white;font-weight: bold; font-size: 12px; float: right;"><i class="fa fa-check-circle fa-1x pr-3" style="color: white;"></i>DELIVERY <span>SUBMITTED</span></p>
+			</div>
+			<div class="col-lg-7 pl-5">
+				<p style="color: white;"><i class="fa fa-check fa-4x" style="margin-left: 170px;"></i><b style="font-size: 25px;padding-bottom: 150px;"><span style="font-weight: lighter;padding-right: 10px;">ORDER</span>COMPLETED</b></p>
+			</div>
+		</div>
+	</div>
+  
+</div> 
+
+
+<div class="bbody"  style="background-color: #F2F3F4;">
+
+	<div class="container pt-5">
+		<div class="row pt-3" style="background-color: white;">
+			<div class="col-lg-12 col-12">
+               <table id="cart" class="table table-hover table-condensed">
+                  
+	                <tbody>
+	                  <tr>
+	                    <td data-th="Product">
+	                      <div class="row">
+	                        <div class="col-sm-4 hidden-xs"><img src="{{ gig.gig_image.url }}" alt="..." class="img-responsive"/ style="height: 150px;width: auto"></div>
+	                        <div class="col-sm-8">
+	                          <h4 class="nomargin" style="font-size: 25px;font-weight: bold;">{{ gig.title }}.</h4>
+	                          <p style="font-size: 13px;font-weight: bold;">Seller:<span style="padding-left: 10px;color: #19A463">{{gig.user.account_name}}</span><span style="padding-left: 8px;padding-right:8px;font-size: 20px;font-weight: lighter;">|</span><span style="font-size: 13px;">Order ID : {{myorder.transaction_id|floatformat:"0"}}</span><span style="padding-left: 8px;padding-right:8px;font-size: 20px;font-weight: lighter;">|</span></span><span style="font-size: 13px;">{{myorder.date_ordered}}</span></p>
+	                        </div>
+	                      </div>
+	                    </td>
+	                    <td data-th="Price" style="font-size: 35px;">${{gig.price}}</td>
+					  </tr>
+	                </tbody>
+              	</table>
+          </div>
+        
+          <div class="col-lg-12 col-12 pb-5">
+              <section class="shop checkout section">
+			      
+			        <div class="row"> 
+			          <div class="col-lg-12 col-12">
+			            <div class="order-details">
+			              <!-- Order Widget -->
+						  <div class="single-widget">
+						  	
+						  	
+						  	
+			               	<h2>CART  TOTALS</h2>
+			                <div class="content">
+			                  <ul>
+			                    <li>Price<span>${{gig.price}}</span></li>
+			                    <li>(+) Service Charge<span>$2.00</span></li>
+
+			                    <li class="last">Total<span>${{ gig.get_total }}</span></li>
+			                    <li>Delivery Time<span>{{gig.time}} Day{{ gig.time|pluralize }}</span></li>
+			                  </ul>
+			                </div>
+			    		  </div>
+			            </div>
+			          </div>
+			        </div>
+		    </section>
+          </div>
+	</div>
+
+	</div>
+ </div>
+
+{% endblock %}

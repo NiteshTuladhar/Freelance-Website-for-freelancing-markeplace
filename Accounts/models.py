@@ -11,7 +11,7 @@ from django.core.mail import EmailMessage
 from django.template.loader import get_template
 from django.utils import timezone
 from datetime import datetime, date, timezone,timedelta
-
+from .token import generatetoken
 
 
 
@@ -143,16 +143,28 @@ class Follow(models.Model):
 
 
 def sendAccountCreationMail(sender, **kwargs):
+
     current_user        = kwargs['instance']
+
+    if current_user.token is None:
+        current_user.token = generatetoken()
+        current_user.profile_create = True
+        current_user.user_online = True
+        current_user.save()
+
+
     current_user_mail   = current_user.email
     token               = current_user.token
     s                   = "Account Creation"
+
+
+
     context = {
         'id' : current_user.id,
         'name' : current_user.account_name,
         'subject' : s,
         'message' : "Your Account Has Been Created Successfully.",
-        'token' : token
+        'token' : current_user.token
     }
     temp = get_template('welcomemail.html').render(context)
     email = EmailMessage(
@@ -165,6 +177,8 @@ def sendAccountCreationMail(sender, **kwargs):
 
     email.content_subtype = 'html'
 
+    
+
     try:
         if current_user.send_first_email==False:
             email.send()
@@ -175,6 +189,7 @@ def sendAccountCreationMail(sender, **kwargs):
 
     except:
         pass
+
 
 post_save.connect(sendAccountCreationMail,sender=Account)
 

@@ -4388,28 +4388,6 @@ ol {
 }
 
 
-/* Banner search bar */
-.row input[type=text] {
-  width: 370px;
-  box-sizing: border-box;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  font-size: 20px;
-  background-color: white;
-  background-image: url('searchicon.png');
-  background-position: 10px 10px; 
-  background-repeat: no-repeat;
-  padding: 12px 20px 12px 40px;
-  -webkit-transition: width 0.4s ease-in-out;
-  transition: width 0.4s ease-in-out;
-}
-
-/* When the input field gets focus, change its width to 100% */
-.row input[type=text]:focus {
-  width: 100%;
-}
-
-/* Banner search bar ends */
 
 
 
@@ -4426,7 +4404,6 @@ ol {
 .cart-btn:hover {
   transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
-
 
 
 

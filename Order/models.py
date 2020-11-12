@@ -33,8 +33,10 @@ class MyOrder(models.Model):
 def sendOrderMail(sender, **kwargs):
     current_user        = kwargs['instance']
     current_user_mail   = current_user.customer.email
-
-    
+    current_user_order_id = current_user.transaction_id
+    print('yyyyyyyyyyyyyyyyyyyyyyyyyyyy')
+    print(current_user_order_id)
+    print('yyyyyyyyyyyyyyyyyyyyyyyyyyyy')
 
     s                   = "Thank You For The Purchase"
     context = {
@@ -43,6 +45,7 @@ def sendOrderMail(sender, **kwargs):
         'name' : current_user.customer.account_name,
         'seller_name' : current_user.gig.user.account_name ,
         'date' : current_user.date_ordered,
+        'order_id' : current_user.transaction_id,
         'price' : current_user.gig.price,
         'total_price' : current_user.gig.get_total,
         'time' : current_user.gig.time,
@@ -78,6 +81,7 @@ def sendSellerMail(sender, **kwargs):
         'buyer_name' : current_user.customer.account_name,
         'seller_name' : current_user.gig.user.account_name ,
         'date' : current_user.date_ordered,
+        'order_id' : current_user.transaction_id,
         'price' : current_user.gig.price,
         'subject' : s,
         'message' : "A gig you listed in the Community Market has been ordered by",

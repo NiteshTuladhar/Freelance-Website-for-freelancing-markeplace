@@ -41,7 +41,7 @@ def register(request):
 
 #Sends Email with token to verify account.
 
-def verifyaccount(request,id,token):
+def verifyaccount(request,id,token,backend='django.contrib.auth.backends.ModelBackend'):
 
 	a = Account.objects.get(id=id)
 
@@ -50,8 +50,8 @@ def verifyaccount(request,id,token):
 		if a.token == token:
 			a.is_verified = True
 			a.save()
-			login(request, a)
-			if a.profile_create is False:
+			login(request, a, backend='django.contrib.auth.backends.ModelBackend')
+			if a.profile_create is True:
 					profile = MyProfile(user=request.user)
 					a.profile_create = True
 					profile.save()
@@ -61,13 +61,13 @@ def verifyaccount(request,id,token):
 		else:
 			messages.error( request,message="Error occured ")
 
-		return render(request,'userhome.html')
+		return redirect('userhome')
 
 	else:
 		messages.success(request,mark_safe("Your account is already activated. Hey!! It's a great time to <a href="">create your profile.</a>"))
 		return render(request,'userhome.html')
 
-	return render(request,'userhome.html')
+	return redirect('userhome')
 
 
 
