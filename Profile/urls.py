@@ -21,5 +21,7 @@ path('',views.availability,name='availability'),
 path('myorders/',views.myOrders,name='myorders'),
 path('myordersdetails/<slug:slug>',views.myOrdersDetails,name='myordersdetails'),
 #path('follow/',views.myFollowFollowing,name='followfollowing'),
+
+path('analytics/',views.userAnalytics,name='useranalytics'),
 ]
 

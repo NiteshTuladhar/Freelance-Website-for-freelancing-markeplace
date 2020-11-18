@@ -1,0 +1,135 @@
+{% extends 'master/dashboard_base.html' %}
+{% load static %}
+{% block title %} Analytics | Freelance.{% endblock %}
+
+
+{% block body %}
+<div class="row pb-5" style="background-color: #F2F3F4;">
+  <div class="col-lg-4">
+      <div id="card1" style=" width:100%; height:600px; border:1px solid #C1C7C9;padding-left:150px;text-align: justify; background-color: #FFF;margin: 30px 30px auto; 
+    /* top, left, bottom*/ padding: 10px 20px 30px; float: left; "> 
+        <header>
+            <div class="imgcir pl-5 pt-3" style="margin-left: 95px;">
+
+              {% if userinfo.profile_image %}
+                <a href="{% url 'changeprofilepic' %}"><img class="rounded-circle" src="{{ userinfo.profile_image.url }}" style="height: 130px;width: 130px;background-color: #bbb;margin:auto;border-radius: 50%;display: inline-block;"></a>
+              {% else %}
+                <a href="{% url 'changeprofilepic' %}"><img class="rounded-circle" src="{% static 'img/default_profile_img.jpg' %}" style="height: 130px;width: 130px;background-color: #bbb;margin:auto;border-radius: 50%;display: inline-block;"></a>
+              {% endif %}                    
+            </div>
+            <div class="info">
+                <h5 style="text-align: center;padding-top:25px;"><b>{{ request.user.account_name }}</b><a href="{% url 'editprofile' %}" style="text-decoration: none;"><i class="fa fa-pencil-square-o fa-xs pl-3"></a></i></h5>
+            </div>
+        </header>
+              {% if acc.is_available == True %}
+                <div class="button" style="margin-left: 100px;margin-top: 20px;">
+                  <a href="{% url 'availability' %}">
+                    <button style="color: #3399FF;
+                          font-family: 'Helvetica';
+                          font-size: 10pt;
+                          background-color: #ffffff;
+                          border: 1px solid;
+                          border-color: #3399FF;
+                          border-radius: 3px;
+                          width: 185px;
+                          height: 30px;  
+                          top: 50px;
+                          left: 180px;   
+                          cursor: hand;">
+                          <b>In Office</b>
+                    </button>
+                  </a>
+                </div> 
+                {% else %}
+                  <div class="button" style="margin-left: 100px;margin-top: 20px;">
+                     <a href="{% url 'availability' %}">
+                      <button style="color: #3399FF;
+                            font-family: 'Helvetica';
+                            font-size: 10pt;
+                            background-color: #ffffff;
+                            border: 1px solid;
+                            border-color: #3399FF;
+                            border-radius: 3px;
+                            width: 185px;
+                            height: 30px;  
+                            top: 50px;
+                            left: 180px;   
+                            cursor: hand;">
+                            <b>Out of Office</b>
+                      </button>
+                    </a>
+
+                </div> 
+                {% endif %}
+                <hr style="width: 90%;">
+
+                <div class="row">
+                  <p style="font-size: 12px;font-weight: bold;font-family: sans-serif;padding-left: 5px;">Orders Completed</p>
+                  <p style="float: right;padding-left: 240px;font-family: sans-serif;font-size: 12px;">100%</p>
+                </div>
+      
+               <div class="progress" style="height: 10px;margin-top: -15px;">
+                  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="40"
+                  aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                  </div>
+                </div>
+
+                <div class="row">
+                  <p style="font-size: 12px;font-weight: bold;font-family: sans-serif;padding-left: 5px;">Delivery Time</p>
+                  <p style="float: right;padding-left: 275px;font-family: sans-serif;font-size: 12px;">60%</p>
+                </div>
+
+                <div class="progress" style="height: 10px;margin-top: -15px;">
+                  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50"
+                  aria-valuemin="0" aria-valuemax="100" style="width:60%">
+
+                  </div>
+                </div>
+
+                <div class="row">
+                  <p style="font-size: 12px;font-weight: bold;font-family: sans-serif;padding-left: 5px;">Response Rate</p>
+                  <p style="float: right;padding-left: 270px;font-family: sans-serif;font-size: 12px;">80%</p>
+                </div>
+
+                <div class="progress" style="height: 10px;margin-top: -15px;">
+
+                  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60"
+                  aria-valuemin="0" aria-valuemax="100" style="width:80%;">
+                    
+                  </div>
+                </div>
+
+                
+
+            </div> 
+
+        </div>
+        <div class="col-lg-8 pr-5">
+          <div class="row" style="padding-top: 22px;padding-left: 20px;">
+            <div class="column" style="">
+              <div class="card"><p style="font-family: sans-serif;font-size: 16px;">In Progress</p><p style="font-weight: bold;font-size: 29px;font-family: sans-serif;">{{total}}</p></div>
+
+            </div>
+            <div class="column">
+              <div class="card"><p style="font-family: sans-serif;font-size: 16px;">Pending</p><p style="font-weight: bold;font-size: 29px;font-family: sans-serif;">1</p></div>
+
+            </div>
+            <div class="column">
+              <div class="card"><p style="font-family: sans-serif;font-size: 16px;">Completed</p><p style="font-weight: bold;font-size: 29px;font-family: sans-serif;">15</p></div>
+
+            </div>
+            <div class="column">
+              <div class="card"><p style="font-family: sans-serif;font-size: 16px;">Total Gigs</p><p style="font-weight: bold;font-size: 29px;font-family: sans-serif;">{{total}}</p></div>
+
+            </div>
+          </div>
+
+               
+                
+
+
+            </div> 
+        </div>
+    </div>
+
+{% endblock %}

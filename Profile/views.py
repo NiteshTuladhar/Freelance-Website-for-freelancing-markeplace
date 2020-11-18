@@ -255,3 +255,23 @@ def myOrdersDetails(request,slug):
 #    }
 
 #    return render(request,'userprofile/follow_following.html',context)
+
+
+@login_required
+def userAnalytics(request):
+    acc = Account.objects.get(id=request.user.id)
+    userinfo = MyProfile.objects.get(user_id=request.user.id)
+
+
+    orders = MyOrder.objects.filter(seller=request.user)
+    total = orders.count
+    
+    context = {
+        'orders'  : orders,
+        'acc' : acc,
+        'userinfo' : userinfo,
+        'total' : total,
+
+    }
+
+    return render(request,'userprofile/analytics.html',context)
