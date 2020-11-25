@@ -736,6 +736,7 @@ ol {
 
 .nav-item .nav-depart .depart-btn .depart-hover li a:hover {
 	color: #e7ab3c;
+	text-decoration: none;
 }
 
 .nav-item .nav-menu {
@@ -750,6 +751,7 @@ ol {
 	display: inline-block;
 	margin-left: -5px;
 	position: relative;
+	text-decoration: none;
 }
 
 .nav-item .nav-menu li.active a {
@@ -771,12 +773,14 @@ ol {
 
 .nav-item .nav-menu li:hover>a {
 	background: #e7ab3c;
+	text-decoration: none;
 }
 
 .nav-item .nav-menu li:hover .dropdown {
 	opacity: 1;
 	visibility: visible;
 	top: 52px;
+	text-decoration: none;
 }
 
 .nav-item .nav-menu li .dropdown {
@@ -4663,6 +4667,7 @@ body {
   padding: 16px;
   text-align: center;
   background-color: #f1f1f1;
+  
 }
 
 /* Responsive columns - one column layout (vertical) on small screens */

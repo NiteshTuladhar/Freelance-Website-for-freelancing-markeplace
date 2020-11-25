@@ -3,7 +3,83 @@
     {% block title %}Freelance. - Freelancing Marketplace{% endblock %}
 {% block body %}
 {% include 'master/slider_bootsrap_jquery.html' %}
-    <!-- Hero Section Begin -->
+<style>
+.catmenu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+
+
+}
+
+.listmenu {
+  float: left;
+}
+
+.listmenu a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 16px;
+  text-decoration: none;
+
+}
+
+li a:hover {
+
+    color: #F4AE18;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown .listmenu .dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.listmenu .dropdown-content a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.listmenu .dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.listmenu .dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+</style>
+  <!-- Hero Section Begin -->
+    <div class="row" style="background-color: white;height: 60px;width: 110%;border: 1px solid #b4b4b4;">
+        
+            <ul clas="catmenu" style="list-style-type: none;margin: 0; padding: 0;overflow: hidden;margin-left: 70px;">
+                {% for catagory in catergories %}
+                <div class="dropdown">
+                    <li class="listmenu"><p><a href="">{{catagory.c_name}}</a></p></li>
+                        <div class="dropdown-content">
+                            <a href="#">Link 1</a>
+                            <a href="#">Link 2</a>
+                            <a href="#">Link 3</a>
+                        </div>
+                </div>
+                {% endfor %}
+            </ul>
+    
+    </div>
+
     <div class="row">
         <div class="col-lg-3">
             <div id="test1" style=" width:100%; height:250px; padding-left:150px;text-align: justify; background-color: #f4f5f4;margin: 30px 30px auto; 
@@ -28,8 +104,58 @@
         </div>
     </div>
 
+    <div class="row pb-5">
+                <div class="col-lg-12 pb-5 pt-5">
+                    <div class="section-title">
+                        <h2>Popular Professional Services. </h2>
+                    </div>
+                </div>
+            </div>
+        <div class="instagram-photo">
+            <div class="insta-item set-bg pr-3" data-setbg="{% static 'img/cat-1.jpg' %}">
+                <div class="inside-text">
+                    <i class="ti-instagram"></i>
+                    <h5><a href="#"><stront>LOGO DESIGN</stront></a></h5>
+                </div>
+            </div>
+            <div class="insta-item set-bg pr-3" data-setbg="{% static 'img/cat-2.jpg' %}">
+                <div class="inside-text">
+                    <i class="ti-instagram"></i>
+                    <h5><a href="#"><stront>WEB DEVELOPER</stront></a></h5>
+                </div>
+            </div>
+            <div class="insta-item set-bg pr-3" data-setbg="{% static 'img/cat-3.jpg' %}">
+                <div class="inside-text">
+                    <i class="ti-instagram"></i>
+                    <h5><a href="#"><stront>GRAPHIC DESIGN</stront></a></h5>
+                </div>
+            </div>
+            <div class="insta-item set-bg pr-3" data-setbg="{% static 'img/cat-4.jpg' %}">
+                <div class="inside-text">
+                    <i class="ti-instagram"></i>
+                    <h5><a href="#"><stront>MUSIC CREATOR</stront></a></h5>
+                </div>
+            </div>
+            <div class="insta-item set-bg pr-3" data-setbg="{% static 'img/cat-5.jpg' %}">
+                <div class="inside-text">
+                    <i class="ti-instagram"></i>
+                    <h5><a href="#"><stront>BUSINESS ANALYST</stront></a></h5>
+                </div>
+            </div>
+             <div class="insta-item set-bg pr-3" data-setbg="{% static 'img/cat-6.jpg' %}">
+                <div class="inside-text">
+                    <i class="ti-instagram"></i>
+                    <h5><a href="#"><stront>SOCIAL MEDIA</stront></a></h5>
+                </div>
+            </div>
+           
+
+        </div>
+
+
 <div class="container" style="padding-bottom: 110px;padding-top: 100px;" >
         <div class="row">
+
             <div class="row">
 
                 <div class="col-md-9">

@@ -9,15 +9,25 @@ from django.template.loader import get_template
 from autoslug import AutoSlugField
 # Create your models here.
 
+STATUS_CHOICES = (
+        ('Pending', 'Pending'),
+        ('Complete', 'Complete'),
+        ('In Progress', 'In Progress'),
+        ('Cancelled', 'Cancelled'),
+    )
+
 class MyOrder(models.Model):
-	
+
     slug                = AutoSlugField(populate_from='gig',unique=True,null=True,blank=True) 
     gig                 = models.ForeignKey(MyGig,on_delete=models.SET_NULL, blank=True,null=True)
     customer            = models.ForeignKey(Account,on_delete=models.SET_NULL, blank=True,null=True)
     seller              = models.ForeignKey(Account,on_delete=models.SET_NULL, blank=True,null=True,related_name='seller')
     date_ordered        = models.DateTimeField(auto_now_add=True,null=True,blank=True)
     transaction_id      = models.CharField(max_length=200,null=True)
-    message             = models.CharField(max_length=2000,null=True)
+    message             = models.TextField(max_length=2000,null=True)
+    status              = models.CharField(max_length=25, choices=STATUS_CHOICES,default='In Progress')
+
+    
 
     def __str__(self):
         return str(self.gig.title) + "  >>by  " + str(self.gig.user.account_name)+ "  >>ordered by  " +  str(self.customer)
@@ -27,7 +37,6 @@ class MyOrder(models.Model):
     def get_total(self):
         total = self.gig.gig_price + 2
         return 
-
 
 
 def sendOrderMail(sender, **kwargs):

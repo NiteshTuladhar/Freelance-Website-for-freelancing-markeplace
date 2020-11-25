@@ -9,16 +9,17 @@ from django.urls import reverse
 
 # Create your models here.
 class Category(models.Model):
-    c_name          = models.CharField(max_length=100)
-    description     = models.CharField(max_length=100)
+    c_name          = models.CharField(max_length=1000)
+    description     = models.TextField(max_length=1000)
+    image           = models.ImageField(upload_to='category/',null=True,blank=True)
 
     def __str__(self):
         return self.c_name
 
 class SubCategory(models.Model):
-    s_name              = models.CharField(max_length=100)
-    description         = models.CharField(max_length=100)
-    image               = models.ImageField(upload_to='sub_category/')
+    s_name              = models.CharField(max_length=1000)
+    description         = models.TextField(max_length=1000)
+    image               = models.ImageField(upload_to='sub_category/',null=True,blank=True)
     c_name              = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     def __str__(self):

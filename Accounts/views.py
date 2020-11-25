@@ -6,9 +6,11 @@ from django.contrib.auth.decorators import login_required
 from .token import generatetoken
 from django.utils.safestring import mark_safe
 from Profile.models import MyProfile
-from Gig.models import MyGig
+from Gig.models import MyGig, Category, SubCategory
 from datetime import datetime, date, timezone
+from Order.models import MyOrder
 
+import requests 
 
 # Create your views here.
 #User Registration.
@@ -17,6 +19,21 @@ def register(request):
 		email = request.POST['email']
 		account_name = request.POST['account_name']
 		password = request.POST['password']
+
+		##Captcha verification##
+
+		##pip install requests
+		##add import requests at top
+		
+		captcha_token = request.POST.get("g-recaptcha-response")
+		cap_url = "https://www.google.com/recaptcha/api/siteverify"
+		cap_secret = "6LfqcesZAAAAALg54FPrgbPXRysOtSZWqunp2bT_"
+		cap_data = {"secret":cap_secret,"response":captcha_token}
+		cap_server_response = requests.post(url=cap_url,data=cap_data)
+		print("--------------------------------")
+		print(cap_server_response.text)
+		print("--------------------------------")
+
 		if(len(password)>6):
 			account = Account(email=email, account_name=account_name)
 			account.set_password(password)
@@ -126,6 +143,8 @@ def userHome(request):
 	nextgigs = MyGig.objects.exclude(id=request.user.id)[4:8]
 	account = Account.objects.all()
 	profile = MyProfile.objects.all()
+	catergories = Category.objects.all()
+
 
 	x= Follow.objects.filter(followed_by=request.user.id).values('followed_to')
 	followers_list = []
@@ -136,14 +155,25 @@ def userHome(request):
 	followers = MyGig.objects.filter(user_id__in=followers_list)
 	print(non_followers)
 	print(followers)
+
+	completed_orders = MyOrder.objects.filter(seller=request.user,status='Complete')
+
+	available_for_withdrawal = 0;
+
+	for order in completed_orders:
+
+		available_for_withdrawal += order.gig.price
+
 	context = {
 
 		'gigs' : gigs,
 		'nextgigs' : nextgigs,
 		'account'  : account,
 		'profile' : profile,
+		'catergories' : catergories,
 		'non_followers' : non_followers,
 		'followers' : followers,
+		'available_for_withdrawal' : available_for_withdrawal
 	}
 
 	return render(request,'userhome.html',context)

@@ -22,6 +22,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
     <link rel="icon" href="{% static 'img/favicon_logo.jpg' %}">
@@ -202,7 +204,7 @@
                 <div class="nav-depart">
                     <div class="depart-btn">
                         <i class="ti-menu"></i>
-                        <span style="padding-right: 80px;text-align: center;">{{user.account_name}}</span>
+                        <span style="padding-right: 80px;text-align: center;">{{user.account_name}}<p style="float: right;color: white;margin-left: -70px;color: #FDC90D;margin-top: -3px;">$ {{available_for_withdrawal|floatformat:"2"}}</p></span>
                        
                         <ul class="depart-hover pr-5">
                         
@@ -217,7 +219,7 @@
                             {% endif %}
                             <li><a href="{% url 'userhome' %}">Dashboard</a></li>
                             <li><a href="{% url 'useranalytics'  %}">Analytics</a></li>
-                            <li><a href="#">Earnings</a></li>
+                            <li><a href="{% url 'userearnings' %}">Earnings</a></li>
                             <li><a href="#">Followed & Following</a></li>
                             <li><a href="#">Settings & Privacy</a></li>
                             <li><a href="{% url 'logout' %}">Logout</a></li>
@@ -245,13 +247,15 @@
                         <li><a href="#">Orders</a>
                             <ul class="dropdown">
                                 <li><a href="{% url 'myorders' %}">My Orders</a></li>
-                                <li><a href="./shopping-cart.html">Shopping Cart</a></li>
+                                <li><a href="{% url 'buyerorder' %}">Buying Orders</a></li>
                                 <li><a href="./check-out.html">Checkout</a></li>
                                 <li><a href="./faq.html">Faq</a></li>
                                 <li><a href="./register.html">Register</a></li>
                                 <li><a href="./login.html">Login</a></li>
                             </ul>
                         </li>
+
+                       
 
                     </ul>
                 </nav>
@@ -287,7 +291,7 @@
                         <div class="footer-logo">
                             <a href="#"><img src="img/footer-logo.png" alt=""></a>
                         </div>
-                        <ul>
+                        <ul><img src="">
                             <li>Address: 60-49 Road 11378 New York</li>
                             <li>Phone: +65 11.188.888</li>
                             <li>Email: hello.colorlib@gmail.com</li>

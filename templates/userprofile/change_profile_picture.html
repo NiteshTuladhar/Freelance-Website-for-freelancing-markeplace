@@ -13,15 +13,27 @@
 
               {% if userinfo.profile_image %}
                 <a href="{% url 'changeprofilepic' %}"><img class="rounded-circle" src="{{ userinfo.profile_image.url }}" style="height: 130px;width: 130px;background-color: #bbb;margin:auto;border-radius: 50%;display: inline-block;"></a>
+
+
               {% else %}
                 <a href="{% url 'changeprofilepic' %}"><img class="rounded-circle" src="{% static 'img/default_profile_img.jpg' %}" style="height: 130px;width: 130px;background-color: #bbb;margin:auto;border-radius: 50%;display: inline-block;"></a>
               {% endif %}                    
             </div>
+
+            
+
             <div class="info">
-                <h5 style="text-align: center;padding-top:25px;"><b>{{ request.user.account_name }}</b><a href="{% url 'editprofile' %}" style="text-decoration: none;"><i class="fa fa-pencil-square-o fa-xs pl-3"></a></i></h5>
+                <h5 style="text-align: center;padding-top:25px;"><b>{{ request.user.account_name }}</b>&nbsp
+              {% if user.user_verified %}
+                    <i class="fa fa-check-circle fa-1x pl-2" style="color: #2a9df4;position:absolute;margin-top: 3px;"></i></h5>
+             {% endif %}
             </div>
         </header>
-                <div class="button" style="margin-left: 100px;margin-top: 20px;">
+        <div class="row">
+          <div class="col-lg-8">
+              {% if acc.is_available == True %}
+                <div class="button" style="margin-left: 65px;margin-top: 20px;">
+                  <a href="{% url 'availability' %}">
                     <button style="color: #3399FF;
                           font-family: 'Helvetica';
                           font-size: 10pt;
@@ -34,9 +46,54 @@
                           top: 50px;
                           left: 180px;   
                           cursor: hand;">
-                          <b>Follow</b>
+                          <b>In Office</b>
                     </button>
+                  </a>
                 </div> 
+                {% else %}
+                  <div class="button" style="margin-left: 65px;margin-top: 20px;">
+                     <a href="{% url 'availability' %}">
+                      <button style="color: #3399FF;
+                            font-family: 'Helvetica';
+                            font-size: 10pt;
+                            background-color: #ffffff;
+                            border: 1px solid;
+                            border-color: #3399FF;
+                            border-radius: 3px;
+                            width: 185px;
+                            height: 30px;  
+                            top: 50px;
+                            left: 180px;   
+                            cursor: hand;">
+                            <b>Out of Office</b>
+                      </button>
+                    </a>
+
+                </div> 
+                {% endif %}
+              </div>
+              <div class="col-lg-4">
+                <div class="button" style="margin-left: -8px;margin-top: 20px;">
+                     <a href="{% url 'availability' %}">
+                      <button style="color: white;
+                            font-family: 'Helvetica';
+                            font-size: 10pt;
+                            background-color: #3399FF;
+                            border: 1px solid;
+                            border-color: #3399FF;
+                            border-radius: 3px;
+                            width: 30px;
+                            height: 30px;  
+                            top: 50px;
+                            left: 180px;   
+                            cursor: hand;">
+                            <a href="{% url 'editprofile' %}" style="text-decoration: none;"><i class="fa fa-pencil-square-o fa-xs" style="color: white !important;"></i></a>
+                      </button>
+                    </a>
+
+                </div> 
+              </div>
+            </div>
                 <hr style="width: 90%;">
       
                <p style="font-family:serif;"><i class="fa fa-map-marker pl-3">&nbsp&nbsp&nbsp&nbsp<b style="font-family: 'Helvetica';font-size:14px; ">From:</b><b class="country pr-3" style="font-family: 'Helvetica';padding-left:175px;font-size: 14px;">{{userinfo.country.name}}</b></i></p>

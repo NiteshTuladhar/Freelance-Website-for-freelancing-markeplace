@@ -1,0 +1,126 @@
+{% extends 'master/dashboard_base.html' %}
+{% load static %}
+{% block title %}Buyer's Orders | Freelance.{% endblock %}
+
+
+{% block body %}
+
+
+
+<div class="row pb-5" style="background-color: #F2F3F4;">
+  
+        <div class="col-lg-12 pr-5">
+          <div class="row" style="padding-top: 22px;padding-left: 20px;">
+            <div class="column" style="">
+              <div class="card"><p style="font-family: sans-serif;font-size: 16px;">Orders In Progress</p><p style="font-weight: bold;font-size: 29px;font-family: sans-serif;">{{oip}}</p></div>
+
+            </div>
+            <div class="column">
+              <div class="card"><p style="font-family: sans-serif;font-size: 16px;">Orders Pending</p><p style="font-weight: bold;font-size: 29px;font-family: sans-serif;">{{op}}</p></div>
+
+            </div>
+            <div class="column">
+              <div class="card"><p style="font-family: sans-serif;font-size: 16px;">Orders Completed</p><p style="font-weight: bold;font-size: 29px;font-family: sans-serif;">{{oc}}</p></div>
+
+            </div>
+            <div class="column">
+              <div class="card"><p style="font-family: sans-serif;font-size: 16px;">Total Orders</p><p style="font-weight: bold;font-size: 29px;font-family: sans-serif;">{{total}}</p></div>
+
+            </div>
+          </div>
+
+                <div id="card3" style="margin: 30px 25px auto; width: 1280px;">
+
+                  <a href="#home" class="active">my orders</a>
+                  <a href="#news">active orders</a>
+                  <a href="#news">pending orders</a>
+                  <a href="#news">completed orders</a>
+                </div>
+                
+                <div class="card4" style="padding-top: 100px;padding-left: 40px;">
+                  <section class="shop checkout section" style="">
+                      <div class="container">
+                        <div class="row"> 
+                          <div class="col-lg-12 col-12">
+
+                                  <table id="cart" class="table table-hover table-condensed">
+                                    <thead>
+                                      <tr>
+                                        <th style="width:50%">Product</th>
+                                        
+                                        <th style="width:10%">Price</th>
+                                        <th style="width:20%">Details</th>
+  
+                                      </tr>
+                                    </thead>
+                                {% if orders %}
+
+                                  {% for order in orders %}
+                                    <tbody>
+                                      <tr>
+                                        <td data-th="Product">
+                                          <div class="row">
+                                            <div class="col-sm-4 hidden-xs"><img src="{{order.gig.gig_image.url}}"/></div>
+                                            <div class="col-sm-8">
+                                              <h4 class="nomargin" style="font-size: 16px;">{{order.gig.title}}</h4>
+                                              <h4 style="font-size: 14px;">Seller : {{order.seller.account_name}}</h4>
+                                             
+                                            </div>
+                                          </div>
+                                        </td>
+                                        <td data-th="Price">${{order.gig.price}}</td>
+                                        
+                                        <td class="actions" data-th="">
+                                          <a href="{% url 'buyers_orders_details' order.slug %}">
+                                            <button class="btn btn-info" style="background-color:#F3B01D;border:1px solid #F3B01D;float: left;height:25px;width: 80px;"><p style="font-size: 11px;color: white;margin-top: -7px;margin-left: -5px;">View Details</p></button>
+                                            
+                                      
+                                          </a>
+                                          {% if order.status == "In Progress" %}
+                                            <div class="progress" style="float: right;background-color: #4BA9F3;width: 80px;height: 25px;"><p style="font-size: 9px;color: white;margin-left: 18px;">In Progress</p></div>           
+                                          {% elif order.status == "Complete" %}
+                                          <div class="progress" style="float: right;background-color: #6EBD71;width: 80px;height: 25px;"><p style="font-size: 9px;color: white;margin-left: 18px;">Completed</p></div>
+
+                                             
+                                          {% elif order.status == "Pending" %}
+                                            <div class="progress" style="float: right;background-color: grey;width: 80px;height: 25px;"><p style="font-size: 9px;color: white;margin-left: 18px;">Pending</p></div>
+                                          {% elif order.status == "Cancelled" %}
+                                            <div class="progress" style="float: right;background-color: #F4675C;width: 80px;height: 25px;"><p style="font-size: 9px;color: white;margin-left: 18px;">Canceled</p></div>
+                                          
+                                          {% endif %}
+                                        </td>
+                                        
+                                      </tr>
+                                    </tbody>
+                                  {% endfor %}
+                                {% else %}
+                                  <tbody>
+                                      <div class="container" style="width:85%; height:400px;text-align: justify;background-image:url('{% static 'img/2wowempty.jpg' %}');border:3px dashed #C1C7C9; background-color: #fff;  margin: 30px    200px 20px 20px; 
+                                      /* top, left, bottom*/ 
+                                      padding: 10px 20px 30px; 
+                                      float: left; ">
+                                      <p style="text-align: center;font-family: 'Helvetica';padding-top: 21%;padding-right: 13%;"><b>It seems like you have no orders yet.</b></p>
+                                    </div>
+                                       
+
+
+                                  </tbody>
+                               {% endif %}
+                              </table>
+
+                          </div>
+
+
+                    
+
+                          </div>
+                        </div>
+                
+                    </section>
+                </div> 
+
+            </div> 
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,164 @@
+{% extends 'master/dashboard_base.html' %}
+{% load static %}
+{% block title %} Earnings | Freelance.{% endblock %}
+
+
+{% block body %}
+
+
+<div class="row pt-5 pb-3 pl-5" style="background-color: #F2F3F4;margin-left: 8px;">
+ 
+    <h3 style="font-size: 36px;font-weight: bold;">Earnings</h3>
+  
+</div>
+
+<div class="row pb-5" style="background-color: #F2F3F4;">
+
+        <div class="col-lg-12 pr-5">
+          <div class="row" style="padding-top: 22px;padding-left: 20px;">
+            <div class="column" style="">
+              <div class="card"><p style="font-family: sans-serif;font-size: 12px;text-transform: uppercase;">Total Earnings</p><p style="font-weight: bold;font-size: 29px;font-family: sans-serif;">${{total_earnings}}</p></div>
+
+            </div>
+            <div class="column">
+              <div class="card"><p style="font-family: sans-serif;font-size: 12px;text-transform: uppercase;">withdrawn</p><p style="font-weight: bold;font-size: 29px;font-family: sans-serif;">$1700.92</p></div>
+
+            </div>
+            <div class="column">
+              <div class="card"><p style="font-family: sans-serif;font-size: 12px;text-transform: uppercase;">Pending Clearance</p><p style="font-weight: bold;font-size: 29px;font-family: sans-serif;">$150</p></div>
+
+            </div>
+            <div class="column">
+              <div class="card"><p style="font-family: sans-serif;font-size: 12px;text-transform: uppercase;">Available for withdrawal</p><p style="font-weight: bold;font-size: 29px;font-family: sans-serif;">${{available_for_withdrawal|floatformat:"0"}}</p></div>
+
+            </div>
+
+          </div>
+          <div class="row pl-5 pt-5">
+            
+              <p style="font: sans-serif;font-weight: bold;margin-right: 15px;margin-top: 7px;">WITHDRAW</p>
+           
+           <a href="">
+              <div class="colmn" style="background-color: white; height: 35px;width: 190px;margin-right: 15px;border-radius: 5px;border: 1px solid #c1c7c9;">
+                <img src="{% static 'img/esewa.png' %}" alt="" style="position:relative; width: 80px;height: auto;padding-top: 7px; padding-right: 10px;padding-left: 5px;">
+                <p style="font-size: 12px;font-weight: bold;float: right;padding-right: 10px;padding-top:5px;">E-Sewa Account</p>
+
+              </div>
+            </a>
+            <div class="row">
+              <a href="">
+                <div class="colmn" style="background-color: white; height: 35px;width: 180px;margin-right: 15px;border-radius: 5px;border: 1px solid #c1c7c9;">
+                  <img src="{% static 'img/khalti.jpg' %}" alt="" style="position:relative; width: 70px;height: auto;padding-top: 3px; padding-right: 10px;padding-left: 5px;">
+                  <p style="font-size: 12px;font-weight: bold;float: right;padding-right: 10px;padding-top:5px;">Khalti Account</p>
+                </div>
+              </a>
+
+              <a href="">
+                 <div class="colmn" style="background-color: white; height: 35px;width: 200px;margin-right: 15px;border-radius: 5px;border: 1px solid #c1c7c9;">
+                  <img src="{% static 'img/fone.png' %}" alt="" style="position:relative; width: 80px;height: auto;padding-top: 7px; padding-right: 10px;padding-left: 5px;">
+                  <p style="font-size: 12px;font-weight: bold;float: right;padding-right: 10px;padding-top:5px;">FonePay Account</p>
+                </div>
+              </a>
+            </div>
+          </div>
+
+
+
+         <!--<div id="card3" style="margin: 30px 25px auto; width: 1280px;">
+
+                  <a href="#home" class="active">my orders</a>
+                  <a href="#news">active orders</a>
+                  <a href="#news">pending orders</a>
+                  <a href="#news">completed orders</a>
+          </div>-->
+
+          <div class="card4" style="padding-top: 40px;padding-left: 40px;width: 1280px;">
+                  <section class="shop checkout section" >
+                      <div class="container">
+                        <div class="row"> 
+                          <div class="col-lg-12 col-12">
+
+                                  <table id="cart" class="table table-hover table-condensed">
+                                    <thead>
+                                      <tr>
+                                        <th><p style="width:50%" style="font-size: 18px;font-weight: bold;text-transform: uppercase;">DATE</p></th>
+                                         <th><p style="width:50%" style="font-size: 18px;font-weight: bold;text-transform: uppercase;">DETAILS</p></th>
+                                        <th><p style="width:50%" style="font-size: 18px;font-weight: bold;text-transform: uppercase;">AMOUNT</p></th>
+                                       
+  
+                                      </tr>
+                                    </thead>
+                                {% if orders %}
+
+                                  {% for order in orders %}
+                                    <tbody>
+                                      <tr>
+                                        <td data-th="Product">
+                                          <div class="row">
+                                            <div class="col-sm-4 hidden-xs" style="font-size: 16px;font-weight: bold;">{{order.date_ordered}}</div>
+                                            <div class="col-sm-8">
+                                              <h4 class="nomargin" style="font-size: 16px;">{{order.gig.title}}</h4>
+
+                                              
+                                             
+                                            </div>
+                                          </div>
+                                        </td>
+                                        <td class="actions" data-th="">
+                                          <a href="{% url 'buyers_orders_details' order.slug %}">
+                                            <button class="btn btn-info" style="background-color:#F3B01D;border:1px solid #F3B01D;float: left;height:25px;width: 80px;"><p style="font-size: 11px;color: white;margin-top: -7px;margin-left: -5px;">View Details</p></button>
+                                            
+                                      
+                                          </a>
+                                          
+                                        </td>
+
+                                        <td data-th="Price" style="font-size: 16px;color: #F3B01D;font-weight: bold;">${{order.gig.price}}</td>
+                                        
+                                        
+                                        
+                                      </tr>
+                                    </tbody>
+                                  {% endfor %}
+                                {% else %}
+                                  <tbody>
+                                      <div class="container" style="width:85%; height:400px;text-align: justify;background-image:url('{% static 'img/2wowempty.jpg' %}');border:3px dashed #C1C7C9; background-color: #fff;  margin: 30px    200px 20px 20px; 
+                                      /* top, left, bottom*/ 
+                                      padding: 10px 20px 30px; 
+                                      float: left; ">
+                                      <p style="text-align: center;font-family: 'Helvetica';padding-top: 21%;padding-right: 13%;"><b>It seems like you have no orders yet.</b></p>
+                                    </div>
+                                       
+
+
+                                  </tbody>
+                               {% endif %}
+                              </table>
+
+                          </div>
+
+
+                    
+
+                          </div>
+                        </div>
+                
+                    </section>
+                </div>
+               
+                
+
+
+        </div> 
+       
+
+    </div>
+
+    </div>
+   
+     
+   
+
+    
+
+{% endblock %}

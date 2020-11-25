@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from Gig.models import MyGig
+from Gig.models import MyGig, Category, SubCategory
 from Accounts.models import Account
 from Profile.models import MyProfile
 
@@ -10,13 +10,14 @@ def login_homepage(request):
 
 	account = Account.objects.exclude(id=request.user.id)
 	profile = MyProfile.objects.exclude(user_id=request.user.id)
-
+	catergories = Category.objects.all()
 	
 
 	context = {
 		'gigs' : gigs,
 		'account' : account,
 		'profile' : profile,
+		'catergories' : catergories,
 
 	}
 	if request.user.is_authenticated:

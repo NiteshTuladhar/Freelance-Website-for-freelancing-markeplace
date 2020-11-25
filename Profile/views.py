@@ -1,4 +1,5 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponseRedirect, get_object_or_404
+from django.db.models import Sum
 from django.contrib.auth.decorators import login_required
 from .forms import ProfileForm, ChangeProfilePicture
 from django.contrib import messages
@@ -94,11 +95,22 @@ def myProfile(request,id):
     acc = Account.objects.get(id=request.user.id)
     userinfo = MyProfile.objects.get(user_id=request.user.id)
     gigs = MyGig.objects.filter(user_id=request.user.id)
+
+    completed_orders = MyOrder.objects.filter(seller=request.user,status='Complete')
+
+    available_for_withdrawal = 0;
+    
+
+    for order in completed_orders:
+        
+        available_for_withdrawal += order.gig.price
+
     context = {
         'userinfo' : userinfo,
         'gigs' : gigs,
         'id' : id,
         'acc' : acc,
+        'available_for_withdrawal' : available_for_withdrawal,
     }
     return render(request,'userprofile/mygigpage.html',context)
 
@@ -173,8 +185,21 @@ def liked_gigs(request):
 def saved_gigs(request):
 
     favourite = Saves.objects.filter(user=request.user.id)
+
+    completed_orders = MyOrder.objects.filter(seller=request.user,status='Complete')
+
+    available_for_withdrawal = 0;
+    
+
+    for order in completed_orders:
+        
+        available_for_withdrawal += order.gig.price
+        
+        
+
     context = {
         'favourite'  : favourite,
+        'available_for_withdrawal' : available_for_withdrawal,
     }
 
     return render(request,'gigs/saved_gigs.html',context)
@@ -207,16 +232,51 @@ def availability(request):
 def myOrders(request):
     acc = Account.objects.get(id=request.user.id)
     userinfo = MyProfile.objects.get(user_id=request.user.id)
-
-
     orders = MyOrder.objects.filter(seller=request.user)
-    total = orders.count
+
+    total = orders.count()
+
+    orders_inprogress = MyOrder.objects.filter(seller=request.user,status='In Progress')
+    oip = orders_inprogress.count()
+
+    orders_completed = MyOrder.objects.filter(seller=request.user,status='Complete')
+    oc = orders_completed.count()
+
+    orders_pending = MyOrder.objects.filter(seller=request.user,status='Pending')
+    op = orders_pending.count()
+
+    print('-----------------------------------')
+    print(oip)
+    print(oc)
+    print(op)
+
+    completed_orders = MyOrder.objects.filter(seller=request.user,status='Complete')
+
+    available_for_withdrawal = 0;
     
+    total_completed_order = completed_orders.count()
+
+    total_completed = (total_completed_order/total)
+    total_completed_percentage = (total_completed*100)
+
+
+
+    for order in completed_orders:
+        
+        available_for_withdrawal += order.gig.price
+        
+        
+
     context = {
         'orders'  : orders,
         'acc' : acc,
         'userinfo' : userinfo,
         'total' : total,
+        'oip' : oip,
+        'oc':oc,
+        'op' : op,
+        'total_completed_percentage':total_completed_percentage,
+        'available_for_withdrawal' : available_for_withdrawal,
 
     }
     #myorders = MyOrder.objects.filter(gig=gig.user.id)
@@ -231,8 +291,21 @@ def myOrdersDetails(request,slug):
 
     orders = MyOrder.objects.get(slug=slug)
 
+    completed_orders = MyOrder.objects.filter(seller=request.user,status='Complete')
+
+    available_for_withdrawal = 0;
+    
+    
+
+    for order in completed_orders:
+        
+        available_for_withdrawal += order.gig.price
+        
+        
+
     context = {
         'orders'  : orders,
+        'available_for_withdrawal' : available_for_withdrawal,
 
 
     }
@@ -240,6 +313,127 @@ def myOrdersDetails(request,slug):
     return render(request,'userprofile/myordersdetails.html',context)
 
 
+@login_required
+def buyerOrders(request):
+    acc = Account.objects.get(id=request.user.id)
+    userinfo = MyProfile.objects.get(user_id=request.user.id)
+    orders = MyOrder.objects.filter(customer=request.user)
+
+    total = orders.count
+
+    orders_inprogress = MyOrder.objects.filter(customer=request.user,status='In Progress')
+    oip = orders_inprogress.count()
+
+    orders_completed = MyOrder.objects.filter(customer=request.user,status='Complete')
+    oc = orders_completed.count()
+
+    orders_pending = MyOrder.objects.filter(customer=request.user,status='Pending')
+    op = orders_pending.count()
+
+    print('-----------------------------------')
+    print(oip)
+    print(oc)
+    print(op)
+
+    completed_orders = MyOrder.objects.filter(seller=request.user,status='Complete')
+
+    available_for_withdrawal = 0;
+    
+
+    for order in completed_orders:
+        
+        available_for_withdrawal += order.gig.price
+        
+        
+
+    context = {
+        'orders'  : orders,
+        'acc' : acc,
+        'userinfo' : userinfo,
+        'total' : total,
+        'oip' : oip,
+        'oc':oc,
+        'op' : op,
+        'available_for_withdrawal' : available_for_withdrawal,
+
+    }
+    #myorders = MyOrder.objects.filter(gig=gig.user.id)
+    #print(myorder)
+    #print('---------------------------------------------')
+    return render(request,'userprofile/buying_orders.html',context)
+
+
+
+@login_required
+def buyersOrdersDetails(request,slug):
+
+
+    orders = MyOrder.objects.get(slug=slug)
+    completed_orders = MyOrder.objects.filter(seller=request.user,status='Complete')
+
+    available_for_withdrawal = 0;
+    
+
+    for order in completed_orders:
+        
+        available_for_withdrawal += order.gig.price
+        
+        
+ 
+
+    context = {
+        'orders'  : orders,
+        'available_for_withdrawal' : available_for_withdrawal,
+
+
+    }
+
+    return render(request,'userprofile/buyers_orderdetailspage.html',context)
+
+
+
+@login_required
+def complete_order(request,slug):
+
+
+    orders = MyOrder.objects.get(slug=slug)
+
+    orders.status = 'Complete'
+    
+    orders.save()
+    print('kdfjdkfjkdfjkdfjkdfjdkfjdkf')   
+    messages.success(request,'Your Order Has Been Completed.')
+
+    context = {
+        'orders'  : orders,
+        
+
+
+    }
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def cancel_order(request,slug):
+
+
+    orders = MyOrder.objects.get(slug=slug)
+
+    orders.status = 'Cancelled'
+    
+    orders.save()
+    print('kdfjdkfjkdfjkdfjkdfjdkfjdkf')   
+    messages.error(request,'Your Order Has Been Cancelled.')
+
+    context = {
+        'orders'  : orders,
+        
+
+
+    }
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 # @login_required
 # def myFollowFollowing(request):
@@ -264,14 +458,78 @@ def userAnalytics(request):
 
 
     orders = MyOrder.objects.filter(seller=request.user)
-    total = orders.count
+    total = orders.count()
+
+
+
+    completed_orders = MyOrder.objects.filter(seller=request.user,status='Complete')
+    total_completed_order = completed_orders.count()
+
+    total_completed = (total_completed_order/total)
+    total_completed_percentage = (total_completed*100)
+    print(total_completed_percentage)
+    print('oooooooooooooooooooooooo')
+
+    available_for_withdrawal = 0;
     
+
+    for order in completed_orders:
+        
+        available_for_withdrawal += order.gig.price
+    
+    print (available_for_withdrawal)
+    print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
+    
+
     context = {
         'orders'  : orders,
         'acc' : acc,
         'userinfo' : userinfo,
         'total' : total,
+        'total_completed_percentage' : total_completed_percentage,
+        'available_for_withdrawal' : available_for_withdrawal,
 
     }
 
     return render(request,'userprofile/analytics.html',context)
+    
+
+
+@login_required
+def userEarnings(request):
+    acc = Account.objects.get(id=request.user.id)
+    userinfo = MyProfile.objects.get(user_id=request.user.id)
+    orders = MyOrder.objects.filter(seller=request.user)
+
+    total_orders = MyOrder.objects.filter(seller=request.user)
+    completed_orders = MyOrder.objects.filter(seller=request.user,status='Complete')
+
+    total_earnings = 0;
+    available_for_withdrawal = 0;
+
+    for order in total_orders:
+        
+        total_earnings += order.gig.price
+
+    print (total_earnings)
+    print('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy')
+
+    for order in completed_orders:
+        
+        available_for_withdrawal += order.gig.price
+    
+    print (available_for_withdrawal)
+    print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
+
+    context = {
+        'orders' : orders,
+        'total_orders'  : total_orders,
+        'completed_orders' : completed_orders,
+        'acc' : acc,
+        'userinfo' : userinfo,
+        'total_earnings' : total_earnings,
+        'available_for_withdrawal': available_for_withdrawal,
+
+    }
+
+    return render(request,'userprofile/earnings.html',context)

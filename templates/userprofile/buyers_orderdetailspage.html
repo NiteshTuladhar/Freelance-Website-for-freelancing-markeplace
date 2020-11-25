@@ -1,0 +1,358 @@
+{% extends 'master/dashboard_base.html' %}
+{% load static %}
+{% block title %}User Profile | Freelance.{% endblock %}
+
+
+{% block body %}
+
+    <div class="row pb-5" style="background-color: #F2F3F4;">
+      <div class=" container col-lg-11">
+          <div id="card1" style=" width:100%; height:400px; border:1px solid #C1C7C9;text-align: justify; background-color: #FFF;margin: 30px 30px auto; 
+        /* top, left, bottom*/ padding: 10px 20px 30px; "> 
+            <div class="row pt-3">
+              <h1 style="font-size: 25px;font-weight: bold;">Order ID: {{orders.transaction_id|floatformat:"0"}}</h1>
+              <h1 style="font-size: 45px;float: right;padding-left: 650px;font-family: sans-serif;">${{orders.gig.price}}</h1>
+            </div>
+            <div class="row">
+              <h4 style="font-size: 14px;margin-top: -10px;font-family: sans-serif;">Seller: <span style="color: #F2AD2E;font-weight: bold;">{{orders.seller.account_name}}</span> | {{orders.date_ordered}}</h4>
+            </div>
+                <section class="shop checkout section" style="">
+                          <div class="container">
+                            <div class="row"> 
+                              <div class="col-lg-12 col-12">
+
+                                      <table id="cart" class="table table-hover table-condensed">
+                                        <thead>
+                                          <tr>
+                                            <th style="width:50%">Product</th>
+                                            
+                                            <th style="width:10%">Quantity</th>
+                                            <th style="width:20%">Duration</th>
+                                            <th style="width:20%">Price</th>
+                                          </tr>
+                                        </thead>
+     
+
+                                      
+                                        <tbody>
+                                          <tr>
+                                            <td data-th="Product">
+                                              <div class="row">
+                                                <div class="col-sm-4 hidden-xs"><img src="{{orders.gig.gig_image.url}}"/></div>
+                                                <div class="col-sm-8">
+                                                  <h4 class="nomargin" style="font-size: 16px;">{{orders.gig.title}}</h4>
+                                                  <h4 style="font-size: 14px;">Seller :</h4>
+                                                 
+                                                </div>
+                                              </div>
+                                            </td>
+
+                                            <td class="actions" data-th="">
+                                              <a href="">
+                                                <p>1</p>
+                                              </a>
+
+                                                
+                                            </td>
+                                            <td class="actions" data-th="">
+                                             
+                                                <p>{{orders.gig.time}}days</p>
+                                       
+                                                              
+                                            </td>
+                                            <td data-th="Price">${{orders.gig.price}}</td>
+                                          </tr>
+                                        </tbody>
+                                        <tfoot>
+                                          <tr class="visible-xs">
+                                            <td class="text-center"><strong>Total 1.99</strong></td>
+                                          </tr>
+                                          <tr>
+                                            <td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+                                            <td colspan="2" class="hidden-xs"></td>
+                                            <td class="hidden-xs text-center"><strong>Total $1.99</strong></td>
+
+                                          </tr>
+                                        </tfoot>
+                                 
+                                    
+                                  </table>
+                                  <div class="row" style="float: right;">
+                                      <a href="{% url 'complete_order' orders.slug %}">
+                                      <div class="colmn" style="background-color: #1DBF73; height: 35px;width: 180px;margin-right: 15px;border-radius: 5px;border: 1px solid #c1c7c9;">
+                                        <i class="fa fa-check fa-2x" style="color: white;padding-top: 5px;padding-left: 10px;"></i>
+                                        <p style="font-size: 12px;font-weight:bolder;float: right;padding-right: 25px;padding-top:5px;color: white;">Complete The Order</p>
+                                      </div>
+                                    </a>
+
+                                      <a href="{% url 'cancel_order' orders.slug %}">
+                                      <div class="colmn" style="background-color: red; height: 35px;width: 180px;margin-right: 15px;border-radius: 5px;border: 1px solid #c1c7c9;">
+                                        <i class="fa fa-times fa-2x" style="color: white;padding-top: 5px;padding-left: 10px;"></i>
+                                        <p style="font-size: 12px;font-weight:bolder;float: right;padding-right: 25px;padding-top:5px;color: white;">Cancel The Order</p>
+                                      </div>
+                                    </a>
+                                  
+
+
+                              </div>
+
+
+                        
+
+                              </div>
+                            </div>
+                    
+                        </section>   
+          </div> 
+
+        </div>
+
+    </div>
+
+
+  <div class="wrap" style="background-color: #f2f3f5;">  
+    <h1 style="margin-bottom: 60px;text-align: center;font: 300 2.25em 'Lato';font-size:35px;text-transform: uppercase;">Your <strong style="font-weight: 400;color: #e6ae3b;">Order Will Be Comleted In :</strong></h1>
+
+    <div class="countdown">
+       <div class="bloc-time hours" data-init-value="{{orders.gig.time}}">
+        <span class="count-title" style="font-size:20px;">Days</span>
+
+        <div class="figure hours hours-1" style="color: #e6ae3b;">
+          <span class="top" style="color: #e6ae3b;">2</span>
+          <span class="top-back" style="color: #e6ae3b;">
+            <span style="color: #e6ae3b;">2</span>
+          </span>
+          <span class="bottom" style="color: #e6ae3b;">2</span>
+          <span class="bottom-back">
+            <span style="color: #e6ae3b;">2</span>
+          </span>
+        </div>
+
+        <div class="figure hours hours-2">
+          <span class="top" style="color: #e6ae3b;">4</span>
+          <span class="top-back">
+            <span style="color: #e6ae3b;">4</span>
+          </span>
+          <span class="bottom" style="color: #e6ae3b;">4</span>
+          <span class="bottom-back">
+            <span style="color: #e6ae3b;">4</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="bloc-time hours" data-init-value="8">
+        <span class="count-title" style="font-size:20px;">Hours</span>
+
+        <div class="figure hours hours-1">
+          <span class="top" style="color: #e6ae3b;">2</span>
+          <span class="top-back">
+            <span style="color: #e6ae3b;">2</span>
+          </span>
+          <span class="bottom" style="color: #e6ae3b;">2</span>
+          <span class="bottom-back">
+            <span style="color: #e6ae3b;">2</span>
+          </span>
+        </div>
+
+        <div class="figure hours hours-2">
+          <span class="top" style="color: #e6ae3b;">4</span>
+          <span class="top-back">
+            <span style="color: #e6ae3b;">4</span>
+          </span>
+          <span class="bottom" style="color: #e6ae3b;">4</span>
+          <span class="bottom-back">
+            <span style="color: #e6ae3b;">4</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="bloc-time min" data-init-value="0">
+        <span class="count-title" style="font-size:20px;">Minutes</span>
+
+        <div class="figure min min-1">
+          <span class="top" style="color: #e6ae3b;">0</span>
+          <span class="top-back">
+            <span style="color: #e6ae3b;">0</span>
+          </span>
+          <span class="bottom" style="color: #e6ae3b;">0</span>
+          <span class="bottom-back">
+            <span style="color: #e6ae3b;">0</span>
+          </span>        
+        </div>
+
+        <div class="figure min min-2">
+         <span class="top" style="color: #e6ae3b;">0</span>
+          <span class="top-back">
+            <span style="color: #e6ae3b;">0</span>
+          </span>
+          <span class="bottom" style="color: #e6ae3b;">0</span>
+          <span class="bottom-back">
+            <span style="color: #e6ae3b;">0</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="bloc-time sec" data-init-value="0">
+        <span class="count-title" style="font-size:20px;">Seconds</span>
+
+          <div class="figure sec sec-1">
+          <span class="top" style="color: #e6ae3b;">0</span>
+          <span class="top-back">
+            <span style="color: #e6ae3b;">0</span>
+          </span>
+          <span class="bottom" style="color: #e6ae3b;">0</span>
+          <span class="bottom-back">
+            <span style="color: #e6ae3b;">0</span>
+          </span>          
+        </div>
+
+        <div class="figure sec sec-2">
+          <span class="top" style="color: #e6ae3b;">0</span>
+          <span class="top-back">
+            <span style="color: #e6ae3b;">0</span>
+          </span>
+          <span class="bottom" style="color: #e6ae3b;">0</span>
+          <span class="bottom-back">
+            <span style="color: #e6ae3b;">0</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script type="text/javascript">
+  // Create Countdown
+var Countdown = {
+  // Backbone-like structure
+  $el: $(".countdown"),
+
+  // Params
+  countdown_interval: null,
+  total_seconds: 0,
+
+  // Initialize the countdown
+  init: function () {
+    // DOM
+    this.$ = {
+      hours: this.$el.find(".bloc-time.hours .figure"),
+      minutes: this.$el.find(".bloc-time.min .figure"),
+      seconds: this.$el.find(".bloc-time.sec .figure")
+    };
+
+    // Init countdown values
+    this.values = {
+      hours: this.$.hours.parent().attr("data-init-value"),
+      minutes: this.$.minutes.parent().attr("data-init-value"),
+      seconds: this.$.seconds.parent().attr("data-init-value")
+    };
+
+    // Initialize total seconds
+    this.total_seconds =
+      this.values.hours * 60 * 60 +
+      this.values.minutes * 60 +
+      this.values.seconds;
+
+    // Animate countdown to the end
+    this.count();
+  },
+
+  count: function () {
+    var that = this,
+      $hour_1 = this.$.hours.eq(0),
+      $hour_2 = this.$.hours.eq(1),
+      $min_1 = this.$.minutes.eq(0),
+      $min_2 = this.$.minutes.eq(1),
+      $sec_1 = this.$.seconds.eq(0),
+      $sec_2 = this.$.seconds.eq(1);
+
+    this.countdown_interval = setInterval(function () {
+      if (that.total_seconds > 0) {
+        --that.values.seconds;
+
+        if (that.values.minutes >= 0 && that.values.seconds < 0) {
+          that.values.seconds = 59;
+          --that.values.minutes;
+        }
+
+        if (that.values.hours >= 0 && that.values.minutes < 0) {
+          that.values.minutes = 59;
+          --that.values.hours;
+        }
+
+        // Update DOM values
+        // Hours
+        that.checkHour(that.values.hours, $hour_1, $hour_2);
+
+        // Minutes
+        that.checkHour(that.values.minutes, $min_1, $min_2);
+
+        // Seconds
+        that.checkHour(that.values.seconds, $sec_1, $sec_2);
+
+        --that.total_seconds;
+      } else {
+        clearInterval(that.countdown_interval);
+      }
+    }, 1000);
+  },
+
+  animateFigure: function ($el, value) {
+    var that = this,
+      $top = $el.find(".top"),
+      $bottom = $el.find(".bottom"),
+      $back_top = $el.find(".top-back"),
+      $back_bottom = $el.find(".bottom-back");
+
+    // Before we begin, change the back value
+    $back_top.find("span").html(value);
+
+    // Also change the back bottom value
+    $back_bottom.find("span").html(value);
+
+    // Then animate
+    TweenMax.to($top, 0.8, {
+      rotationX: "-180deg",
+      transformPerspective: 300,
+      ease: Quart.easeOut,
+      onComplete: function () {
+        $top.html(value);
+
+        $bottom.html(value);
+
+        TweenMax.set($top, { rotationX: 0 });
+      }
+    });
+
+    TweenMax.to($back_top, 0.8, {
+      rotationX: 0,
+      transformPerspective: 300,
+      ease: Quart.easeOut,
+      clearProps: "all"
+    });
+  },
+
+  checkHour: function (value, $el_1, $el_2) {
+    var val_1 = value.toString().charAt(0),
+      val_2 = value.toString().charAt(1),
+      fig_1_value = $el_1.find(".top").html(),
+      fig_2_value = $el_2.find(".top").html();
+
+    if (value >= 10) {
+      // Animate only if the figure has changed
+      if (fig_1_value !== val_1) this.animateFigure($el_1, val_1);
+      if (fig_2_value !== val_2) this.animateFigure($el_2, val_2);
+    } else {
+      // If we are under 10, replace first figure with 0
+      if (fig_1_value !== "0") this.animateFigure($el_1, 0);
+      if (fig_2_value !== val_1) this.animateFigure($el_2, val_1);
+    }
+  }
+};
+
+// Let's go !
+Countdown.init();
+
+</script>
+
+
+{% endblock %}
