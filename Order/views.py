@@ -94,7 +94,7 @@ def khaltiVerify(request):
 	  "amount": amount
 	}
 	headers = {
-	  "Authorization": "Key test_secret_key_6ff60dcc167d4842bf4a84cca67480a9"
+	  "Authorization": ""
 	}
 
 	myorder = MyOrder.objects.get(id=o_id)
