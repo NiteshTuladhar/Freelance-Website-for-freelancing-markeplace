@@ -27,6 +27,7 @@ urlpatterns = [
     path('profile/',include('Profile.urls')),
     path('gig/',include('Gig.urls')),
     path('order/',include('Order.urls')),
+    path('categories/<int:id>',views.categoriesItem,name='categoriesItem'),
     path('search/',views.search,name='search'),
 
     url('auth-social', include('social_django.urls', namespace='social')), 

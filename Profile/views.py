@@ -255,8 +255,12 @@ def myOrders(request):
     available_for_withdrawal = 0;
     
     total_completed_order = completed_orders.count()
+    
+    if total == 0:
+        total_completed = 1;
+    else:
+        total_completed = (total_completed_order/total)
 
-    total_completed = (total_completed_order/total)
     total_completed_percentage = (total_completed*100)
 
 

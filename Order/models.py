@@ -16,6 +16,17 @@ STATUS_CHOICES = (
         ('Cancelled', 'Cancelled'),
     )
 
+PAYMENT_METHOD = {
+    ('Cash On Delivery', 'Cash On Delivery'),
+    ('Khalti','Khalti'),
+    ('E-Sewa','E-Sewa'),
+}
+
+PAYMENT_STATUS = {
+    ('Transaction Completed','Transaction Completed'),
+    ('Transaction Pending','Transaction Pending'),
+}
+
 class MyOrder(models.Model):
 
     slug                = AutoSlugField(populate_from='gig',unique=True,null=True,blank=True) 
@@ -26,8 +37,8 @@ class MyOrder(models.Model):
     transaction_id      = models.CharField(max_length=200,null=True)
     message             = models.TextField(max_length=2000,null=True)
     status              = models.CharField(max_length=25, choices=STATUS_CHOICES,default='In Progress')
-
-    
+    payment_method      = models.CharField(max_length=50,choices=PAYMENT_METHOD,default='Cash On Delivery')
+    payment_complete    = models.CharField(max_length=50,choices=PAYMENT_STATUS,default='Transaction Pending')
 
     def __str__(self):
         return str(self.gig.title) + "  >>by  " + str(self.gig.user.account_name)+ "  >>ordered by  " +  str(self.customer)
@@ -36,77 +47,80 @@ class MyOrder(models.Model):
     @property
     def get_total(self):
         total = self.gig.gig_price + 2
-        return 
+        return total
 
 
-def sendOrderMail(sender, **kwargs):
-    current_user        = kwargs['instance']
-    current_user_mail   = current_user.customer.email
-    current_user_order_id = current_user.transaction_id
-    print('yyyyyyyyyyyyyyyyyyyyyyyyyyyy')
-    print(current_user_order_id)
-    print('yyyyyyyyyyyyyyyyyyyyyyyyyyyy')
+# def sendOrderMail(sender, **kwargs):
+#     current_user        = kwargs['instance']
+#     current_user_mail   = current_user.customer.email
+#     current_user_order_id = current_user.transaction_id
+#     print('yyyyyyyyyyyyyyyyyyyyyyyyyyyy')
+#     print(current_user_order_id)
+#     print('yyyyyyyyyyyyyyyyyyyyyyyyyyyy')
 
-    s                   = "Thank You For The Purchase"
-    context = {
-        'id' : current_user.customer.id,
-        'item' : current_user.gig.title,
-        'name' : current_user.customer.account_name,
-        'seller_name' : current_user.gig.user.account_name ,
-        'date' : current_user.date_ordered,
-        'order_id' : current_user.transaction_id,
-        'price' : current_user.gig.price,
-        'total_price' : current_user.gig.get_total,
-        'time' : current_user.gig.time,
-        'subject' : s,
-        'message' : "Your recent Community Market purchase has been processed and your order has been placed.",
-    }
-    temp = get_template('buyersemail.html').render(context)
-    email = EmailMessage(
+#     s                   = "Thank You For The Purchase"
+#     context = {
+#         'id' : current_user.customer.id,
+#         'item' : current_user.gig.title,
+#         'name' : current_user.customer.account_name,
+#         'seller_name' : current_user.gig.user.account_name ,
+#         'date' : current_user.date_ordered,
+#         'order_id' : current_user.transaction_id,
+#         'price' : current_user.gig.price,
+#         'total_price' : current_user.gig.get_total,
+#         'time' : current_user.gig.time,
+#         'subject' : s,
+#         'message' : "Your recent Community Market purchase has been processed and your order has been placed.",
+#     }
+#     temp = get_template('buyersemail.html').render(context)
+#     email = EmailMessage(
 
-        subject=s, 
-        body=temp, 
-        to= [current_user_mail]
+#         subject=s, 
+#         body=temp, 
+#         to= [current_user_mail]
 
-        )
+#         )
 
-    email.content_subtype = 'html'
+#     email.content_subtype = 'html'
 
-    email.send()
+#     email.send()
             
 
-post_save.connect(sendOrderMail,sender=MyOrder)
+# post_save.connect(sendOrderMail,sender=MyOrder)
 
 
 
-def sendSellerMail(sender, **kwargs):
-    current_user        = kwargs['instance']
-    seller_user_mail    = current_user.gig.user.email
+# def sendSellerMail(sender, **kwargs):
+#     current_user        = kwargs['instance']
+#     seller_user_mail    = current_user.gig.user.email
 
-    s                   = "You have an order"
-    context = {
-        'id' : current_user.gig.user.id,
-        'item' : current_user.gig.title,
-        'buyer_name' : current_user.customer.account_name,
-        'seller_name' : current_user.gig.user.account_name ,
-        'date' : current_user.date_ordered,
-        'order_id' : current_user.transaction_id,
-        'price' : current_user.gig.price,
-        'subject' : s,
-        'message' : "A gig you listed in the Community Market has been ordered by",
-    }
-    temp = get_template('selleremail.html').render(context)
-    email = EmailMessage(
+#     s                   = "You have an order"
+#     context = {
+#         'id' : current_user.gig.user.id,
+#         'item' : current_user.gig.title,
+#         'buyer_name' : current_user.customer.account_name,
+#         'seller_name' : current_user.gig.user.account_name ,
+#         'date' : current_user.date_ordered,
+#         'order_id' : current_user.transaction_id,
+#         'price' : current_user.gig.price,
+#         'subject' : s,
+#         'message' : "A gig you listed in the Community Market has been ordered by",
+#     }
+#     temp = get_template('selleremail.html').render(context)
+#     email = EmailMessage(
 
-        subject=s, 
-        body=temp, 
-        to= [seller_user_mail]
+#         subject=s, 
+#         body=temp, 
+#         to= [seller_user_mail]
 
-        )
+#         )
 
-    email.content_subtype = 'html'
+#     email.content_subtype = 'html'
 
-    email.send()
+#     email.send()
             
 
-post_save.connect(sendSellerMail,sender=MyOrder)
+# post_save.connect(sendSellerMail,sender=MyOrder)
+
+
+

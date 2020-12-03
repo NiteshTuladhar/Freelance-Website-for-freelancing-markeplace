@@ -44,12 +44,22 @@
     <link rel="stylesheet" href="{% static 'css/clock.css' %}" type="text/css">
     
 
+   <script src="https://unpkg.com/khalti-checkout-web@latest/dist/khalti-checkout.iffe.js"></script>
+
     <script type="text/javascript">
         $('.reply-btn').click(function(){
             $(this).next('.post-comment-sec').fadeToggle()
         });
     </script>
-    
+
+
+    <style>
+        .ht-right .top-social a:hover{
+            color: #E7AB3C;
+        }
+
+    </style>
+
 
 </head>
 
@@ -108,10 +118,7 @@
                     </div>
                     
                     <div class="top-social">
-                        <a href="#"><i class="ti-facebook"></i></a>
-                        <a href="#"><i class="ti-twitter-alt"></i></a>
-                        <a href="#"><i class="ti-linkedin"></i></a>
-                        <a href="#"><i class="ti-pinterest"></i></a>
+                        <a href="{% url 'userhome' %}">Switch to Buying</a>
                     </div>
                 </div>
 
@@ -210,14 +217,14 @@
                         
                             {% if user.is_profile_set %}
                                 {% if user.first_gig %}
-                            <li class="active"><a href="{% url 'compuserprofile' request.user.id %}">Profile</a></li>
+                            <li class="active"><a href="{% url 'compuserprofile' request.user.id %}">Dashboard</a></li>
                                 {% else %}
-                                    <li class="active"><a href="{% url 'mygig' request.user.id %}">Profile</a></li>
+                                    <li class="active"><a href="{% url 'mygig' request.user.id %}">Dashboard</a></li>
                                 {% endif %}
                             {% else %}
-                            <li class="active"><a href="{% url 'userprofile' %}">Profile</a></li>
+                            <li class="active"><a href="{% url 'userprofile' %}">Dashboard</a></li>
                             {% endif %}
-                            <li><a href="{% url 'userhome' %}">Dashboard</a></li>
+                            <li><a href="{% url 'userhome' %}">Switch to Buying</a></li>
                             <li><a href="{% url 'useranalytics'  %}">Analytics</a></li>
                             <li><a href="{% url 'userearnings' %}">Earnings</a></li>
                             <li><a href="#">Followed & Following</a></li>

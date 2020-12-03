@@ -68,12 +68,8 @@ li a:hover {
             <ul clas="catmenu" style="list-style-type: none;margin: 0; padding: 0;overflow: hidden;margin-left: 70px;">
                 {% for catagory in catergories %}
                 <div class="dropdown">
-                    <li class="listmenu"><p><a href="">{{catagory.c_name}}</a></p></li>
-                        <div class="dropdown-content">
-                            <a href="#">Link 1</a>
-                            <a href="#">Link 2</a>
-                            <a href="#">Link 3</a>
-                        </div>
+                    <li class="listmenu"><p><a href="{% url 'categoriesItem' catagory.id %}">{{catagory.c_name}}</a></p></li>
+
                 </div>
                 {% endfor %}
             </ul>
@@ -178,7 +174,7 @@ li a:hover {
                         <div class="row">
 
                         {% for gig in gigs %}
-                            <div class="col-sm-3">
+                            <div class="col-sm-3 pb-5">
                                 <div class="col-item">
                                     <a href="{% url 'othersgigdetails' gig.slug %}">
                                     <div class="photo">
@@ -254,7 +250,7 @@ li a:hover {
                     <div class="item">
                         <div class="row">
                             {% for gig in nextgigs %}
-                             <div class="col-sm-3">
+                             <div class="col-sm-3 pb-5">
                                 <div class="col-item">
                                     <a href="{% url 'othersgigdetails' gig.slug %}">
                                     <div class="photo">
@@ -388,7 +384,7 @@ li a:hover {
                         <div class="row">
 
                         {% for gig in followers %}
-                            <div class="col-sm-3">
+                            <div class="col-sm-3 pb-5">
                                 <div class="col-item">
                                     <a href="{% url 'othersgigdetails' gig.slug %}">
                                     <div class="photo">
@@ -463,7 +459,7 @@ li a:hover {
                     <div class="item">
                         <div class="row">
                             {% for gig in followers %}
-                             <div class="col-sm-3">
+                             <div class="col-sm-3 pb-5">
                                 <div class="col-item">
                                     <a href="{% url 'othersgigdetails' gig.slug %}">
                                     <div class="photo">
@@ -598,7 +594,7 @@ li a:hover {
                         <div class="row">
 
                         {% for gig in non_followers %}
-                            <div class="col-sm-3">
+                            <div class="col-sm-3 pb-5">
                                 <div class="col-item">
                                     <a href="{% url 'othersgigdetails' gig.slug %}">
                                     <div class="photo">
@@ -673,7 +669,7 @@ li a:hover {
                     <div class="item">
                         <div class="row">
                             {% for gig in non_followers %}
-                             <div class="col-sm-3">
+                             <div class="col-sm-3 pb-5">
                                 <div class="col-item">
                                     <a href="{% url 'othersgigdetails' gig.slug %}">
                                     <div class="photo">
